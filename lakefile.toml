@@ -1,12 +1,23 @@
 name = "beilinson-lean"
-version = "0.1.0"
-defaultTargets = ["Book", "generate-book"]
+version = "0.2.0"
+defaultTargets = ["Beilinson", "Book", "generate-book"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.35.0"
+
 [[require]]
 name = "verso"
 git = "https://github.com/leanprover/verso"
-rev = "v4.36.0-rc2"
+rev = "v4.35.0"
+
+[[lean_lib]]
+name = "Beilinson"
+
 [[lean_lib]]
 name = "Book"
+
 [[lean_exe]]
 name = "generate-book"
 root = "Main"
