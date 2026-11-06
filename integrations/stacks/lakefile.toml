@@ -1,0 +1,13 @@
+name = "beilinson-stacks-probe"
+version = "0.1.0"
+defaultTargets = ["StacksProbe"]
+
+# Upstream was checked at this exact Git commit (2026-11-07).
+# Its own lakefile.toml uses mathlib v4.35.0.
+[[require]]
+name = "Stacks"
+git = "https://github.com/AxiomMath/Stacks"
+rev = "5ed82d14634e8d9576bb844c7bd4e3da66d450e7"
+
+[[lean_lib]]
+name = "StacksProbe"
