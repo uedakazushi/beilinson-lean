@@ -1,3 +1,5 @@
+import Beilinson.Foundation
+
 /-!
 # Beilinson Lean: library entry point
 
@@ -6,4 +8,3 @@ It currently contains no formalization of Beilinson's theorem.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
 -/
-import Beilinson.Foundation
