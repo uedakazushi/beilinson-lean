@@ -28,7 +28,8 @@ $`k^4` との線形同型、次元4、二頂点の直交冪等元、二本の矢
 $`e_0\alpha=\alpha e_1=0`、任意の二本の矢の積は零である。
 
 これは幾何学的な $`\operatorname{End}(\mathcal O\oplus\mathcal O(1))` との同定や、
-一般の経路代数構成との同型、加群圏・導来圏の同値をまだ含まない。
+一般の経路代数構成との同型、幾何学的な導来同値をまだ含まない。
+
 # 右加群の分解と復元
 
 `Beilinson/KroneckerModule.lean` は右作用を反対代数から線形自己準同型代数への
@@ -42,6 +43,19 @@ $`k`-代数準同型として扱う。mathlib の `Algebra.lsmul` と `Module.co
 `vertexMap_arrow` と `decompose_intertwiner` は任意の加群の射がこの形で表されることを保証する。
 有限次元の場合の次元の加法性も `finrank_vertices` で確認した。
 
-対象と射の具体的な対応は証明済みだが、圏同値の Lean 構造体はまだ構成していない。
-次の目標はこの対応を関手・自然同型として組み立て、有限次元部分圏への制限を示すことである。
+# 圏同値と有限次元部分圏
+
+`Beilinson/KroneckerCategory.lean` は `ReverseRep` を、二つのベクトル空間と
+二本の $`V_1\to V_0` の写像、およびそれらと可換な頂点ごとの射の圏として定義する。
+`toReverseRep` と `fromReverseRep` は mathlib の `ModuleCat` とこの表現圏の間の関手である。
+`moduleUnitIso` は加群の頂点分解、`representationCounitIso` は元の頂点空間の復元を自然同型にまとめる。
+これらから `moduleEquivalence` は
+$$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
+を mathlib の圏同値の構造体として与える。
+ここで始域は反対代数の左加群圏であり、$`k` の作用は代数準同型からの制限である。
+
+`finite_toReverseRep_iff` は有限次元性が両頂点空間の有限次元性と同値であることを示し、
+`finiteModuleEquivalence` は有限次元対象の充満部分圏の間の圏同値を与える。
+これはあくまで具体的な代数モデルの加群圏同値であり、射影直線上の層の圏や導来圏との同値ではない。
+次は頂点冪等元から得られる射影加群を表現側で同定し、有限次元加群の長さ1の射影分解へ進む。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。

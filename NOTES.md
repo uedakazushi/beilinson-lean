@@ -19,5 +19,6 @@
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
 - 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML 生成まで成功（キャッシュ保存先に `XDG_CACHE_HOME=/workspace/.cache` を指定）。Stacks 実験の依存解決・ビルドは未検証。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
-- `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。圏同値の構造体と有限次元部分圏への制限は次の課題。
+- `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
+- 次は射影右加群 e₀A、e₁A の表現と、長さ1の射影分解を構成する。
 - Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。

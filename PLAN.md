@@ -5,10 +5,10 @@
 
 ## 現在の到達点
 生成性については対角線の resolution を用いず、O(-k) の Koszul 帰納法と SOD right orthogonal の消滅に置き換えた。数学的な admissibility と Serre の定理を明示した。
-Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。`Beilinson/KroneckerModule.lean` で右作用と二本の逆向きの線形写像の相互構成、頂点分解下の作用の復元、射の可換条件、頂点次元の加法性を検証した。圏同値の構造体、幾何学的な自己準同型代数との同定と導来同値は未形式化。Stacks 実験のビルドは未検証。
+Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。`Beilinson/KroneckerModule.lean` で右作用と二本の逆向きの線形写像の相互構成、頂点分解下の作用の復元、射の可換条件、頂点次元の加法性を検証した。`Beilinson/KroneckerCategory.lean` で mathlib の反対代数の加群圏と逆向きの Kronecker 表現圏の圏同値、および有限次元充満部分圏への制限を構成した。幾何学的な自己準同型代数との同定と導来同値は未形式化。Stacks 実験のビルドは未検証。
 
 ## 現在の核心と優先順位
-1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。n=1 の次の実装対象は、右加群と反対向きの箙表現の具体的な対応を関手・自然同型へ組み立て、有限次元部分圏に制限すること。
+1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。n=1 の次の実装対象は、頂点冪等元から得られる射影右加群を表現側で同定し、有限次元加群の長さ1の射影分解を構成して有限大域次元性につなげること。
 2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
 3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
 4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、dg Morita の根拠を精査する。

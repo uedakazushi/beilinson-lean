@@ -28,7 +28,7 @@
 | Serre vanishing、ample twisting、大域生成性 | mathlib、Stacks | 候補、API 未照合 |
 | exceptional collection の admissibility、SOD、right orthogonal | mathlib、Stacks、専門ライブラリ | 候補、API 未照合 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
-| quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の行列モデルと右作用・逆向きの矢・射の具体的な対応を Lean 検証。一般経路代数との同型や圏同値の構造体は未実装 |
+| quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の行列モデルと右作用・逆向きの矢・射の具体的な対応を Lean 検証。具体的モデルについて全加群と有限次元加群の圏同値を構成済み。一般経路代数との同型は未実装 |
 | exceptional collections / tilting | Axiom BondalThomsen 等 | 関連プロジェクトを確認、再利用可能性は未確認 |
 | dg enhancement / derived Morita | mathlib、Stacks、外部専門ライブラリ | 実装範囲は未確認 |
 | Beilinson equivalence | 未確認 | 本研究の目標であり、実装済みと扱わない |
@@ -62,7 +62,7 @@
 - `LinearEquiv.finiteDimensional`：`Mathlib.LinearAlgebra.FiniteDimensional.Defs`、`LinearEquiv.finrank_eq`：`Mathlib.LinearAlgebra.Dimension.Finrank`。体と線形同型の仮定から有限次元性と次元の一致を移す。
 - `Module.Basis.map`、`Pi.basisFun`：`Mathlib.LinearAlgebra.StdBasis`。座標空間の標準基底を線形同型で移す。
 
-`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型と一般経路代数との同型は未実装。Stacks には依存しない。Kronecker の両ファイルの全ての名前付き定義・定理について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
+`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型と一般経路代数との同型は未実装。Stacks には依存しない。Kronecker の代数・作用のファイルの名前付き定義・定理と、圏同値の主要宣言について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
 
 ## 右作用と逆向きの矢の bridge
 
@@ -75,7 +75,20 @@
 
 `Beilinson/KroneckerModule.lean` の `ofArrows` は任意の二本の線形写像 V₁→V₀ から右作用を作る。任意の右作用 ρ について `decompose_action` は M≃M₀×M₁ が元の作用と復元した作用を絡み合わせることを証明する。`prodMap_intertwines_iff` は射の条件を二本の可換な正方形と同定し、`vertexMap_arrow` と `decompose_intertwiner` は一般の intertwiner が頂点の写像に分解されることを示す。`finrank_vertices` は M が有限次元のとき dim M=dim M₀+dim M₁ を与える。
 
-これらは対象・射の具体的な対応であり、`CategoryTheory.Equivalence` の構造体を構成したという意味ではない。幾何学的な層の圏や導来圏との同値にもまだ依存しない。
+これらの対象・射の対応を、次節のファイルで圏同値へ組み立てる。幾何学的な層の圏や導来圏との同値にはまだ依存しない。
+
+## 圏同値と有限次元部分圏
+
+同じ pinned mathlib の次の API を使用する：
+
+- `ModuleCat`、`ModuleCat.ofHom`、`LinearEquiv.toModuleIso`：`Mathlib.Algebra.Category.ModuleCat.Basic`。反対代数の通常の加群を始域とし、線形写像・同型を圏の射・同型へ移す。
+- `NatIso.ofComponents`：`Mathlib.CategoryTheory.NatIso`（`Equivalence` から import）。成分ごとの同型と自然性を自然同型へ組み立てる。
+- `CategoryTheory.Equivalence.mk`：`Mathlib.CategoryTheory.Equivalence`。両方向の関手と自然同型から三角恒等式を満たす圏同値を構成する。単位は mathlib の adjointification により調整され得る。
+- `CategoryTheory.Equivalence.congrFullSubcategory`：`Mathlib.CategoryTheory.ObjectProperty.Equivalence`。終域の対象の性質が同型で不変であり、その逆像が始域の性質と一致するとき、充満部分圏の圏同値を得る。
+
+`Beilinson/KroneckerCategory.lean` の `ReverseRep` は二つの k-ベクトル空間と二本の V₁→V₀ の線形写像の圏であり、射は可換な頂点ごとの線形写像。`moduleEquivalence` は mathlib の `ModuleCat (Algebra k)ᵐᵒᵖ` とこの圏を同値にする。基礎体の作用には代数準同型からの `Module.compHom` と `IsScalarTower.of_compHom` を用いる。
+
+`finite_toReverseRep_iff` は基礎体上の有限次元性と両頂点の有限次元性を同定する。`finiteModuleEquivalence` はこの性質の充満部分圏の間の圏同値。有限次元性が表現の同型で不変であることは、同型の頂点写像の全射性と `FiniteDimensional.of_surjective` で確認した。全体と有限次元部分圏の両圏同値はビルド済み・依存公理監査済み。具体的モデルと幾何学的 End の同定、一般経路代数との同型、導来同値は含まない。
 
 ## 更新と再現
 

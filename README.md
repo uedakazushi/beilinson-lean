@@ -2,7 +2,7 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデルと、右作用・逆向きの矢・射の具体的な対応は Lean で検証済みです。本番の `bash scripts/check.sh` は教科書 HTML 生成まで成功しました。
+**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、および有限次元部分圏への制限は Lean で検証済みです。本番の `bash scripts/check.sh` は教科書 HTML 生成まで成功しました。
 
 ## 最初に読むもの
 
@@ -43,6 +43,6 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 
 ## 検証済みの範囲
 
-`Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。`Beilinson/KroneckerModule.lean` は右作用と二本の逆向きの線形写像を相互に構成し、頂点分解による作用の復元、有限次元の場合の次元公式、射の可換条件を証明する。圏同値の構造体は未構成。次は関手・自然同型への組み立てと有限次元部分圏への制限を進める。
+`Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。`Beilinson/KroneckerModule.lean` は右作用と二本の逆向きの線形写像を相互に構成し、頂点分解による作用の復元、有限次元の場合の次元公式、射の可換条件を証明する。`Beilinson/KroneckerCategory.lean` はこの対応を両方向の関手・自然同型からなる圏同値にまとめ、有限次元対象の充満部分圏にも制限する。次は射影加群と長さ1の射影分解を進める。
 
 開発成果は検証後に main へ直接 push する。作業用ブランチや PR は作成しない。
