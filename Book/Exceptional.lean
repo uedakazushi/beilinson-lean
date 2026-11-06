@@ -13,7 +13,7 @@ open Verso.Genre Manual
 **証明。** $`\operatorname{End}(\mathcal O(i))=H^0(X,\mathcal O)=k` である。
 第2章から、任意の $`i,j` について $`q\neq0` の Ext が消え、$`i>j` の Hom も消える。
 従って strong exceptional である。
-第3章の対角線分解による thick 生成性から full である。証明終。
+第3章で証明した、Koszul 完全列・Serre の定理・right orthogonal の消滅を用いた thick 生成性から full である。証明終。
 
 # Tilting bundle
 

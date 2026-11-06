@@ -1,16 +1,17 @@
-# 研究方針 — 2026-11-07 v0.3
+# 研究方針 — 2026-11-07 v0.4
 
 ## 現時点の目標
 自然言語の Beilinson 定理の Verso 教科書を完成させ、既存形式化を最大限再利用して Lean 4 で三角圏同値を形式化する。達成基準は自足的な数学的証明と、主定理・必要な依存補題について sorry-free かつ数学的意味を監査した Lean proof。
 
 ## 現在の到達点
+生成性については対角線の resolution を用いず、O(-k) の Koszul 帰納法と SOD right orthogonal の消滅に置き換えた。数学的な admissibility と Serre の定理を明示した。
 Book/ に自然言語による初稿、Beilinson/ に別の Lean library skeleton。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root やオプション統合の Lake build、manifest 生成は未検証。Beilinson の数学的形式化は未実施。
 
 ## 現在の核心と優先順位
 1. 本番 `lake update` で実際の manifest を生成し、`bash scripts/check.sh` で Verso / mathlib の互換性を確認する。
 2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
 3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
-4. Book/ の Čech、対角線 Koszul、dg Morita の根拠を精査し、定理単位の依存関係を整える。
+4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、dg Morita の根拠を精査する。
 5. 既存定理で不足する薄い bridge だけを実装し、n=1 から一般 n へ進む。
 
 ## 現行の技術方針

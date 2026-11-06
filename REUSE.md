@@ -1,4 +1,4 @@
-# 既存形式化の再利用方針 — 2026-11-07 v0.3
+# 既存形式化の再利用方針 — 2026-11-07 v0.4
 
 ## 原則
 
@@ -24,7 +24,9 @@
 | `Proj`、射影空間、tautological bundles | mathlib、Stacks | 候補、定理単位の照合未実施 |
 | coherent / quasi-coherent sheaves と比較 | StacksCore → StacksFrontier | 候補、API 未照合 |
 | affine/Čech/sheaf cohomology | mathlib、Stacks | 候補、API 未照合 |
-| Koszul、regular sections、diagonal | mathlib、Stacks | 候補、API 未照合 |
+| 基点のない線形形式の Koszul 完全列（生成性） | mathlib、Stacks | 候補、API 未照合 |
+| Serre vanishing、ample twisting、大域生成性 | mathlib、Stacks | 候補、API 未照合 |
+| exceptional collection の admissibility、SOD、right orthogonal | mathlib、Stacks、専門ライブラリ | 候補、API 未照合 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
 | quiver、path algebra、representations | mathlib および専門プロジェクト | 探索が必要 |
 | exceptional collections / tilting | Axiom BondalThomsen 等 | 関連プロジェクトを確認、再利用可能性は未確認 |

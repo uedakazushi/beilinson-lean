@@ -1,7 +1,7 @@
 import VersoManual
 import Book.Introduction
 import Book.Cohomology
-import Book.Diagonal
+import Book.Generation
 import Book.Exceptional
 import Book.Quiver
 import Book.Tilting
