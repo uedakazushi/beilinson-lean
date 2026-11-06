@@ -17,7 +17,7 @@ authors := ["Kazushi Ueda"]
 
 {include 1 Book.Introduction}
 {include 1 Book.Cohomology}
-{include 1 Book.Diagonal}
+{include 1 Book.Generation}
 {include 1 Book.Exceptional}
 {include 1 Book.Quiver}
 {include 1 Book.Tilting}
