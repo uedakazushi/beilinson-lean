@@ -5,17 +5,17 @@
 
 ## 現在の到達点
 生成性については対角線の resolution を用いず、O(-k) の Koszul 帰納法と SOD right orthogonal の消滅に置き換えた。数学的な admissibility と Serre の定理を明示した。
-Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。幾何学的な自己準同型代数との同定と導来同値は未形式化。Stacks 実験のビルドは未検証。
+Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。`Beilinson/KroneckerModule.lean` で右作用と二本の逆向きの線形写像の相互構成、頂点分解下の作用の復元、射の可換条件、頂点次元の加法性を検証した。圏同値の構造体、幾何学的な自己準同型代数との同定と導来同値は未形式化。Stacks 実験のビルドは未検証。
 
 ## 現在の核心と優先順位
-1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。n=1 の次の実装対象は、具体的 Kronecker 代数モデルの右加群と反対向きの箙表現の対応。
+1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。n=1 の次の実装対象は、右加群と反対向きの箙表現の具体的な対応を関手・自然同型へ組み立て、有限次元部分圏に制限すること。
 2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
 3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
 4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、dg Morita の根拠を精査する。
 5. 既存定理で不足する薄い bridge だけを実装し、n=1 から一般 n へ進む。
 
 ## 現行の技術方針
-Book/ と Beilinson/ を分離した一つの本番 Lake project。Lean/mathlib/Verso の更新は意図的に固定・検証してから行う。Stacks は巨大なので実験用の別 Lake project で調査し、必要な定理と現実的なビルド負担が確認された時点で本番依存を再評価する。既存の定義や定理を無用にコピーしない。REUSE.md を軽量な再利用台帳とし、API/数学的仮定・人間レビュー・ビルド状況を区別する。GitHub Actions は使わない。
+Book/ と Beilinson/ を分離した一つの本番 Lake project。Lean/mathlib/Verso の更新は意図的に固定・検証してから行う。Stacks は巨大なので実験用の別 Lake project で調査し、必要な定理と現実的なビルド負担が確認された時点で本番依存を再評価する。既存の定義や定理を無用にコピーしない。REUSE.md を軽量な再利用台帳とし、API/数学的仮定・人間レビュー・ビルド状況を区別する。GitHub Actions は使わない。検証後の成果は main に直接 push し、作業用ブランチや PR は作成しない。
 
 ## 研究運営の一般原則
 数学的重要性・新規性・理解の深化・応用可能性・正確性・実現可能性を総合して方針を柔軟に更新する。証明済み、追加仮定付き、未完成、予想、計算観察を厳密に分け、原稿上の証明と Lean kernel の確認、数学的な statement の監査を区別する。先行研究は一次資料を確認して引用し、確認できない情報を推測しない。現行の教科書と研究ノートへ有効な成果を統合し、更新履歴・旧版・重複ファイルは残さない。研究継続 bundle は現行の方針、研究ノート、教科書と再現に不可欠な最小のソース・依存関係だけで構成し、数学的内容を減らさない。研究の区切りごとに追加承諾を求めず Library 保存してよいが、Library 上の既存ファイルの削除は明示指示がない限り行わない。ファイル生成、検証、GitHub 登録、Library 保存を別々の状態として扱う。

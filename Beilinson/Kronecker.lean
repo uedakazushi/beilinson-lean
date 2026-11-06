@@ -79,6 +79,16 @@ def coordinates : (Fin 4 → k) ≃ₗ[k] Algebra k where
     simp only [Matrix.smul_apply]
     fin_cases i <;> fin_cases j <;> simp [toMatrix]
 
+@[simp] theorem coordinates_symm_one :
+    (coordinates k).symm 1 = ![1, 1, 0, 0] := by
+  ext i
+  fin_cases i <;> simp [coordinates]
+
+@[simp] theorem coordinates_symm_algebraMap (r : k) :
+    (coordinates k).symm (algebraMap k (Algebra k) r) = ![r, r, 0, 0] := by
+  ext i
+  fin_cases i <;> simp [coordinates, Matrix.algebraMap_eq_diagonal]
+
 /-- In particular, the model is finite dimensional. -/
 instance : FiniteDimensional k (Algebra k) :=
   (coordinates k).finiteDimensional
@@ -108,6 +118,16 @@ def e₁ : Algebra k := coordinates k ![0, 1, 0, 0]
 /-- One of the two arrows, parametrized by `Fin 2`. -/
 def arrow (i : Fin 2) : Algebra k :=
   coordinates k ![0, 0, if i = 0 then 1 else 0, if i = 1 then 1 else 0]
+
+@[simp] theorem coordinates_symm_e₀ :
+    (coordinates k).symm (e₀ k) = ![1, 0, 0, 0] := by simp [e₀]
+
+@[simp] theorem coordinates_symm_e₁ :
+    (coordinates k).symm (e₁ k) = ![0, 1, 0, 0] := by simp [e₁]
+
+@[simp] theorem coordinates_symm_arrow (i : Fin 2) :
+    (coordinates k).symm (arrow k i) =
+      ![0, 0, if i = 0 then 1 else 0, if i = 1 then 1 else 0] := by simp [arrow]
 
 @[simp] theorem e₀_mul_e₀ : e₀ k * e₀ k = e₀ k := by
   simp [e₀, coordinates_mul]
@@ -169,6 +189,16 @@ noncomputable def basis : Basis (Fin 4) k (Algebra k) :=
 @[simp] theorem basis_three : basis k 3 = arrow k 1 := by
   apply congrArg (coordinates k)
   change Pi.basisFun k (Fin 4) 3 = _
+  ext i
+  fin_cases i <;> simp
+
+/-- Expansion in the two stationary paths and the two arrows. -/
+theorem coordinates_eq (c : Fin 4 → k) :
+    coordinates k c = c 0 • e₀ k + c 1 • e₁ k +
+      c 2 • arrow k 0 + c 3 • arrow k 1 := by
+  apply (coordinates k).symm.injective
+  simp only [map_add, map_smul, LinearEquiv.symm_apply_apply,
+    coordinates_symm_e₀, coordinates_symm_e₁, coordinates_symm_arrow]
   ext i
   fin_cases i <;> simp
 

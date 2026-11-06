@@ -4,7 +4,7 @@
 - P(V) は lines convention、H^0(O(1)) = V^∨。
 - n=0 では全ての O(d) が自明で H^0(O(d))≅k。負捻りの H^0 消滅は n≥1 に限る（第2章に明記）。
 - Fullness は対角線の分解を用いず、基点なしの n+1 個の一次形式による Koszul 完全列から O(-k) (k≥0) を帰納的に生成する。O(n-m) で捻ると先頭以外の次数は -m,…,n-m。
-- Hom(T,-) は右 End(T) 加群。左箙表現と opposite を区別。
+- Hom(T,-) は右 End(T) 加群。左箙表現と opposite を区別。Kronecker の α∈e₁Ae₀ は M₁=Me₁ から M₀=Me₀ へ作用する。
 - strong exceptional と full の証明を分離する。
 - derived Morita はまず Perf(A) の同値であり、有限次元加群の有界導来圏との比較には finite global dimension が必要。
 - Serre vanishing と大域生成性により O(-k) への全 Hom が消える対象は零。SOD の right orthogonal が零から fullness を導くには、例外集合の生成する部分圏の admissibility を使う。Čech cohomology と dg Morita の正確な仮定も精査する。
@@ -19,4 +19,5 @@
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
 - 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML 生成まで成功（キャッシュ保存先に `XDG_CACHE_HOME=/workspace/.cache` を指定）。Stacks 実験の依存解決・ビルドは未検証。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
+- `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。圏同値の構造体と有限次元部分圏への制限は次の課題。
 - Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。

@@ -28,7 +28,7 @@
 | Serre vanishing、ample twisting、大域生成性 | mathlib、Stacks | 候補、API 未照合 |
 | exceptional collection の admissibility、SOD、right orthogonal | mathlib、Stacks、専門ライブラリ | 候補、API 未照合 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
-| quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の具体的行列モデルを実装・Lean 検証。一般経路代数や表現圏との同定は未実装 |
+| quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の行列モデルと右作用・逆向きの矢・射の具体的な対応を Lean 検証。一般経路代数との同型や圏同値の構造体は未実装 |
 | exceptional collections / tilting | Axiom BondalThomsen 等 | 関連プロジェクトを確認、再利用可能性は未確認 |
 | dg enhancement / derived Morita | mathlib、Stacks、外部専門ライブラリ | 実装範囲は未確認 |
 | Beilinson equivalence | 未確認 | 本研究の目標であり、実装済みと扱わない |
@@ -62,7 +62,20 @@
 - `LinearEquiv.finiteDimensional`：`Mathlib.LinearAlgebra.FiniteDimensional.Defs`、`LinearEquiv.finrank_eq`：`Mathlib.LinearAlgebra.Dimension.Finrank`。体と線形同型の仮定から有限次元性と次元の一致を移す。
 - `Module.Basis.map`、`Pi.basisFun`：`Mathlib.LinearAlgebra.StdBasis`。座標空間の標準基底を線形同型で移す。
 
-`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型、一般経路代数との同型、右加群と箙表現の対応は未実装。Stacks には依存しない。新規の全24個の名前付き定義・定理について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
+`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型と一般経路代数との同型は未実装。Stacks には依存しない。Kronecker の両ファイルの全ての名前付き定義・定理について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
+
+## 右作用と逆向きの矢の bridge
+
+同じ pinned mathlib で次の API を再利用する：
+
+- `Algebra.lsmul`：`Mathlib.Algebra.Algebra.Tower`。k-加群 M と Aᵐᵒᵖ-加群 M に、`IsScalarTower k Aᵐᵒᵖ M` と `SMulCommClass Aᵐᵒᵖ k M` を仮定し、作用を `Aᵐᵒᵖ →ₐ[k] Module.End k M` として取り出す。
+- `Module.compHom`：`Mathlib.Algebra.Module.RingHom`。線形自己準同型への環準同型から加群構造を得る。構成した右作用について ground-field の scalar tower と作用の可換性を別途証明し、`actionOfModule_ofArrows` で往復を確認する。
+- `LinearMap.prodMap`：`Mathlib.LinearAlgebra.Prod`。頂点ごとの射を直積上の線形写像にする。
+- `Module.finrank_prod`：`Mathlib.LinearAlgebra.Dimension.Constructions`。有限次元の頂点空間の次元を加える。
+
+`Beilinson/KroneckerModule.lean` の `ofArrows` は任意の二本の線形写像 V₁→V₀ から右作用を作る。任意の右作用 ρ について `decompose_action` は M≃M₀×M₁ が元の作用と復元した作用を絡み合わせることを証明する。`prodMap_intertwines_iff` は射の条件を二本の可換な正方形と同定し、`vertexMap_arrow` と `decompose_intertwiner` は一般の intertwiner が頂点の写像に分解されることを示す。`finrank_vertices` は M が有限次元のとき dim M=dim M₀+dim M₁ を与える。
+
+これらは対象・射の具体的な対応であり、`CategoryTheory.Equivalence` の構造体を構成したという意味ではない。幾何学的な層の圏や導来圏との同値にもまだ依存しない。
 
 ## 更新と再現
 

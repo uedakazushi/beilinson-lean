@@ -29,5 +29,19 @@ $`e_0\alpha=\alpha e_1=0`、任意の二本の矢の積は零である。
 
 これは幾何学的な $`\operatorname{End}(\mathcal O\oplus\mathcal O(1))` との同定や、
 一般の経路代数構成との同型、加群圏・導来圏の同値をまだ含まない。
-次の目標は、このモデルの右加群と反対向きの Kronecker 表現との対応を明示することである。
+# 右加群の分解と復元
+
+`Beilinson/KroneckerModule.lean` は右作用を反対代数から線形自己準同型代数への
+$`k`-代数準同型として扱う。mathlib の `Algebra.lsmul` と `Module.compHom` により
+通常の加群構造との接続も用意する。
+
+`ofArrows` は二本の線形写像 $`V_1\to V_0` から右作用を構成する。
+`arrowMap` と `decompose` は任意の右作用から逆向きの矢と二頂点空間への線形同型を取り出す。
+`decompose_action` はその同型の下で元の作用が復元されることを証明する。
+`prodMap_intertwines_iff` は頂点ごとの写像が加群の射となる条件を二本の矢の可換条件と同定し、
+`vertexMap_arrow` と `decompose_intertwiner` は任意の加群の射がこの形で表されることを保証する。
+有限次元の場合の次元の加法性も `finrank_vertices` で確認した。
+
+対象と射の具体的な対応は証明済みだが、圏同値の Lean 構造体はまだ構成していない。
+次の目標はこの対応を関手・自然同型として組み立て、有限次元部分圏への制限を示すことである。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。
