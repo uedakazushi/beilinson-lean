@@ -2,6 +2,7 @@
 
 ## 数学
 - P(V) は lines convention、H^0(O(1)) = V^∨。
+- n=0 では全ての O(d) が自明で H^0(O(d))≅k。負捻りの H^0 消滅は n≥1 に限る（第2章に明記）。
 - Fullness は対角線の分解を用いず、基点なしの n+1 個の一次形式による Koszul 完全列から O(-k) (k≥0) を帰納的に生成する。O(n-m) で捻ると先頭以外の次数は -m,…,n-m。
 - Hom(T,-) は右 End(T) 加群。左箙表現と opposite を区別。
 - strong exceptional と full の証明を分離する。
@@ -16,5 +17,6 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番・Stacks 実験とも lake-manifest.json の生成と実ビルドは未実施。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML 生成まで成功（キャッシュ保存先に `XDG_CACHE_HOME=/workspace/.cache` を指定）。Stacks 実験の依存解決・ビルドは未検証。
+- `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
 - Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。

@@ -2,7 +2,7 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。依存関係のビルドも未実機検証です。
+**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデルは Lean で検証済みです。本番の `bash scripts/check.sh` は教科書 HTML 生成まで成功しました。
 
 ## 最初に読むもの
 
@@ -10,7 +10,7 @@ Verso による日本語教科書と Lean 4 形式化を育てるプロジェク
 2. [REUSE.md](REUSE.md)：既存形式化の再利用方針・調査台帳
 3. [Book.lean](Book.lean) と [Book/](Book/)：Verso の日本語教科書
 4. [NOTES.md](NOTES.md)：現在有効な数学的注意点
-5. [Beilinson.lean](Beilinson.lean) と [Beilinson/](Beilinson/)：独立した数学ライブラリ（現在 skeleton）
+5. [Beilinson.lean](Beilinson.lean) と [Beilinson/](Beilinson/)：独立した数学ライブラリ（Kronecker 代数モデル）
 6. [REFERENCES.md](REFERENCES.md)：文献
 
 ## 依存関係とビルド
@@ -24,7 +24,7 @@ lake update
 bash scripts/check.sh
 ```
 
-`lake-manifest.json` は実際に Lake が生成したものを本番に commit する。現在は未生成。更新作業以外では意図せず `lake update` をしない。
+`lake-manifest.json` は Lake が生成したものを commit 済み。更新作業以外では意図せず `lake update` をしない。
 
 **オプション：Axiom Stacks の検証**
 
@@ -40,3 +40,7 @@ lake build StacksProbe
 README と [REUSE.md](REUSE.md) に記した通り、`StacksCore`（人間レビュー済み）と `StacksFrontier`（kernel-check 済みだが人間レビュー未完了）は区別し、重要な定式化は手動で確認する。
 
 GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明示的に行い、失敗時には依存関係をむやみに動かさない。
+
+## 検証済みの範囲
+
+`Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。次は右加群と Kronecker 表現の対応を進める。

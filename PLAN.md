@@ -5,10 +5,10 @@
 
 ## 現在の到達点
 生成性については対角線の resolution を用いず、O(-k) の Koszul 帰納法と SOD right orthogonal の消滅に置き換えた。数学的な admissibility と Serre の定理を明示した。
-Book/ に自然言語による初稿、Beilinson/ に別の Lean library skeleton。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root やオプション統合の Lake build、manifest 生成は未検証。Beilinson の数学的形式化は未実施。
+Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。幾何学的な自己準同型代数との同定と導来同値は未形式化。Stacks 実験のビルドは未検証。
 
 ## 現在の核心と優先順位
-1. 本番 `lake update` で実際の manifest を生成し、`bash scripts/check.sh` で Verso / mathlib の互換性を確認する。
+1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。n=1 の次の実装対象は、具体的 Kronecker 代数モデルの右加群と反対向きの箙表現の対応。
 2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
 3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
 4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、dg Morita の根拠を精査する。

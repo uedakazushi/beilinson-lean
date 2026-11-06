@@ -4,7 +4,7 @@ open Verso.Genre Manual
 
 # 計算の定理
 
-**定理。** $`X=\mathbb P(V)` に対し $`0<q<n` なら任意の整数 $`d` について
+**定理。** $`n\geq1` とし、$`X=\mathbb P(V)` に対し $`0<q<n` なら任意の整数 $`d` について
 $`H^q(X,\mathcal O(d))=0` であり、
 $$`H^0(X,\mathcal O(d))=\begin{cases}\operatorname{Sym}^{d}(V^\vee)&d\geq0,\\0&d<0.\end{cases}`
 さらに $`H^n(X,\mathcal O(d))=0` が $`d>-n-1` で成立する（$`n\geq1`）。
@@ -17,7 +17,11 @@ $$`H^0(X,\mathcal O(d))=\begin{cases}\operatorname{Sym}^{d}(V^\vee)&d\geq0,\\0&d
 従って各単項式の部分複体は、負指数の集合が空または全体のときを除き、単体の相対 Čech 複体として非輪状である。
 負指数が空なら次数0に非負指数の斉次単項式が残り、$`\operatorname{Sym}^{d}(V^\vee)` になる。
 負指数が全体なら次数 $`n` にのみコホモロジーが残り、そのためには $`d\leq-n-1` を要する。
-以上で定理が従う。$`n=0` は $`X=\operatorname{Spec}k` から直接従う。証明終。
+以上で定理が従う。証明終。
+
+$`n=0` の場合は別に扱う。$`X=\operatorname{Spec}k` で全ての捻り線束が自明なので、
+任意の整数 $`d` に対して $`H^0(X,\mathcal O(d))\cong k`、高次コホモロジーは零である。
+特に負捻りの $`H^0` の消滅は $`n\geq1` の主張である。
 
 # Ext の計算
 

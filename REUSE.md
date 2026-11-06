@@ -28,7 +28,7 @@
 | Serre vanishing、ample twisting、大域生成性 | mathlib、Stacks | 候補、API 未照合 |
 | exceptional collection の admissibility、SOD、right orthogonal | mathlib、Stacks、専門ライブラリ | 候補、API 未照合 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
-| quiver、path algebra、representations | mathlib および専門プロジェクト | 探索が必要 |
+| quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の具体的行列モデルを実装・Lean 検証。一般経路代数や表現圏との同定は未実装 |
 | exceptional collections / tilting | Axiom BondalThomsen 等 | 関連プロジェクトを確認、再利用可能性は未確認 |
 | dg enhancement / derived Morita | mathlib、Stacks、外部専門ライブラリ | 実装範囲は未確認 |
 | Beilinson equivalence | 未確認 | 本研究の目標であり、実装済みと扱わない |
@@ -53,6 +53,16 @@
 - 本研究のどの補題が依存するか
 
 大規模な検索ログや Stacks のコピーは保存しない。未確認の tag や Lean declaration は推測で追加しない。
+
+## n=1 の代数モデルで再利用した API
+
+本番 mathlib revision `56a005855ea17e0b0958f73ec801ae140b0a1679`（v4.35.0）：
+
+- `Subalgebra`：`Mathlib.Algebra.Algebra.Subalgebra.Basic`。行列の集合がスカラー・加法・乗法で閉じることを証明し、環と代数の構造を継承する。
+- `LinearEquiv.finiteDimensional`：`Mathlib.LinearAlgebra.FiniteDimensional.Defs`、`LinearEquiv.finrank_eq`：`Mathlib.LinearAlgebra.Dimension.Finrank`。体と線形同型の仮定から有限次元性と次元の一致を移す。
+- `Module.Basis.map`、`Pi.basisFun`：`Mathlib.LinearAlgebra.StdBasis`。座標空間の標準基底を線形同型で移す。
+
+`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型、一般経路代数との同型、右加群と箙表現の対応は未実装。Stacks には依存しない。新規の全24個の名前付き定義・定理について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
 
 ## 更新と再現
 
