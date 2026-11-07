@@ -26,7 +26,7 @@ The executable must be built before the script is run.
 @[default_target]
 target book_formats : Unit := do
   let exeJob ← «generate-book».fetch
-  exeJob.mapM (caption := "Verso HTML and LuaLaTeX PDF") fun executable => do
+  exeJob.mapM fun executable => do
     proc {
       cmd := "bash"
       args := #["scripts/build_book.sh", executable.toString]
