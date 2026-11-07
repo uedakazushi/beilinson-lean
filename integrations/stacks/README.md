@@ -21,14 +21,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections ProjectiveLineEnd
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections ProjectiveLineEnd CoherentDerivedComparison
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-thirteen targets. Explicit arguments select other targets when they are available.
+fourteen targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All thirteen targets have built successfully against the pinned package. Their exported
+All fourteen targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -45,10 +45,9 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `GeometricPerfectProbe` | `AlgebraicGeometry.Perfect.QuasiCoherentDerived.QcqsCompactIsPerfect` and `…Perfect.RegularBoundedCoherentPerfect` | On a qcqs regular scheme, compact objects of D_QCoh have exactly bounded coherent cohomology, at the locally small derived model. |
 | `ProjectivePerfectProbe` | The preceding adapter, `…Variety.Projective.RegularProjectiveSpace`, and `…ProjNoetherian.Basic` | Polynomial projective space over every field is regular, including n = 0; compactness is equivalent to bounded coherent cohomology. |
 | `KroneckerCompact` | Production `Beilinson.KroneckerPerfect` and `Homology.Perfect.Characterizing` | Right Kronecker complexes are compact/perfect exactly when bounded with finite-dimensional cohomology. This uses the concrete checked algebra, not a geometric End identification. |
-
 | `SheafHomSections` | `AlgebraicGeometry.DerivedGlobalSectionsLinear`, `…DerivedGlobalSectionsHomUnit`, and `…IntegralTransformQcoh.Basic` | Evaluation at 1 identifies Hom(O_X,M) with global sections as a base-linear equivalence, naturally in M; the scalar structures used for sections and tensor agree. |
-
 | `ProjectiveLineEnd` | The preceding comparison and `…ProjTwistFunctor.Derived`, `…Cohomology.DerivedTwistSections`, `…TwistMonomialBasis` | On actual polynomial P¹ over every field, End(O(0) ⊕ O(1)) is isomorphic to the concrete Kronecker algebra; every right End module has projective dimension at most one. The isomorphism chooses a basis of Hom(O(0),O(1)). |
+| `CoherentDerivedComparison` | `…DerivedCoherent.Modules`, `…SiblingFunctors.BoundedCoherent`, and derived-model comparison | For a Noetherian scheme, Dᵇ(Coh X) is equivalent to the bounded-coherent full subcategory of D_QCoh in the locally small model. Both functors preserve triangles and shifts. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
@@ -68,8 +67,8 @@ The geometric zero-detection hypotheses, matching the positive twist sum of the
 book, the ordinary endomorphism algebra, and the bounded coherent restriction
 remain to be connected in this project. The geometric target finiteness criterion
 is now checked, but the restriction of the Beilinson functor to it is not yet checked.
-The full subcategory of bounded coherent cohomology also still needs comparison
-with the bounded derived category of coherent sheaves itself. Promotion to a production dependency
+The comparison with the bounded derived category of coherent sheaves itself is now checked
+by `CoherentDerivedComparison`; composing it with the Beilinson restriction remains under validation. Promotion to a production dependency
 requires recording the exact declarations, assumptions, model comparisons, and
 build cost in the reuse ledger.
 

@@ -68,3 +68,7 @@ name = "SheafHomSections"
 # Actual geometric End(O + O(1)) on the projective line.
 [[lean_lib]]
 name = "ProjectiveLineEnd"
+
+# Compare D^b(Coh) with bounded coherent cohomology in the geometric derived model.
+[[lean_lib]]
+name = "CoherentDerivedComparison"

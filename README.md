@@ -36,7 +36,7 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較、cone 規約との符号補正、集中 dg 代数の通常右加群への直接比較を、13個の専用ターゲットで実 import/build・公理監査まで検証した。正則 qcqs スキームでの compactness と有界 coherent コホモロジーの同値、および全ての次元の射影空間への代入も確認した。本番の Kronecker 証明を用いて、右 Kronecker 複体の compactness / perfect 性と有界・有限次元コホモロジーの同値も検証した。構造層からの Hom と大域切断の基礎体上の線形同型、切断とテンソルで使うスカラー構造の一致も確認した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較、cone 規約との符号補正、集中 dg 代数の通常右加群への直接比較を、14個の専用ターゲットで実 import/build・公理監査まで検証した。正則 qcqs スキームでの compactness と有界 coherent コホモロジーの同値、および全ての次元の射影空間への代入も確認した。本番の Kronecker 証明を用いて、右 Kronecker 複体の compactness / perfect 性と有界・有限次元コホモロジーの同値も検証した。構造層からの Hom と大域切断の基礎体上の線形同型、切断とテンソルで使うスカラー構造の一致も確認した。Noether スキームで、D^b(Coh X) 自体と小さい導来圏モデルの有界連接部分圏との三角同値も検証した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
 
 ```sh
 cd integrations/stacks

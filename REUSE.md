@@ -212,6 +212,12 @@
 
 線形同型のデータを幾何学側で何度も合成するとカーネルで大きな定義展開を生むため、一般の線形圏で次元と零 Hom を移す本番補題 `finrank_hom_map`、`finrank_hom_congr`、`subsingleton_hom_congr` を用いる。検証の制限値は本番の既定値のままである。
 
+## D^b(Coh X) 自体との三角比較
+
+`integrations/stacks/CoherentDerivedComparison.lean` は Tag 0FDB の `coherentToModulesDerivedBoundedEquivalence`（`DerivedCoherent.Modules`）を再利用する。この宣言は標準モデルなので、`modelHomologyFunctorIso`（`SerreSubcategoryModel`）によって有界性と連接性を小さいモデルへ移す `boundedModelEquiv` を作る。`ambientEquivalence` は連接コホモロジーが準連接でもあることを使い、小さいモデルの D_QCoh の中の有界連接部分圏と同定する。Noether スキームについて得る `equivalence` は、D^b(Coh X) 自体を始点とする。
+
+前向き関手を、標準モデルの導来包含とモデル間同値の合成として確認する `coherentCompInclusionIso` を用い、fully faithful な包含との合成が exact であることから exactness を示す。逆方向はシフトを `commShiftInverse` で与え、随伴関手の exactness で導く。小さいモデルの shift / pretriangulated のインスタンスを名前付きで保持し、標準モデルとの暗黙の取り違えを避ける。両方向のシフト・三角保存を含む主要宣言は標準3公理のみを使用し、独立ターゲットの実 build に成功した。Beilinson の有界制限との合成は別に残る。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

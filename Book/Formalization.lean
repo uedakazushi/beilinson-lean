@@ -150,7 +150,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十三個は検証済みである。
+次の十四個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -170,6 +170,8 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 
 13. `ProjectiveLineEnd`：任意の体上の実際の多項式 Proj で、O(0) と O(1) の直和の End を Kronecker 代数と同定し、全右加群の射影次元≤1を導く。二次元 Hom の基底を選ぶ同型である。
 
+14. `CoherentDerivedComparison`：Noether スキームで、$`D^b(\operatorname{Coh}X)` 自体と、小さい導来モデルの $`D_{\mathrm{QCoh}}` における有界連接部分圏との同値。シフトと三角の保存を両方向で確認する。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
@@ -182,4 +184,4 @@ kernel check と数学的な定式化の照合は、このレビュー状態を�
 正確な上流宣言と追加の検証ターゲットは、リポジトリの再利用台帳を参照する。
 
 この幾何学側の判定は、$`D_{\mathrm{QCoh}}` の中の有界 coherent コホモロジーを持つ対象に関するものである。
-$`D^b(\operatorname{Coh}X)` 自体との比較、一般の次元での代数側の有限次元条件、同値関手による制限を完了したとは扱わない。
+$`D^b(\operatorname{Coh}X)` 自体との比較は独立に検証済みである。一般の次元での代数側の有限次元条件と、Beilinson 関手による制限・合成は引き続き検証中である。
