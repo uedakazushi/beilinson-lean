@@ -25,15 +25,9 @@ The executable must be built before the script is run.
 -/
 @[default_target]
 target book_formats : Unit := do
-  (← «generate-book».fetch).bindSync fun executable trace => do
-    let output ← IO.Process.output {
+  let exeJob ← «generate-book».fetch
+  exeJob.mapM (caption := "Verso HTML and LuaLaTeX PDF") fun executable => do
+    proc {
       cmd := "bash"
       args := #["scripts/build_book.sh", executable.toString]
     }
-    unless output.stdout.isEmpty do
-      IO.print output.stdout
-    unless output.stderr.isEmpty do
-      IO.eprint output.stderr
-    if output.exitCode != 0 then
-      throw <| IO.userError s!"Verso HTML/PDF generation failed (exit code {output.exitCode})"
-    return ((), trace)
