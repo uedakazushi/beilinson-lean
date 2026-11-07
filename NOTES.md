@@ -24,7 +24,7 @@
 - `Beilinson/KroneckerDimension.lean` は頂点1に集中した有限次元単純加群を構成し、射影次元がちょうど1であることを検証した。
 - `Beilinson/KroneckerIdeals.lean` は e₀A≃sink(k)、e₁A≃source(k) を右加群同型として構成し、両右イデアルの射影性と A≃e₀A×e₁A を確認した。固定条件は左乗法 eᵢa=a であり、頂点空間の右乗法 aeᵢ=a とは区別する。
 - 次は幾何学側の既存 API と定式化を照合する。
-- Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。
+- Beilinson 主定理の Lean proof は未完成。上記の独立した補題と比較を検証済みで、幾何学的な非有界同値の依存ビルドを進めている。詳細は REUSE.md。
 
 ## 証明の明示化
 

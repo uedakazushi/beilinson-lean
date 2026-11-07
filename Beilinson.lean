@@ -24,7 +24,9 @@ attains projective dimension one. The vertex right ideals are explicitly
 identified with the standard projective representations.
 A categorical algebra equivalence identifies the endomorphism algebra of a pair
 with scalar diagonals, zero reverse Hom and a two-element forward Hom basis
-with the Kronecker model. Its geometric hypotheses are not yet instantiated.
+with the Kronecker model. Hom precomposition agrees with the reverse-arrow
+right action, and the length-one projective resolution transports to this End
+ring. Its geometric hypotheses are not yet instantiated.
 The geometric Beilinson equivalence is not yet formalized.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
