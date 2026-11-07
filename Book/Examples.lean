@@ -82,7 +82,23 @@ $$`0\longrightarrow S(X_1\oplus X_1)\xrightarrow{d}P_X\xrightarrow{\varepsilon}X
 この加群は有限次元かつ単純である。実際、非零のベクトル $`v` から任意のベクトル $`w` へは、
 頂点1の係数を $`w/v` とした代数の元を作用させればよいので、非零ベクトルは全体を生成する。
 `Beilinson/KroneckerDimension.lean` は単純性・非射影性・射影次元1を Lean 検証する。
-頂点射影表現と $`e_0A,e_1A` の明示的な同型は、次の段階で扱う。
+
+# 頂点右イデアルと標準射影表現
+
+冪等元 $`e` に対して、右イデアル $`eA` は
+$`\{a\in A:ea=a\}` と一致する。これは左からの $`e` の乗法で固定される部分空間であり、
+右 $`A`-作用で閉じている。
+
+先の座標表示では $`e_0A` は $`ae_0` の形の元からなり、sink 表現 $`(k,0)` に対応する。
+$`e_1A` は $`be_1+x\alpha_0+y\alpha_1` の形の元からなり、
+二本の包含写像を持つ表現 $`(k^2,k;v\mapsto(v,0),v\mapsto(0,v))` に対応する。
+従って両者は射影右加群である。
+
+$`e_0+e_1=1` と直交性から、正則右加群の分解は
+$$`A\xrightarrow{\sim}e_0A\oplus e_1A,\qquad a\longmapsto(e_0a,e_1a)`
+で与えられ、逆写像は和である。
+`Beilinson/KroneckerIdeals.lean` は二つの明示的な右加群同型、両右イデアルの射影性、
+正則右加群の直和分解を Lean 検証する。
 
 # 射影平面
 

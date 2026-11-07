@@ -4,6 +4,7 @@ import Beilinson.KroneckerModule
 import Beilinson.KroneckerCategory
 import Beilinson.KroneckerResolution
 import Beilinson.KroneckerDimension
+import Beilinson.KroneckerIdeals
 
 /-!
 # Beilinson Lean: library entry point
@@ -14,7 +15,8 @@ in terms of reverse-arrow linear maps are formalized, including the category
 equivalence and its restriction to finite-dimensional objects.
 Every right module has a short exact projective presentation of length one
 and projective dimension at most one. A finite-dimensional simple module
-attains projective dimension one.
+attains projective dimension one. The vertex right ideals are explicitly
+identified with the standard projective representations.
 The geometric Beilinson equivalence is not yet formalized.
 
 Formal declarations will be imported from `Beilinson/` as they become available.

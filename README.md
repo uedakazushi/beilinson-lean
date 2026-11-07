@@ -51,6 +51,6 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 
 ## 検証済みの範囲
 
-`Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。`Beilinson/KroneckerModule.lean` は右作用と二本の逆向きの線形写像を相互に構成し、頂点分解による作用の復元、有限次元の場合の次元公式、射の可換条件を証明する。`Beilinson/KroneckerCategory.lean` はこの対応を両方向の関手・自然同型からなる圏同値にまとめ、有限次元対象の充満部分圏にも制限する。`Beilinson/KroneckerResolution.lean` は任意の右加群を終点とする短完全列を構成し、分解の両項の射影性・有限次元性の保存・射影次元が高々1であることを証明する。`Beilinson/KroneckerDimension.lean` は有限次元の非射影単純加群を構成し、射影次元がちょうど1となることを証明する。次は頂点右イデアルとの明示的同型を進める。
+`Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。`Beilinson/KroneckerModule.lean` は右作用と二本の逆向きの線形写像を相互に構成し、頂点分解による作用の復元、有限次元の場合の次元公式、射の可換条件を証明する。`Beilinson/KroneckerCategory.lean` はこの対応を両方向の関手・自然同型からなる圏同値にまとめ、有限次元対象の充満部分圏にも制限する。`Beilinson/KroneckerResolution.lean` は任意の右加群を終点とする短完全列を構成し、分解の両項の射影性・有限次元性の保存・射影次元が高々1であることを証明する。`Beilinson/KroneckerDimension.lean` は有限次元の非射影単純加群を構成し、射影次元がちょうど1となることを証明する。`Beilinson/KroneckerIdeals.lean` は e₀A・e₁A と標準射影表現の明示的同型、両右イデアルの射影性、正則右加群の分解を証明する。次は幾何学側の既存 API と接続する。
 
 開発成果は検証後に main へ直接 push する。作業用ブランチや PR は作成しない。

@@ -86,5 +86,15 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 3. `sourceSimpleModule_projectiveDimension`：射影次元がちょうど1となること。
 4. `sourceSimpleModule_finite`：この例は基礎体上有限次元であること。
 
-次は頂点射影表現と右イデアル $`e_iA` を明示的に同定する。
+# 頂点右イデアル
+
+`Beilinson/KroneckerIdeals.lean`
+
+1. `mem_fixedLeft_iff`：冪等元の左乗法で固定される部分加群は、その冪等元が生成する右イデアルと一致する。
+2. `sinkIdealEquiv`：sink 表現の右加群と $`e_0A` の同型。
+3. `sourceIdealEquiv`：二本の包含写像を持つ source 射影表現の右加群と $`e_1A` の同型。
+4. `vertexIdealDecomposition`：正則右加群 $`A` を $`e_0A\oplus e_1A` に分解する同型。
+
+両右イデアルについて、圏論的な射影性と通常の加群としての射影性の両方を確認した。
+次は既存の射影空間・線束・コホモロジーの API を照合し、幾何学側への接続を進める。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。

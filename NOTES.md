@@ -22,5 +22,6 @@
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
 - `Beilinson/KroneckerDimension.lean` は頂点1に集中した有限次元単純加群を構成し、射影次元がちょうど1であることを検証した。
-- 次は頂点射影表現と e₀A、e₁A の明示的同型を進める。
+- `Beilinson/KroneckerIdeals.lean` は e₀A≃sink(k)、e₁A≃source(k) を右加群同型として構成し、両右イデアルの射影性と A≃e₀A×e₁A を確認した。固定条件は左乗法 eᵢa=a であり、頂点空間の右乗法 aeᵢ=a とは区別する。
+- 次は幾何学側の既存 API と定式化を照合する。
 - Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。
