@@ -145,12 +145,12 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 その両項が有限次元かつ射影であることから、有限次元加群を含むためには
 有限射影加群を含めば十分である。さらに上の一般補題により、有界かつコホモロジーが
 有限次元の複体も、有限射影加群を含む任意の厳密充満な三角部分圏に入る。
-外部 API の perfect や compact という述語との同定は別に必要である。
+この一般的な所属条件への compact / perfect の具体的代入は、下の独立した Stacks ターゲットで検証した。
 
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十個は検証済みである。
+次の十一個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -164,6 +164,8 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 9. `GeometricPerfectProbe`：準コンパクトかつ準分離な正則スキームで、compact な $`D_{\mathrm{QCoh}}` 対象と有界 coherent コホモロジーを持つ対象の一致。
 10. `ProjectivePerfectProbe`：任意の体上の多項式 Proj の正則性と、上の compactness 判定への代入。次元0も含む。
 
+11. `KroneckerCompact`：本番の Kronecker 証明を再利用し、右加群の複体について、compactness / perfect 性と有界・有限次元コホモロジーの同値を確認する。幾何学的な End の同定は含まない。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
@@ -176,4 +178,4 @@ kernel check と数学的な定式化の照合は、このレビュー状態を�
 正確な上流宣言と追加の検証ターゲットは、リポジトリの再利用台帳を参照する。
 
 この幾何学側の判定は、$`D_{\mathrm{QCoh}}` の中の有界 coherent コホモロジーを持つ対象に関するものである。
-$`D^b(\operatorname{Coh}X)` 自体との比較、代数側の有限次元条件、同値関手による制限を完了したとは扱わない。
+$`D^b(\operatorname{Coh}X)` 自体との比較、一般の次元での代数側の有限次元条件、同値関手による制限を完了したとは扱わない。

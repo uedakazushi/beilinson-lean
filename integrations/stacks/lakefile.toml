@@ -9,6 +9,11 @@ name = "Stacks"
 git = "https://github.com/AxiomMath/Stacks"
 rev = "5ed82d14634e8d9576bb844c7bd4e3da66d450e7"
 
+# Reuse the checked algebraic library; the production project does not depend on Stacks.
+[[require]]
+name = "beilinson-lean"
+path = "../.."
+
 [[lean_lib]]
 name = "StacksProbe"
 
@@ -49,3 +54,9 @@ name = "GeometricPerfectProbe"
 # Field-valued polynomial projective space, including n = 0.
 [[lean_lib]]
 name = "ProjectivePerfectProbe"
+
+
+
+# Apply the production finite-projective reconstruction to the Stacks compactness predicate.
+[[lean_lib]]
+name = "KroneckerCompact"

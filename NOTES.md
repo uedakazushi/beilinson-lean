@@ -17,7 +17,7 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較に加え、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入の10ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの10個で、一括実行に成功した。大きな幾何学的 dg 同値とコホモロジーは検証中。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定の11ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの11個で、一括実行に成功した。大きな幾何学的 dg 同値とコホモロジーは検証中。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
@@ -55,3 +55,5 @@
 - `DerivedDevissage.of_bounded_cohomology` / `of_isBounded` は任意のアーベル圏の導来圏と、同型で閉じた三角部分圏に対する一般的な再構成補題。標準 truncation 三角と HomologySequence の完全性で区間長を帰納する。非可換環の加群にも使え、個々のコホモロジー加群の perfect 性は別途必要である。
 
 - `KroneckerPerfect.finite_module_mem` は標準射影分解の短完全列を `ShortExact.singleTriangle` で送り、三角部分圏が全有限射影加群を含めば全有限次元加群も含むことを示す。`bounded_mem_of_finite_cohomology` は一般 devissage と合成して有界・有限次元コホモロジーの複体まで進める。外部の perfect / compact predicate との同定は主張しない。
+
+- `KroneckerCompact` は本番ライブラリを `../..` の依存として再利用する。既存の dependency revision は全て維持し、Root の本番 manifest に Stacks は追加しない。有限射影加群の single complex を実際の IsPerfect 定義で構成し、Root の devissage を compact 部分圏へ代入した。逆方向は4次元代数上の有限射影複体の cohomology を部分商として有限次元にする。`compact_iff_bounded_finite_cohomology` / `perfect_iff_bounded_finite_cohomology` を検証した。

@@ -194,6 +194,12 @@
 
 `KroneckerPerfect.finite_module_mem` は既存の `rightModuleResolution_shortExact` と `finite_rightModuleResolution_terms` を `ShortComplex.ShortExact.singleTriangle` / `singleTriangle_distinguished`（mathlib `DerivedCategory.SingleTriangle`）へ接続する。これを一般 devissage と合成した `bounded_mem_of_finite_cohomology` は、有限射影加群を含む任意の厳密充満三角部分圏が有界・有限次元コホモロジーの Kronecker 複体も含むことを示す。外部の IsPerfect / IsCompactObject の述語はこの段階で仮定も同定もしていない。
 
+## Kronecker の実際の compact / perfect 判定
+
+`integrations/stacks/KroneckerCompact.lean` は本番 `Beilinson.KroneckerPerfect` と `StacksDraft.Perfect.isPerfect_iff_isCompactObject`（07LT、`Homology.Perfect.Characterizing`）を接続する。任意の非可換環の有限射影加群の single complex を IsPerfect の有限射影代表の定義で構成し、Kronecker の有限次元性と devissage から有界・有限次元コホモロジー⇒compact を得る。逆向きは、perfect 代表の各項が基礎体上有限次元であることと、cycles の包含・homology への全射から示す。`compact_iff_bounded_finite_cohomology` と `perfect_iff_bounded_finite_cohomology` は両方向の判定である。主要宣言は標準の3公理のみを使用し、実 build に成功した。幾何学的な End との同定は別に残る。
+
+このターゲットのため、独立 Stacks project に Root を `../..` の依存として追加した。optional manifest に Root / Verso の固定 dependency が入るが、本番 manifest には Stacks を追加しない。従来の固定 dependency の revision は変更していない。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

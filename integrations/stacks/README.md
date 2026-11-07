@@ -11,19 +11,24 @@ production Beilinson/Verso dependency graph.
 - The integration-specific `lake-manifest.json` records actual dependency resolution.
   Do not copy it into the root project.
 
+The optional project references the checked production library through `../..`.
+Its manifest therefore also records the root package and its pinned Verso dependencies.
+Only imported mathematical modules are built for these probes; the production project
+still has no Stacks dependency. Existing pinned dependency revisions were preserved.
+
 From this directory:
 
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-ten targets. Explicit arguments select other targets when they are available.
+eleven targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All ten targets have built successfully against the pinned package. Their exported
+All eleven targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -39,6 +44,7 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `ConcentratedDGA` | The two local adapters above and mathlib triangulated adjunctions | A concentrated dg algebra equals its degree-zero presentation on the same underlying algebra; its derived category has an exact comparison with ordinary right modules in both directions. |
 | `GeometricPerfectProbe` | `AlgebraicGeometry.Perfect.QuasiCoherentDerived.QcqsCompactIsPerfect` and `…Perfect.RegularBoundedCoherentPerfect` | On a qcqs regular scheme, compact objects of D_QCoh have exactly bounded coherent cohomology, at the locally small derived model. |
 | `ProjectivePerfectProbe` | The preceding adapter, `…Variety.Projective.RegularProjectiveSpace`, and `…ProjNoetherian.Basic` | Polynomial projective space over every field is regular, including n = 0; compactness is equivalent to bounded coherent cohomology. |
+| `KroneckerCompact` | Production `Beilinson.KroneckerPerfect` and `Homology.Perfect.Characterizing` | Right Kronecker complexes are compact/perfect exactly when bounded with finite-dimensional cohomology. This uses the concrete checked algebra, not a geometric End identification. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
