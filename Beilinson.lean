@@ -9,6 +9,7 @@ public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule
 public import Beilinson.KroneckerCategory
 public import Beilinson.KroneckerResolution
+public import Beilinson.KroneckerFinite
 public import Beilinson.KroneckerPerfect
 public import Beilinson.KroneckerDimension
 public import Beilinson.KroneckerIdeals
@@ -28,11 +29,14 @@ A categorical algebra equivalence identifies the endomorphism algebra of a pair
 with scalar diagonals, zero reverse Hom and a two-element forward Hom basis
 with the Kronecker model. Hom precomposition agrees with the reverse-arrow
 right action, and the length-one projective resolution transports to this End
-ring. Its geometric hypotheses are not yet instantiated.
+ring. The separate pinned Stacks integration instantiates the geometric Hom
+hypotheses on the projective line.
 A general bounded devissage lemma reconstructs an object inside a strictly full
 triangulated subcategory from its cohomology objects in any abelian category.
 For Kronecker, bounded finite-dimensional cohomology then suffices for membership
 in every such subcategory containing the finite projective modules.
+Finite-dimensional right modules also form a Serre subcategory, and their finite
+projective covers lift through epimorphisms.
 The geometric Beilinson equivalence is not yet formalized.
 
 Formal declarations will be imported from `Beilinson/` as they become available.

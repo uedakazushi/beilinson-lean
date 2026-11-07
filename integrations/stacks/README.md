@@ -21,14 +21,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections ProjectiveLineEnd CoherentDerivedComparison
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections ProjectiveLineEnd CoherentDerivedComparison KroneckerBoundedDerived
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-fourteen targets. Explicit arguments select other targets when they are available.
+fifteen targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All fourteen targets have built successfully against the pinned package. Their exported
+All fifteen targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -48,6 +48,7 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `SheafHomSections` | `AlgebraicGeometry.DerivedGlobalSectionsLinear`, `…DerivedGlobalSectionsHomUnit`, and `…IntegralTransformQcoh.Basic` | Evaluation at 1 identifies Hom(O_X,M) with global sections as a base-linear equivalence, naturally in M; the scalar structures used for sections and tensor agree. |
 | `ProjectiveLineEnd` | The preceding comparison and `…ProjTwistFunctor.Derived`, `…Cohomology.DerivedTwistSections`, `…TwistMonomialBasis` | On actual polynomial P¹ over every field, End(O(0) ⊕ O(1)) is isomorphic to the concrete Kronecker algebra; every right End module has projective dimension at most one. The isomorphism chooses a basis of Hom(O(0),O(1)). |
 | `CoherentDerivedComparison` | `…DerivedCoherent.Modules`, `…SiblingFunctors.BoundedCoherent`, and derived-model comparison | For a Noetherian scheme, Dᵇ(Coh X) is equivalent to the bounded-coherent full subcategory of D_QCoh in the locally small model. Both functors preserve triangles and shifts. |
+| `KroneckerBoundedDerived` | Production `Beilinson.KroneckerFinite`, `…DerivedCategory.SerreSubcategory`, and `KroneckerCompact` | The actual Dᵇ of finite-dimensional right Kronecker modules is equivalent to the compact ambient module derived category. Finite projective covers verify the Serre comparison; both directions preserve triangles and shifts. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict

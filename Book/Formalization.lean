@@ -127,6 +127,13 @@ Lean で代入する幾何学的ステップはまだ残っている。
 したがって上の Hom の仮定の下では、$`\operatorname{End}(X\oplus Y)` のすべての
 右加群の射影次元も高々1である。独立ターゲット `ProjectiveLineEnd` で、実際の射影直線の O(0), O(1) に Hom データを代入する計算も検証した。
 
+# 有限次元加群の部分圏
+
+`Beilinson/KroneckerFinite.lean` は有限次元右加群が部分対象・商・拡大で閉じる Serre 部分圏であることを示す。
+有限次元対象への任意の全射に対し、既存の有限射影被覆を射影性によって持ち上げることで、
+有限次元対象からの射で、元の全射との合成が再び全射となるものを構成する。
+この被覆条件を独立ターゲット `KroneckerBoundedDerived` の導来包含の比較に用いる。
+
 # 有界対象のコホモロジーからの再構成
 
 `Beilinson/DerivedDevissage.lean` は任意のアーベル圏 $`C` と、その導来圏の
@@ -150,7 +157,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十四個は検証済みである。
+次の十五個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -171,6 +178,8 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 13. `ProjectiveLineEnd`：任意の体上の実際の多項式 Proj で、O(0) と O(1) の直和の End を Kronecker 代数と同定し、全右加群の射影次元≤1を導く。二次元 Hom の基底を選ぶ同型である。
 
 14. `CoherentDerivedComparison`：Noether スキームで、$`D^b(\operatorname{Coh}X)` 自体と、小さい導来モデルの $`D_{\mathrm{QCoh}}` における有界連接部分圏との同値。シフトと三角の保存を両方向で確認する。
+
+15. `KroneckerBoundedDerived`：有限次元右 Kronecker 加群の有界導来圏自体と、通常の右加群の導来圏の compact 部分圏との三角同値を両方向で確認する。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。

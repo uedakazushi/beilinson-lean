@@ -218,6 +218,12 @@
 
 前向き関手を、標準モデルの導来包含とモデル間同値の合成として確認する `coherentCompInclusionIso` を用い、fully faithful な包含との合成が exact であることから exactness を示す。逆方向はシフトを `commShiftInverse` で与え、随伴関手の exactness で導く。小さいモデルの shift / pretriangulated のインスタンスを名前付きで保持し、標準モデルとの暗黙の取り違えを避ける。両方向のシフト・三角保存を含む主要宣言は標準3公理のみを使用し、独立ターゲットの実 build に成功した。Beilinson の有界制限との合成は別に残る。
 
+## Kronecker の D^b(有限次元右加群)
+
+本番 `Beilinson/KroneckerFinite.lean` は有限次元ベクトル空間の Serre 性を `Module.Finite.of_injective`、`of_surjective`、`of_exact` で確認し、スカラー制限の逆像として有限次元右 Kronecker 加群の Serre 性を得る。有限次元対象 Y への全射 f に対し、`rightModuleResolution Y` の有限射影項から Y への全射を `Projective.factorThru` で f を通して持ち上げる。`finiteRightModules_coversEpis` は、Serre 部分圏の導来比較に必要な被覆条件そのものである。
+
+独立 `KroneckerBoundedDerived.lean` は `ObjectProperty.full_faithful_essImage_minus_mapDerivedCategory`（Tag 0FCL、`DerivedCategory.SerreSubcategory`）にこの条件を代入する。bounded-above 導来包含の fully faithful 性を有界部分へ制限し、essential image の代表が下からも有界であることをコホモロジーで反映することで、有界版の `equivalence` を得る。`comparisonCompInclusionIso` はこの関手が実際の導来包含であることを記録し、fully faithful な包含を通して exactness を確認する。`KroneckerCompact` と合成した `compactEquivalence` は、実際の D^b(有限次元右加群) と compact 部分圏の同値であり、両方向でシフトと三角を保つ。標準3公理のみを使用し、実 build に成功した。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

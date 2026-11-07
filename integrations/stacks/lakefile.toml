@@ -72,3 +72,7 @@ name = "ProjectiveLineEnd"
 # Compare D^b(Coh) with bounded coherent cohomology in the geometric derived model.
 [[lean_lib]]
 name = "CoherentDerivedComparison"
+
+# Identify the actual bounded derived category of finite-dimensional Kronecker modules.
+[[lean_lib]]
+name = "KroneckerBoundedDerived"
