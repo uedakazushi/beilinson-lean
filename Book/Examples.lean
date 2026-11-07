@@ -37,7 +37,10 @@ $$`(u,v)\cdot(ae_0+be_1+x\alpha_0+y\alpha_1)
 $$`u_0\circ f_i=g_i\circ u_1\quad(i=0,1)`
 となることである。必要性は矢の作用を保つことから、十分性は上の作用公式から従う。
 任意の右加群の射も頂点の冪等元の作用を保つので、必ずこの形に分解される。
-これらの構成と作用の復元、射の可換条件は `Beilinson/KroneckerModule.lean` で Lean 検証した。
+これらの構成と作用の復元、射の可換条件は次のファイルで Lean 検証した。
+
+`Beilinson/KroneckerModule.lean`
+
 これらの構成は対象だけでなく射の恒等と合成も保つので関手を定める。
 加群側の $`m\mapsto(me_0,me_1)` と、表現側の復元した頂点空間から元の空間への射影は、
 ともに射と可換な同型である。従って右 $`A`-加群圏と逆向きの Kronecker 表現圏は圏同値となる。
@@ -50,6 +53,45 @@ $$`u_0\circ f_i=g_i\circ u_1\quad(i=0,1)`
 2. `finiteModuleEquivalence`：有限次元対象の充満部分圏への制限。
 
 幾何学的自己準同型代数との同定と Beilinson の導来同値は依然として別の課題である。
+
+# Hom 関手で矢の向きを確認する
+
+同次座標を $`x_0,x_1` とし、それらに対応する射
+$`\mathcal O\to\mathcal O(1)` を選ぶ。
+任意の coherent 層 $`F` に対し、$`R\operatorname{Hom}(T,F)` の第 $`q` コホモロジーの
+二頂点は
+$$`\bigl(H^q(F),H^q(F(-1))\bigr)`
+であり、二本の逆向きの矢は
+$$`x_i:H^q(F(-1))\longrightarrow H^q(F)\qquad(i=0,1)`
+である。これは Hom の前合成そのものである。
+$`\operatorname{Hom}(\mathcal O(1),F)` の元を $`x_i:\mathcal O\to\mathcal O(1)` と合成すると、
+$`\operatorname{Hom}(\mathcal O,F)` の元を得るので、矢の向きが直接確認できる。
+一般の線形圏での分解・前合成の両立性・自然性は、次のファイルで検証した。
+
+`Beilinson/KroneckerYoneda.lean`
+
+以下の線束・層への具体的な代入は、本書の自然言語の導来同値を使う計算である。
+
+特に $`F=\mathcal O` は $`(k,0)` に、$`F=\mathcal O(1)` は
+$`(k^2,k;v\mapsto(v,0),v\mapsto(0,v))` に移る。
+従って tilting 束の二つの直和因子は、後で具体的に同定する頂点右射影 $`e_0A,e_1A` に対応する。
+$`d\geq1` の $`F=\mathcal O(d)` では頂点次元が $`(d+1,d)` となり、
+矢は同次多項式への $`x_0,x_1` の乗法で与えられる。
+
+$`\mathcal O(-1)` の像は第1コホモロジーだけが $`L=(0,k;0,0)` となり、他は零である。従って
+$$`R\operatorname{Hom}(T,\mathcal O(-1))\simeq L[-1],\qquad
+L\longleftrightarrow\mathcal O(-1)[1].`
+実際、射影直線の Euler 完全列
+$$`0\longrightarrow\mathcal O(-1)\xrightarrow{(-x_1,x_0)}
+\mathcal O^{\oplus2}\xrightarrow{(x_0,x_1)}\mathcal O(1)\longrightarrow0`
+に $`R\operatorname{Hom}(T,-)` を適用すると、コホモロジーの完全列から
+$$`0\longrightarrow(e_0A)^{\oplus2}\longrightarrow e_1A\longrightarrow L\longrightarrow0`
+を得る。これは下で構成する $`L` の長さ1の射影分解を、幾何学側から説明する。
+
+また $`k`-有理点 $`p=[s:t]` の skyscraper 層 $`k(p)` は、両頂点が $`k` で、
+二本の矢がそれぞれ $`s,t` 倍となる表現に対応する。
+ここではファイバーの基底を選んでいる。基底変更による共通の非零スカラー倍は表現の同型を与えるので、
+$`[s:t]` という射影座標にのみ依存する。
 
 # 長さ1の射影分解
 

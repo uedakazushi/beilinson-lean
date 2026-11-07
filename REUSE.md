@@ -172,6 +172,12 @@
 
 ライブラリ入口は `module` / `public import` を使い、新しい module クライアントからの公開 API を確認する。空の Foundation の Mathlib umbrella import は最小限の category import へ整理し、数学ファイルが個別の依存を持つ。
 
+## 標準の Hom 右作用と射影分解への接続
+
+`Beilinson/KroneckerYoneda.lean` の `homFunctor` は mathlib の `preadditiveCoyonedaObj (X⊞Y)` と、`ofArrows` の反対環準同型に沿う `ModuleCat.restrictScalars` の合成である。独自に作用を置いて標準の End 作用との一致を仮定していない。`homCoordinates_precompose` は二成分への線形分解が `Kronecker.ofArrows` の作用を保つことを示す。`homModuleEquiv` は通常の反対代数加群の線形同型で、`homFunctorIso` は二つの Hom を頂点に持つ `representationFunctor` と `fromReverseRep` の合成への自然同型である。
+
+`Beilinson/KroneckerEndModules.lean` は任意の環同型 A≃S に対して `restrictScalarsEquivalenceOfRingEquiv` を使う。`resolution` の短完全性は `ShortExact.map_of_exact`、両項の射影性は `Equivalence.map_projective_iff` で移送し、`resolutionTargetIso` で終点を元の加群に戻す。`projectiveDimension_le_one` と条件付きの `end_projectiveDimension_le_one` はこの実際の短完全列から得る。これらも本番の build と標準3公理の監査に成功した。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。
