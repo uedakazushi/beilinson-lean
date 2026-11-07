@@ -33,3 +33,5 @@
 - Stacks の深い階層で Koszul 生成性と非有界 dg 版 Beilinson 同値の候補を確認した。正確な宣言と型の境界は REUSE.md を参照。候補発見、ソース照合、ローカル build、主定理への移送を区別する。
 
 - dg の primed / unprimed な導来圏は同じ基礎圏でも三角の符号規約が異なる。`DegreeZeroConeComparison` で sign twist を経由する exactness の橋渡しを検証した。既存の exactness を構造ごと混用しない。
+
+- 第2章の Čech 計算は、Laurent 単項式の負指数集合 N による三場合と明示的な収縮ホモトピーに展開した。最上次数の次元公式と負次数の derived Hom の消滅も明記する。この追加は自然言語の証明であり、Verso のビルドを Lean による証明と見なさない。
