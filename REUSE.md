@@ -148,6 +148,14 @@
 
 既存の `DifferentialGradedAlgebra` の圏と `degreeZero` を再利用する薄い adapter であり、上流コードの複製ではない。import は `StacksFrontier.Algebra.DifferentialGraded.AlgebraCategory` と `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`。閉包456モジュール。実 build と公理監査に成功し、依存公理は標準の3つのみ。幾何学的 End の同型への具体的適用は、大きな幾何学側の検証ターゲットで別途確認する。
 
+## dg 導来圏の三角の符号を合わせる adapter
+
+重要な追加境界：幾何学的 `Beilinson.tensorWithGenerator` は `DifferentialGradedModule.derivedCategory`（cone 規約）を始域に持つ。一方 `degreeZeroDerivedEquivalence_functor_exact` は `derivedCategory'`（admissible short exact sequence 規約）について述べる。同じ universe では基礎圏・quasi-isomorphism の条件は definitionally 一致するが、三角構造をそのまま混用してはいけない。
+
+既存の import `StacksFrontier.Algebra.DifferentialGraded.Module.ConeSignTransfer` は、二つの規約が第三の矢の符号で異なることを `mem_distinguishedConeTriangles_iff_isDistinguishedTriangle_signTwist_mapTriangle` として形式化し、`isTriangulated_signTwist_comp` を提供する。通常の恒等関手と、shift 比較が (-1)^n である sign-twisted identity は同じものとして扱わない。
+
+新しい `integrations/stacks/DegreeZeroConeComparison.lean` はこの既存結果を使う。`signedHomotopyFunctor_isTriangulated` で sign twist 後の homogeneous-components functor が cone 規約で exact となることを示し、局所化を通して `coneRightModuleComparison_exact` を得た。基礎圏の比較を新しい shift 比較とともに降ろすので、単に primed の定理を型変換して exact と呼んでいない。実 build と公理監査に成功し、依存は標準の3つのみ。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

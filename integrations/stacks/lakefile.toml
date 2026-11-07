@@ -33,3 +33,7 @@ name = "StacksAlgebraProbe"
 # A strict dg adapter from the ordinary endomorphism algebra.
 [[lean_lib]]
 name = "DGAComparison"
+
+# Match the cone convention of the geometric dg equivalence.
+[[lean_lib]]
+name = "DegreeZeroConeComparison"

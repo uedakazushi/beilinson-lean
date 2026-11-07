@@ -103,7 +103,7 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の六つは検証済みである。
+次の七つは検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -111,6 +111,7 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 4. `StacksOrdinaryProbe`：非可換な degree-zero dg 代数の右加群の導来圏と、通常の反対環の加群の導来圏の三角同値。
 5. `StacksAlgebraProbe`：多項式の斉次成分から作る行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値。
 6. `DGAComparison`：基礎環上の代数同型と、次数0への集中・微分の消滅から、対応する degree-zero dg 代数との厳密な同型を構成する adapter。
+7. `DegreeZeroConeComparison`：上流の二つの三角の規約の差を sign twist で補正し、幾何学側が使う cone 規約でも通常右加群への比較が三角を保つこと。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。

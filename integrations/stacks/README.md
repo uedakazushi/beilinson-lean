@@ -16,14 +16,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-six targets. Explicit arguments select other targets when they are available.
+seven targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All six targets have built successfully against the pinned package. Their exported
+All seven targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -35,6 +35,7 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `StacksOrdinaryProbe` | `Algebra.DifferentialGraded.Module.DegreeZeroTriangulated` | Degree-zero dg modules have the triangulated derived category of ordinary right modules, encoded by the opposite ring. |
 | `StacksAlgebraProbe` | `Homology.Perfect.BeilinsonAlgebra` | On the polynomial-matrix Beilinson algebra, compactness is equivalent to finite total cohomology. |
 | `DGAComparison` | `Algebra.DifferentialGraded.AlgebraCategory` and `…Module.DegreeZeroAlgebra` | A new adapter lifts an algebra identification with zero differential and degree-zero concentration to a strict dg algebra isomorphism. |
+| `DegreeZeroConeComparison` | `…Module.DegreeZeroTriangulated`, `…Module.ConeSignTransfer`, and `Algebra.DGA.DerivedCategory` | The ordinary right-module comparison is exact for the cone convention, after the shift sign is corrected. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
@@ -55,3 +56,8 @@ book, the ordinary endomorphism algebra, and the bounded coherent restriction
 remain to be connected in this project. Promotion to a production dependency
 requires recording the exact declarations, assumptions, model comparisons, and
 build cost in the reuse ledger.
+
+The geometric dg equivalence uses the cone triangulation; the original ordinary-module
+comparison uses admissible-sequence triangles. The sign correction in
+`DegreeZeroConeComparison` is required even though the underlying localizations
+agree at equal universes.
