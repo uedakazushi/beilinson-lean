@@ -62,5 +62,6 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 
 `Beilinson/KroneckerEnd.lean` は一般の k-線形圏の二対象について、対角 Hom のスカラー同定、逆向き Hom の消滅、順向き Hom の二元基底を仮定し、具体的 Kronecker 代数と直和の End の代数同型を構成する。頂点・矢の像と次元4も検証済み。射影直線の線束にこの Hom データを代入する幾何学的ステップは未完成である。
 `Beilinson/KroneckerYoneda.lean` は Hom(X⊕Y,Z) の二成分への線形同型と、前合成による右作用が二本の逆向き写像と一致することを証明する。
+`Beilinson/KroneckerEndModules.lean` は環同型に沿って長さ1の射影分解を移送する。上の Hom の仮定を満たす直和の End についても、すべての右加群の射影次元が高々1となる。
 
 開発成果は検証後に main へ直接 push する。作業用ブランチや PR は作成しない。

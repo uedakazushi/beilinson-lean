@@ -4,6 +4,7 @@ public import Beilinson.Foundation
 public import Beilinson.Kronecker
 public import Beilinson.KroneckerEnd
 public import Beilinson.KroneckerYoneda
+public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule
 public import Beilinson.KroneckerCategory
 public import Beilinson.KroneckerResolution

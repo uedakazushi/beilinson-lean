@@ -120,6 +120,11 @@ Lean で代入する幾何学的ステップはまだ残っている。
 二本の線形写像から作った右 Kronecker 作用と一致することを示す。
 これにより Hom 関手の右作用と本文の矢の規約を照合できる。
 
+`Beilinson/KroneckerEndModules.lean` は反対環の環同型に沿って短完全列と
+射影性を移送し、最後の項を元の加群と同型で結ぶ。
+したがって上の Hom の仮定の下では、$`\operatorname{End}(X\oplus Y)` のすべての
+右加群の射影次元も高々1である。幾何学的 Hom データの代入は引き続き必要である。
+
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。

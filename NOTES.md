@@ -43,3 +43,5 @@
 - ライブラリ入口 `Beilinson.lean` と Foundation を Lean 4 の module 形式へ揃えた。module クライアントから `import Beilinson` する経路も監査する。空の Foundation は Mathlib 全体を import せず、各数学ファイルが必要な依存を宣言する。
 
 - `KroneckerYoneda.homCoordinates_precompose` は、直和からの Hom の線形分解が End による前合成と `Kronecker.ofArrows` の右作用を絡み合わせることを検証した。幾何学的 Hom の計算を仮定しない一般の線形圏の補題である。
+
+- `KroneckerEndModules` は反対環の環同型による加群圏同値を使い、短完全な射影分解を移送する。End 同定の仮定を満たす二対象の直和について、全右加群の射影次元≤1も導かれる。環同型から導来同値を仮定せず、加群圏で短完全性・射影性・最後の項の同型を確認した。
