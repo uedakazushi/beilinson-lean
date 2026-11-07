@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-# Run in the root of the repository after installing the pinned Lean toolchain.
-# This script intentionally does not run `lake update`.
-# Commit the generated lake-manifest.json after the first dependency resolution.
+cd "$(dirname "$0")/.."
 
 test -f lean-toolchain
-test -f lakefile.toml
+test -f lakefile.lean
 
 echo "Lean toolchain: $(cat lean-toolchain)"
 lake --version
 lake exe cache get
-lake build Beilinson
-lake build Book
-lake build generate-book
-lake exe generate-book
+
+# This checks the Lean libraries and produces both Verso HTML and LuaLaTeX PDF.
+lake build
 
 echo "All requested build commands finished successfully."
