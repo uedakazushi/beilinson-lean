@@ -118,7 +118,9 @@ Lean で代入する幾何学的ステップはまだ残っている。
 `Beilinson/KroneckerYoneda.lean` は $`\operatorname{Hom}(X\oplus Y,Z)` を二つの Hom の積へ線形分解する。
 `homCoordinates_precompose` は End の前合成作用が、$`f_i` との合成による逆向きの
 二本の線形写像から作った右 Kronecker 作用と一致することを示す。
-これにより Hom 関手の右作用と本文の矢の規約を照合できる。
+さらに `homFunctorIso` は、mathlib の標準の右 End 作用を制限した Hom 関手と、
+二つの Hom を頂点に持つ表現から構成した右加群関手の自然同型を与える。
+作用の式だけでなく、通常の加群とその射のレベルでも本文の矢の規約を照合できる。
 
 `Beilinson/KroneckerEndModules.lean` は反対環の環同型に沿って短完全列と
 射影性を移送し、最後の項を元の加群と同型で結ぶ。

@@ -45,3 +45,5 @@
 - `KroneckerYoneda.homCoordinates_precompose` は、直和からの Hom の線形分解が End による前合成と `Kronecker.ofArrows` の右作用を絡み合わせることを検証した。幾何学的 Hom の計算を仮定しない一般の線形圏の補題である。
 
 - `KroneckerEndModules` は反対環の環同型による加群圏同値を使い、短完全な射影分解を移送する。End 同定の仮定を満たす二対象の直和について、全右加群の射影次元≤1も導かれる。環同型から導来同値を仮定せず、加群圏で短完全性・射影性・最後の項の同型を確認した。
+
+- `KroneckerYoneda.homFunctorIso` は mathlib の `preadditiveCoyonedaObj` を環準同型で制限した実際の加群関手を使う。二本の矢の表現を加群へ変換した関手との自然同型を確認し、独自に右作用を再定義して標準の End 作用との比較を省くことを避けた。

@@ -1,7 +1,9 @@
 module
 
 public import Beilinson.KroneckerEnd
-public import Beilinson.KroneckerModule
+public import Beilinson.KroneckerCategory
+public import Mathlib.CategoryTheory.Preadditive.Yoneda.Basic
+public import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
 
 /-! Precomposition by the two arrows gives the reverse-arrow action on Hom.
 This identifies the right-action convention used by the tilting functor. -/
@@ -55,5 +57,49 @@ theorem homCoordinates_precompose (f : Fin 2 → (X ⟶ Y))
   ext <;> simp [homCoordinates, KroneckerEnd.fromCoordinates, Biprod.ofComponents,
     reverseArrows, Preadditive.add_comp, Preadditive.comp_add,
     Linear.smul_comp, Linear.comp_smul, Category.assoc, add_assoc]
+
+/-- The ordinary Hom functor with its standard right End action restricted to Kronecker. -/
+def homFunctor (f : Fin 2 → (X ⟶ Y)) : C ⥤ ModuleCat.{v} (Kronecker.Algebra k)ᵐᵒᵖ :=
+  preadditiveCoyonedaObj (X ⊞ Y) ⋙
+    ModuleCat.restrictScalars (RingHom.op (KroneckerEnd.ofArrows k f).toRingHom)
+
+/-- Hom with the two summands, viewed as a reverse-quiver representation. -/
+def representationFunctor (f : Fin 2 → (X ⟶ Y)) : C ⥤ Kronecker.ReverseRep.{u,v} k where
+  obj Z :=
+    { V₀ := ModuleCat.of k (X ⟶ Z)
+      V₁ := ModuleCat.of k (Y ⟶ Z)
+      arrow := reverseArrows k f }
+  map g :=
+    { zero :=
+        { toFun := fun h => h ≫ g
+          map_add' := by intros; simp [Preadditive.add_comp]
+          map_smul' := by intros; simp [Linear.smul_comp] }
+      one :=
+        { toFun := fun h => h ≫ g
+          map_add' := by intros; simp [Preadditive.add_comp]
+          map_smul' := by intros; simp [Linear.smul_comp] }
+      comm i := by ext h; exact Category.assoc _ _ _ }
+  map_id Z := by
+    apply Kronecker.ReverseRep.hom_ext <;> ext h <;> exact Category.comp_id h
+  map_comp g h := by
+    apply Kronecker.ReverseRep.hom_ext <;> ext m <;> exact (Category.assoc m g h).symm
+
+/-- The Hom decomposition is an isomorphism of actual ordinary right modules. -/
+def homModuleEquiv (f : Fin 2 → (X ⟶ Y)) (Z : C) :
+    (homFunctor k f).obj Z ≃ₗ[(Kronecker.Algebra k)ᵐᵒᵖ]
+      Kronecker.fromReverseRep.obj ((representationFunctor k f).obj Z) where
+  toEquiv := (homCoordinates k).toEquiv
+  map_add' := (homCoordinates k).map_add
+  map_smul' a h := homCoordinates_precompose k f a.unop h
+
+/-- The module identification is natural in the target of Hom. -/
+def homFunctorIso (f : Fin 2 → (X ⟶ Y)) :
+    homFunctor k f ≅ representationFunctor k f ⋙ Kronecker.fromReverseRep :=
+  NatIso.ofComponents (fun Z => (homModuleEquiv k f Z).toModuleIso) (by
+    intro Z W g
+    apply ModuleCat.hom_ext
+    apply LinearMap.ext
+    intro h
+    exact homCoordinates_postcompose k h g)
 
 end Beilinson.KroneckerYoneda
