@@ -74,5 +74,17 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 5. `rightModule_projectiveDimension_le_one`：mathlib の射影次元に関して、全ての右加群 $`M` で $`\operatorname{pd}_A M\leq1`。
 
 一般次元の Beilinson 代数の有限大域次元性や、幾何学的な tilting theorem はまだ含まない。
-次は頂点射影表現と右イデアル $`e_iA` を同定し、非射影の単純加群を用いて上界の鋭さを検証する。
+
+# 上界の鋭さ
+
+`Beilinson/KroneckerDimension.lean`
+
+このファイルは頂点1だけに1次元空間を持つ表現から右加群を構成する。
+
+1. `sourceSimpleModule_simple`：全ての非零ベクトルが全体を生成するという既存の判定法による単純性。
+2. `sourceSimpleModule_not_projective`：標準射影全射に切断があれば矢との可換性に反することによる非射影性。
+3. `sourceSimpleModule_projectiveDimension`：射影次元がちょうど1となること。
+4. `sourceSimpleModule_finite`：この例は基礎体上有限次元であること。
+
+次は頂点射影表現と右イデアル $`e_iA` を明示的に同定する。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。

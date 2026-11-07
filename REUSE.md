@@ -103,7 +103,13 @@
 
 `Beilinson/KroneckerResolution.lean` は sink(U)=(U,0) と、cover(X)=(X₀×(X₁×X₁),X₁) を用いる。augmentation の頂点0での写像は (u,s,t)↦u+f₀s+f₁t、関係写像は (s,t)↦(-f₀s-f₁t,s,t)。前者の全射性、後者の単射性と像=核を直接確認する。射影性は極小な射影被覆の存在ではなく持ち上げ性で証明する。
 
-`rightModuleResolution`、`rightModuleResolution_shortExact`、両項の射影性、`finite_rightModuleResolution_terms`、`rightModule_projectiveDimension_le_one` を Lean 検証した。これは任意の体・任意の右加群についての上界であり、上界の鋭さ、Ring の global-dimension API との同定、eᵢA との明示的同型は未実装。一般 n の幾何学的・導来圏の主張も含まない。
+`rightModuleResolution`、`rightModuleResolution_shortExact`、両項の射影性、`finite_rightModuleResolution_terms`、`rightModule_projectiveDimension_le_one` を Lean 検証した。これは任意の体・任意の右加群についての上界であり、上界の鋭さは次節で検証済み。Ring の global-dimension API との同定と eᵢA との明示的同型は未実装。一般 n の幾何学的・導来圏の主張も含まない。
+
+## 上界を達成する単純加群
+
+`Beilinson/KroneckerDimension.lean` は L=(0,k;0,0) の標準射影全射に切断がないことを、第一の矢への可換性から示す。`Projective.factors` を否定することで非射影性を得て、圏同値で通常の右加群へ移す。
+
+単純性は `isSimpleModule_iff_toSpanSingleton_surjective`（`Mathlib.RingTheory.SimpleModule.Basic`）を用いる。右加群の全ての非零ベクトルが全体を生成することを、頂点1の係数 w/v による作用で確認する。射影次元の下界は `projectiveDimension_ge_iff` と `projective_iff_hasProjectiveDimensionLT_one`（`Mathlib.CategoryTheory.Abelian.Projective.Dimension`）で非射影性から導き、既存の上界と合わせる。`sourceSimpleModule_projectiveDimension` は正確に射影次元1を主張する。`sourceSimpleModule_finite` により例が有限次元であることも確認した。
 
 ## 更新と再現
 
