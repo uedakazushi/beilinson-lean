@@ -3,6 +3,7 @@ module
 public import Beilinson.Kronecker
 public import Mathlib.CategoryTheory.Preadditive.Biproducts
 public import Mathlib.CategoryTheory.Linear.Basic
+public import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
 public import Mathlib.Tactic.Abel
 
 /-! The Kronecker algebra acts on a binary biproduct through two chosen morphisms.
@@ -19,8 +20,38 @@ namespace Beilinson.KroneckerEnd
 
 universe u v w
 
-variable (k : Type u) [Field k] {C : Type w} [Category.{v} C]
-  [Preadditive C] [Linear k C] [HasBinaryBiproducts C] {X Y : C}
+variable (k : Type u) [Field k]
+
+/-- A positive finite dimension supplies a finite basis. Keeping existence as a
+proposition avoids expanding basis-choice data at geometric instantiations. -/
+theorem nonemptyBasisOfFinrank {V : Type v} [AddCommGroup V] [Module k V]
+    {n : ℕ} (h : Module.finrank k V = n) (hn : 0 < n) :
+    Nonempty (Module.Basis (Fin n) k V) := by
+  let : Module.Free k V := Module.Free.of_divisionRing k V
+  let : FiniteDimensional k V := FiniteDimensional.of_finrank_pos (by omega)
+  exact ⟨Module.finBasisOfFinrankEq k V h⟩
+
+variable {C : Type w} [Category.{v} C] [Preadditive C] [Linear k C] {X Y : C}
+
+/-- A one-dimensional endomorphism algebra is canonically its scalar algebra. -/
+def scalarAlgebraEquiv (X : C) (h : Module.finrank k (X ⟶ X) = 1) :
+    k ≃ₐ[k] End X :=
+  AlgEquiv.ofBijective (_root_.Algebra.ofId k (End X))
+    (_root_.Algebra.finrank_eq_one_iff_bijective_algebraMap.mp
+      ((End.linearEquiv (R := k) (X := X)).finrank_eq.trans h))
+
+/-- Read the scalar of an endomorphism, normalized at the identity. -/
+def scalarHomEquiv (X : C) (h : Module.finrank k (X ⟶ X) = 1) :
+    (X ⟶ X) ≃ₗ[k] k :=
+  (End.linearEquiv (R := k) (X := X)).symm.trans
+    (scalarAlgebraEquiv k X h).symm.toLinearEquiv
+
+@[simp] theorem scalarHomEquiv_id (X : C) (h : Module.finrank k (X ⟶ X) = 1) :
+    scalarHomEquiv k X h (𝟙 X) = 1 := by
+  change (scalarAlgebraEquiv k X h).symm (1 : End X) = 1
+  exact map_one _
+
+variable [HasBinaryBiproducts C]
 
 /-- The two scalar diagonal blocks and the two chosen off-diagonal morphisms. -/
 def fromCoordinates (f : Fin 2 → (X ⟶ Y)) : (Fin 4 → k) →ₗ[k] End (X ⊞ Y) where

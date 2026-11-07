@@ -150,7 +150,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十一個は検証済みである。
+次の十二個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -165,6 +165,8 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 10. `ProjectivePerfectProbe`：任意の体上の多項式 Proj の正則性と、上の compactness 判定への代入。次元0も含む。
 
 11. `KroneckerCompact`：本番の Kronecker 証明を再利用し、右加群の複体について、compactness / perfect 性と有界・有限次元コホモロジーの同値を確認する。幾何学的な End の同定は含まない。
+
+12. `SheafHomSections`：構造層からの Hom と大域切断の線形同型、対象に関する自然性、切断とテンソルのスカラー構造の一致。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。

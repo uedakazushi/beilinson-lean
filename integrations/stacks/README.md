@@ -21,14 +21,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-eleven targets. Explicit arguments select other targets when they are available.
+twelve targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All eleven targets have built successfully against the pinned package. Their exported
+All twelve targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -45,6 +45,8 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `GeometricPerfectProbe` | `AlgebraicGeometry.Perfect.QuasiCoherentDerived.QcqsCompactIsPerfect` and `…Perfect.RegularBoundedCoherentPerfect` | On a qcqs regular scheme, compact objects of D_QCoh have exactly bounded coherent cohomology, at the locally small derived model. |
 | `ProjectivePerfectProbe` | The preceding adapter, `…Variety.Projective.RegularProjectiveSpace`, and `…ProjNoetherian.Basic` | Polynomial projective space over every field is regular, including n = 0; compactness is equivalent to bounded coherent cohomology. |
 | `KroneckerCompact` | Production `Beilinson.KroneckerPerfect` and `Homology.Perfect.Characterizing` | Right Kronecker complexes are compact/perfect exactly when bounded with finite-dimensional cohomology. This uses the concrete checked algebra, not a geometric End identification. |
+
+| `SheafHomSections` | `AlgebraicGeometry.DerivedGlobalSectionsLinear`, `…DerivedGlobalSectionsHomUnit`, and `…IntegralTransformQcoh.Basic` | Evaluation at 1 identifies Hom(O_X,M) with global sections as a base-linear equivalence, naturally in M; the scalar structures used for sections and tensor agree. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict

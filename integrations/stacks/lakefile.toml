@@ -60,3 +60,7 @@ name = "ProjectivePerfectProbe"
 # Apply the production finite-projective reconstruction to the Stacks compactness predicate.
 [[lean_lib]]
 name = "KroneckerCompact"
+
+# Base-linear Hom from the structure sheaf and the scalar-structure comparison.
+[[lean_lib]]
+name = "SheafHomSections"

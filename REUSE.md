@@ -200,6 +200,12 @@
 
 このターゲットのため、独立 Stacks project に Root を `../..` の依存として追加した。optional manifest に Root / Verso の固定 dependency が入るが、本番 manifest には Stacks を追加しない。従来の固定 dependency の revision は変更していない。
 
+## 構造層からの Hom と大域切断の線形比較
+
+`integrations/stacks/SheafHomSections.lean` は `bijective_unitHom_app_top_one` を基礎環上の線形同型へ強化する。`unitHomLinearEquiv` は `Scheme.smul_val_app_top` でスカラーとの可換性を証明し、恒等射を1へ送り、対象の射に関して自然である。`unitHomLinearEquivOfLinear` は既に選んだ線形構造と線形な大域切断関手をそのまま使う。`linearOver_eq_modulesLinear` は大域切断とテンソルで用いるスカラー構造が定義的に一致することを確認する。独立ターゲットの実 build と標準3公理の監査に成功した。
+
+本番 `KroneckerEnd.scalarAlgebraEquiv` / `scalarHomEquiv` は、一次元の自己準同型環をスカラーと同定し、恒等射の正規化も証明する。`nonemptyBasisOfFinrank` は正の有限次元から基底の存在を供給する。これらは一般の線形圏・ベクトル空間に関する補題であり、幾何学的 Hom データの代入は別に検証している。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。
