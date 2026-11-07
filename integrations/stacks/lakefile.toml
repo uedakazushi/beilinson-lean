@@ -41,3 +41,11 @@ name = "DegreeZeroConeComparison"
 # Transport a concentrated dg algebra to ordinary right modules without dg Morita.
 [[lean_lib]]
 name = "ConcentratedDGA"
+
+# Geometric compactness versus bounded coherent cohomology.
+[[lean_lib]]
+name = "GeometricPerfectProbe"
+
+# Field-valued polynomial projective space, including n = 0.
+[[lean_lib]]
+name = "ProjectivePerfectProbe"

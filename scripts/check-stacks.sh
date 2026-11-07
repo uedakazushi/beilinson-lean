@@ -5,7 +5,7 @@ echo "Checking separately pinned Stacks integration"
 echo "This is potentially expensive; it is NOT run by scripts/check.sh."
 targets=("$@")
 if (($# == 0)); then
-  targets=(StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA)
+  targets=(StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe)
 fi
 lake exe cache get
 lake build "${targets[@]}"

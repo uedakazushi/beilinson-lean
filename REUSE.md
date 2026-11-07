@@ -178,6 +178,14 @@
 
 `Beilinson/KroneckerEndModules.lean` は任意の環同型 A≃S に対して `restrictScalarsEquivalenceOfRingEquiv` を使う。`resolution` の短完全性は `ShortExact.map_of_exact`、両項の射影性は `Equivalence.map_projective_iff` で移送し、`resolutionTargetIso` で終点を元の加群に戻す。`projectiveDimension_le_one` と条件付きの `end_projectiveDimension_le_one` はこの実際の短完全列から得る。これらも本番の build と標準3公理の監査に成功した。
 
+## 幾何学側の compactness と有界 coherent の接続
+
+`GeometricPerfectProbe.compact_iff_boundedCoherent` は、qcqs な正則スキーム X に対して、locally small な D_QCoh の compact 対象と有界 coherent コホモロジーを持つ対象を同定する。前半は `Stacks.Duality.QcqsPerfect.isCompactObject_iff_isPerfect`（09M1、`AlgebraicGeometry.Perfect.QuasiCoherentDerived.QcqsCompactIsPerfect`）、後半は `Stacks.AlgebraicGeometry.PerfectCohomology.isPerfect_iff_isBoundedCoherent_of_isRegular`（0FDC、`…Perfect.RegularBoundedCoherentPerfect`）。二つの perfect の定義は Scheme の RingedSpace.{u,u} で定義上同じであることを確認した。derived-category model は `Scheme.Modules.hasDerivedCategory` に揃える。
+
+`ProjectivePerfectProbe.regular` は `…Variety.Projective.RegularProjectiveSpace` の `ProjPolyChart.isRegularLocalRing_stalk_proj` と `…ProjNoetherian.Basic` の Noetherian 性を `AlgebraicGeometry.isRegular_tfae` で組み合わせる。`compact_iff_boundedCoherent` は任意の体、全ての n≥0 の多項式 Proj への代入である。両ターゲットの実 build と標準3公理の監査に成功した。
+
+これは幾何学側の対象条件の確認である。Beilinson 関手の制限、代数側の有限次元条件、Db(Coh) 自体と D_QCoh 内の有界 coherent 対象の比較は別に必要である。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

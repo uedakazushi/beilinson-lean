@@ -16,14 +16,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-eight targets. Explicit arguments select other targets when they are available.
+ten targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All eight targets have built successfully against the pinned package. Their exported
+All ten targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -37,6 +37,8 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `DGAComparison` | `Algebra.DifferentialGraded.AlgebraCategory` and `…Module.DegreeZeroAlgebra` | A new adapter lifts an algebra identification with zero differential and degree-zero concentration to a strict dg algebra isomorphism. |
 | `DegreeZeroConeComparison` | `…Module.DegreeZeroTriangulated`, `…Module.ConeSignTransfer`, and `Algebra.DGA.DerivedCategory` | The ordinary right-module comparison is exact for the cone convention, after the shift sign is corrected. |
 | `ConcentratedDGA` | The two local adapters above and mathlib triangulated adjunctions | A concentrated dg algebra equals its degree-zero presentation on the same underlying algebra; its derived category has an exact comparison with ordinary right modules in both directions. |
+| `GeometricPerfectProbe` | `AlgebraicGeometry.Perfect.QuasiCoherentDerived.QcqsCompactIsPerfect` and `…Perfect.RegularBoundedCoherentPerfect` | On a qcqs regular scheme, compact objects of D_QCoh have exactly bounded coherent cohomology, at the locally small derived model. |
+| `ProjectivePerfectProbe` | The preceding adapter, `…Variety.Projective.RegularProjectiveSpace`, and `…ProjNoetherian.Basic` | Polynomial projective space over every field is regular, including n = 0; compactness is equivalent to bounded coherent cohomology. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
@@ -54,7 +56,10 @@ specific degree-zero model. Neither type boundary is silently identified here.
 
 The geometric zero-detection hypotheses, matching the positive twist sum of the
 book, the ordinary endomorphism algebra, and the bounded coherent restriction
-remain to be connected in this project. Promotion to a production dependency
+remain to be connected in this project. The geometric target finiteness criterion
+is now checked, but the restriction of the Beilinson functor to it is not yet checked.
+The full subcategory of bounded coherent cohomology also still needs comparison
+with the bounded derived category of coherent sheaves itself. Promotion to a production dependency
 requires recording the exact declarations, assumptions, model comparisons, and
 build cost in the reuse ledger.
 

@@ -130,7 +130,7 @@ Lean で代入する幾何学的ステップはまだ残っている。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の八つは検証済みである。
+次の十個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -140,6 +140,9 @@ Lean で代入する幾何学的ステップはまだ残っている。
 6. `DGAComparison`：基礎環上の代数同型と、次数0への集中・微分の消滅から、対応する degree-zero dg 代数との厳密な同型を構成する adapter。
 7. `DegreeZeroConeComparison`：上流の二つの三角の規約の差を sign twist で補正し、幾何学側が使う cone 規約でも通常右加群への比較が三角を保つこと。
 8. `ConcentratedDGA`：同じ基礎代数を保つときの degree-zero モデルとの等式を証明し、集中 dg 代数の導来圏を通常の右加群の導来圏へ比較する。両方向の exactness を確認した。
+
+9. `GeometricPerfectProbe`：準コンパクトかつ準分離な正則スキームで、compact な $`D_{\mathrm{QCoh}}` 対象と有界 coherent コホモロジーを持つ対象の一致。
+10. `ProjectivePerfectProbe`：任意の体上の多項式 Proj の正則性と、上の compactness 判定への代入。次元0も含む。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
@@ -151,3 +154,6 @@ kernel check と数学的な定式化の照合は、このレビュー状態を�
 この自然同型と自己準同型代数の移送、幾何学的な右直交零検出、
 通常の右加群への比較と有界連接部分圏への制限は、なお接続する必要がある。
 正確な上流宣言と追加の検証ターゲットは、リポジトリの再利用台帳を参照する。
+
+この幾何学側の判定は、$`D_{\mathrm{QCoh}}` の中の有界 coherent コホモロジーを持つ対象に関するものである。
+$`D^b(\operatorname{Coh}X)` 自体との比較、代数側の有限次元条件、同値関手による制限を完了したとは扱わない。
