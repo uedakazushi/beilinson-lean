@@ -2,7 +2,7 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、および有限次元部分圏への制限は Lean で検証済みです。本番の `bash scripts/check.sh` は教科書 HTML 生成まで成功しました。
+**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、および有限次元部分圏への制限は Lean で検証済みです。本番の `lake build` は教科書 HTML 生成まで成功しました。
 
 ## 最初に読むもの
 
@@ -25,6 +25,15 @@ bash scripts/check.sh
 ```
 
 `lake-manifest.json` は Lake が生成したものを commit 済み。更新作業以外では意図せず `lake update` をしない。
+
+**PDF 生成の準備（初回のみ）：**
+
+```sh
+python3 -m pip install playwright pypdf
+python3 -m playwright install chromium
+```
+
+`lake build` は Lean ライブラリを検証したうえで Verso HTML（`_out/html/index.html`）と単一 PDF（`_out/beilinson-book.pdf`）を生成する。PDF はローカル Chromium で各章を印刷して結合する。初回は上記の Python 依存関係とブラウザのインストールが必要。失敗した場合は build が失敗する。PDF は HTML の印刷版であり、LaTeX への変換ではない。
 
 **オプション：Axiom Stacks の検証**
 
