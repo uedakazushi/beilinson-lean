@@ -48,7 +48,9 @@ $`k`-代数準同型として扱う。mathlib の `Algebra.lsmul` と `Module.co
 `Beilinson/KroneckerCategory.lean` は `ReverseRep` を、二つのベクトル空間と
 二本の $`V_1\to V_0` の写像、およびそれらと可換な頂点ごとの射の圏として定義する。
 `toReverseRep` と `fromReverseRep` は mathlib の `ModuleCat` とこの表現圏の間の関手である。
-`moduleUnitIso` は加群の頂点分解、`representationCounitIso` は元の頂点空間の復元を自然同型にまとめる。
+`moduleUnitIso` は加群の頂点分解を自然同型にまとめる。
+
+`representationCounitIso` は元の頂点空間の復元を自然同型にまとめる。
 これらから `moduleEquivalence` は
 $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 を mathlib の圏同値の構造体として与える。
@@ -57,5 +59,20 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 `finite_toReverseRep_iff` は有限次元性が両頂点空間の有限次元性と同値であることを示し、
 `finiteModuleEquivalence` は有限次元対象の充満部分圏の間の圏同値を与える。
 これはあくまで具体的な代数モデルの加群圏同値であり、射影直線上の層の圏や導来圏との同値ではない。
-次は頂点冪等元から得られる射影加群を表現側で同定し、有限次元加群の長さ1の射影分解へ進む。
+
+# 射影分解と射影次元
+
+`Beilinson/KroneckerResolution.lean`
+
+このファイルは表現の全射性を頂点ごとの全射性と同定し、二種類の標準表現の射影性を持ち上げ性により証明する。
+主要な宣言は次の通りである。
+
+1. `standardResolution`：二本の矢の関係を用いた標準分解。
+2. `rightModuleResolution`：任意の右加群を終点とする加群圏の短複体。
+3. `rightModuleResolution_shortExact`：短完全性。両項の射影性と合わせて長さ1の射影分解を与える。
+4. `finite_rightModuleResolution_terms`：有限次元の右加群の分解は両項とも有限次元となる。
+5. `rightModule_projectiveDimension_le_one`：mathlib の射影次元に関して、全ての右加群 $`M` で $`\operatorname{pd}_A M\leq1`。
+
+一般次元の Beilinson 代数の有限大域次元性や、幾何学的な tilting theorem はまだ含まない。
+次は頂点射影表現と右イデアル $`e_iA` を同定し、非射影の単純加群を用いて上界の鋭さを検証する。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。

@@ -62,7 +62,7 @@
 - `LinearEquiv.finiteDimensional`：`Mathlib.LinearAlgebra.FiniteDimensional.Defs`、`LinearEquiv.finrank_eq`：`Mathlib.LinearAlgebra.Dimension.Finrank`。体と線形同型の仮定から有限次元性と次元の一致を移す。
 - `Module.Basis.map`、`Pi.basisFun`：`Mathlib.LinearAlgebra.StdBasis`。座標空間の標準基底を線形同型で移す。
 
-`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型と一般経路代数との同型は未実装。Stacks には依存しない。Kronecker の代数・作用のファイルの名前付き定義・定理と、圏同値の主要宣言について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
+`Beilinson/Kronecker.lean` はこれらを利用し、任意の体 k に対して `Beilinson.Kronecker.coordinates`、`finrank`、`basis`、`coordinates_mul` および頂点・矢の積を証明した。合成は後の写像を左に置き、矢は e₁Ae₀ に属する。幾何学的 End との同型と一般経路代数との同型は未実装。Stacks には依存しない。Kronecker の代数・作用のファイルの名前付き定義・定理と、圏同値・射影分解・射影次元の主要宣言について `#print axioms` を確認し、依存は標準の `propext`、`Classical.choice`、`Quot.sound` の範囲で、`sorryAx` や独自公理はない。
 
 ## 右作用と逆向きの矢の bridge
 
@@ -90,6 +90,21 @@
 
 `finite_toReverseRep_iff` は基礎体上の有限次元性と両頂点の有限次元性を同定する。`finiteModuleEquivalence` はこの性質の充満部分圏の間の圏同値。有限次元性が表現の同型で不変であることは、同型の頂点写像の全射性と `FiniteDimensional.of_surjective` で確認した。全体と有限次元部分圏の両圏同値はビルド済み・依存公理監査済み。具体的モデルと幾何学的 End の同定、一般経路代数との同型、導来同値は含まない。
 
+## 長さ1の射影分解と射影次元
+
+同じ pinned mathlib の次の宣言を使用する：
+
+- `CategoryTheory.Projective`：`Mathlib.CategoryTheory.Preadditive.Projective.Basic`。任意の全射に対して射を持ち上げるという仮定で射影対象を定義する。
+- `Module.projective_lifting_property`：`Mathlib.Algebra.Module.Projective`。射影加群からの線形写像を全射に沿って持ち上げる。体上のベクトル空間の既存の自由性・射影性インスタンスを使用する。
+- `CategoryTheory.Equivalence.map_projective_iff`：`Mathlib.CategoryTheory.Preadditive.Projective.Basic`。圏同値が射影対象を保存・反映することを利用して、表現側の射影性を加群圏へ移す。
+- `ModuleCat.shortComplex_shortExact`：`Mathlib.Algebra.Homology.ShortComplex.ModuleCat`。写像の単射性、全射性、`Function.Exact` から加群圏の短完全列を得る。
+- `ShortComplex.isoMk`、`ShortComplex.shortExact_of_iso`：`Mathlib.Algebra.Homology.ShortComplex.Basic` および `ShortExact`。終点を頂点分解から元の加群に戻す同型で短完全性を移す。
+- `projectiveDimension_le_iff`、`ShortComplex.ShortExact.hasProjectiveDimensionLT_X₃`：`Mathlib.CategoryTheory.Abelian.Projective.Dimension`。短完全列の射影次元の不等式から、任意の右加群 M の `projectiveDimension M ≤ 1` を得る。
+
+`Beilinson/KroneckerResolution.lean` は sink(U)=(U,0) と、cover(X)=(X₀×(X₁×X₁),X₁) を用いる。augmentation の頂点0での写像は (u,s,t)↦u+f₀s+f₁t、関係写像は (s,t)↦(-f₀s-f₁t,s,t)。前者の全射性、後者の単射性と像=核を直接確認する。射影性は極小な射影被覆の存在ではなく持ち上げ性で証明する。
+
+`rightModuleResolution`、`rightModuleResolution_shortExact`、両項の射影性、`finite_rightModuleResolution_terms`、`rightModule_projectiveDimension_le_one` を Lean 検証した。これは任意の体・任意の右加群についての上界であり、上界の鋭さ、Ring の global-dimension API との同定、eᵢA との明示的同型は未実装。一般 n の幾何学的・導来圏の主張も含まない。
+
 ## 更新と再現
 
-本番は root `lean-toolchain`, `lakefile.toml` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。
+本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

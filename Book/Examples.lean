@@ -46,6 +46,32 @@ $$`u_0\circ f_i=g_i\circ u_1\quad(i=0,1)`
 `Beilinson/KroneckerCategory.lean` の `moduleEquivalence` と `finiteModuleEquivalence` で Lean 検証した。
 幾何学的自己準同型代数との同定と Beilinson の導来同値は依然として別の課題である。
 
+# 長さ1の射影分解
+
+逆向きの Kronecker 表現 $`X=(X_0,X_1;f_0,f_1)` に対し、
+$`S(U)=(U,0)` および
+$$`P(U,V)=(U\oplus V\oplus V,V;\ v\mapsto(0,v,0),\ v\mapsto(0,0,v))`
+を定める。これらは任意のベクトル空間 $`U,V` に対して射影対象である。
+実際、表現の全射は両頂点での全射と同値であり、
+$`S(U)` からの射は $`U\to X_0` により、$`P(U,V)` からの射は
+$`U\to X_0` と $`V\to X_1` により一意に決まる。
+ベクトル空間の全射に対する線形写像の持ち上げを使えば、表現の全射に対しても持ち上げられる。
+
+$`P_X=P(X_0,X_1)` とおき、射 $`\varepsilon:P_X\to X` を頂点ごとに
+$$`\varepsilon_0(u,s,t)=u+f_0(s)+f_1(t),\qquad\varepsilon_1(v)=v`
+と定める。これは全射である。核は $`S(X_1\oplus X_1)` と同型であり、包含は
+$$`d_0(s,t)=(-f_0(s)-f_1(t),s,t),\qquad d_1=0`
+で与えられる。従って
+$$`0\longrightarrow S(X_1\oplus X_1)\xrightarrow{d}P_X\xrightarrow{\varepsilon}X\longrightarrow0`
+は両項が射影的な短完全列である。$`X_0,X_1` が有限次元なら、全ての項が有限次元である。
+
+既に構成した加群圏同値でこれを移し、終点を元の加群と同型で同定すると、
+任意の右 $`A`-加群 $`M` に対して長さ1の射影分解が得られる。
+従って $`\operatorname{pd}_A M\leq1` である。
+`Beilinson/KroneckerResolution.lean` は標準分解を mathlib の加群圏の短完全列として構成し、
+両項の射影性・有限次元性の保存・射影次元の上界まで Lean 検証する。
+この段階では $`e_0A,e_1A` との明示的な同型と、上界が鋭いことの Lean 証明は未実装である。
+
 # 射影平面
 
 $`n=2` では頂点 $`0,1,2` の隣接頂点の間にそれぞれ三本の矢がある。
