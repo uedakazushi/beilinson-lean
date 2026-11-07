@@ -4,7 +4,7 @@ open Verso.Genre Manual
 
 # 状態
 
-本書の幾何学的な主定理とその証明は *Lean で未形式化* である。
+本書の幾何学的な主定理について、始域・終域・関手まで一致する *Lean の証明は未完成* である。
 Verso のビルドは文書の構文と Lean コード例を確認するが、数学の自然言語部分を証明するものではない。
 
 # 実装の依存グラフ
@@ -98,3 +98,24 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 両右イデアルについて、圏論的な射影性と通常の加群としての射影性の両方を確認した。
 次は既存の射影空間・線束・コホモロジーの API を照合し、幾何学側への接続を進める。
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。
+
+
+# Stacks の生成性を再利用する検証
+
+本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
+次の四つは検証済みである。
+
+1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
+2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
+3. `StacksGenerationProbe`：有限個の非正捻り線束の直和から全負捻りを生成し、その直和への直交性を全負捻りへ伝播する補題。
+4. `StacksOrdinaryProbe`：非可換な degree-zero dg 代数の右加群の導来圏と、通常の反対環の加群の導来圏の三角同値。
+
+これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
+上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
+kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
+
+ここでの有限直和は $`E=\mathcal O\oplus\mathcal O(-1)\oplus\cdots\oplus\mathcal O(-n)`。
+本書の $`T` とは $`E\otimes\mathcal O(n)` の直和成分を逆順に並べることで対応する。
+この自然同型と自己準同型代数の移送、幾何学的な右直交零検出、
+通常の右加群への比較と有界連接部分圏への制限は、なお接続する必要がある。
+正確な上流宣言と追加の検証ターゲットは、リポジトリの再利用台帳を参照する。

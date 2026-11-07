@@ -1,24 +1,53 @@
-# Optional Axiom Stacks integration (2026-11-07)
+# Optional Axiom Stacks integration (2026-11-08)
 
-This is an **experimental, separate Lake project** to check compatibility and discover reusable Stacks declarations. It intentionally does NOT install the enormous Stacks dependency in the default Verso/Beilinson project.
+This separate Lake project audits reusable declarations without adding Stacks to the
+production Beilinson/Verso dependency graph.
 
 - Upstream: https://github.com/AxiomMath/Stacks
-- Revision: `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` (2026-11-06)
-- Stacks toolchain at this revision: Lean v4.35.0
-- Its mathlib dependency: v4.35.0
-- Upstream code has human-reviewed `StacksCore` and AI-generated, kernel-checked `StacksFrontier`.
-- README and website documentation: https://stacks.axiommath.ai/
+- Revision: `5ed82d14634e8d9576bb844c7bd4e3da66d450e7`
+- Lean and mathlib: v4.35.0 (matching the root project)
+- Tier: the imports below are `StacksFrontier`, whose human review is incomplete.
+  Local kernel checking does not change that upstream review status.
+- The integration-specific `lake-manifest.json` records actual dependency resolution.
+  Do not copy it into the root project.
 
 From this directory:
 
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe
 ```
 
-The build has **not been run yet**. Stacks has tens of thousands of modules, and its upstream README warns that a full build is expensive without a compiled-object cache. Do not automatically run `lake build Stacks` or `import Stacks` in the main project. The proof probe currently imports the published module `StacksFrontier.AlgebraicGeometry.AffineDerivedBaseChange`, but this import has not been elaborated locally.
+Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
+four targets. Explicit arguments select other targets when they are available.
+This script is separate from the production `scripts/check.sh`.
 
-If the build succeeds, commit the generated **integration-specific** `lake-manifest.json` inside `integrations/stacks/`. Do not copy it into the root Lake project. The probe alone is not evidence that any Beilinson prerequisite is already supplied.
+All four targets have built successfully against the pinned package. Their exported
+theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
+`sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
-To use a particular Stacks theorem in the production Beilinson library, first record its tag, Lean declaration, assumptions, exact module, tier and semantic audit in `REUSE.md`. Only then choose whether to promote Stacks to a direct dependency, add a small adapter, or re-use the result indirectly through mathlib. Do not duplicate it by default.
+| Target | Module suffix under `StacksFrontier` | Checked claim |
+|---|---|---|
+| `StacksProbe` (default) | `CategoryTheory.Triangulated.ExceptionalCollectionFiniteness` | A finite exceptional sequence generates if total Hom is finite and its right orthogonal detects zero. |
+| `StacksGeometryProbe` | `AlgebraicGeometry.ProjKoszulComplex.Exactness` | The coordinate Koszul complex on polynomial Proj is acyclic over any commutative ring, for every twist. |
+| `StacksGenerationProbe` | `AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.Koszul` | All non-positive twists lie in the thick subcategory of the finite twist sum; orthogonality propagates to them. |
+| `StacksOrdinaryProbe` | `Algebra.DifferentialGraded.Module.DegreeZeroTriangulated` | Degree-zero dg modules have the triangulated derived category of ordinary right modules, encoded by the opposite ring. |
+
+The Koszul import closure contains 92 Stacks modules, Koszul descent 228, and the
+ordinary-module comparison 53. Counts exclude mathlib and are for this revision.
+Do not run `lake build Stacks` or import the umbrella module by default.
+
+Further candidates include negative-twist higher-direct-image vanishing (2125
+Stacks modules) and an unbounded dg Beilinson equivalence (8353). They are under
+separate local validation; see [../../REUSE.md](../../REUSE.md) for exact declarations
+and the semantic audits. Higher direct images use a different base-change model
+of projective space from the polynomial Proj used by the Koszul probe. The ordinary
+module comparison also needs an adapter from the geometric dg algebra to the
+specific degree-zero model. Neither type boundary is silently identified here.
+
+The geometric zero-detection hypotheses, matching the positive twist sum of the
+book, the ordinary endomorphism algebra, and the bounded coherent restriction
+remain to be connected in this project. Promotion to a production dependency
+requires recording the exact declarations, assumptions, model comparisons, and
+build cost in the reuse ledger.

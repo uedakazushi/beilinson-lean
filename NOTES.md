@@ -17,7 +17,7 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決・ビルドは未検証。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。`StacksProbe` と `StacksGeometryProbe` は実 import/build と公理監査に成功し、コホモロジー probe は検証中。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
@@ -25,3 +25,9 @@
 - `Beilinson/KroneckerIdeals.lean` は e₀A≃sink(k)、e₁A≃source(k) を右加群同型として構成し、両右イデアルの射影性と A≃e₀A×e₁A を確認した。固定条件は左乗法 eᵢa=a であり、頂点空間の右乗法 aeᵢ=a とは区別する。
 - 次は幾何学側の既存 API と定式化を照合する。
 - Beilinson 主定理の Lean proof は未着手。詳細は REUSE.md。
+
+## 証明の明示化
+
+- 第3章では有限 total Hom を明記し、評価射の cone で E_n,…,E_0 の順に右直交成分を構成する。半直交性が既に得た消滅を保存することまで示し、admissibility を未説明の引用にしない。
+- 第6章では Beilinson 代数の頂点右射影 e_iA と単純加群の帰納法から pd(S_i)≤i を示す。任意の右加群の頂点フィルトレーションにより全加群の pd≤n を導き、有限大域次元性に dg smoothness の Morita 不変性を引用しない。この一般 n の議論は自然言語の証明であり、Lean の検証済み射影次元は現状 n=1 のみ。
+- Stacks の深い階層で Koszul 生成性と非有界 dg 版 Beilinson 同値の候補を確認した。正確な宣言と型の境界は REUSE.md を参照。候補発見、ソース照合、ローカル build、主定理への移送を区別する。

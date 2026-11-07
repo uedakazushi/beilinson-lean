@@ -1,4 +1,4 @@
-# 既存形式化の再利用方針 — 2026-11-07 v0.4
+# 既存形式化の再利用方針 — 2026-11-08 v0.5
 
 ## 原則
 
@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。実験 probe はまだ実機未検証。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。例外生成列・Koszul の二つの実験 probe は実 import/build に成功し、コホモロジー probe は検証中。
 
 ## Beilinson までの再利用対象
 
@@ -24,13 +24,13 @@
 | `Proj`、射影空間、tautological bundles | mathlib、Stacks | 候補、定理単位の照合未実施 |
 | coherent / quasi-coherent sheaves と比較 | StacksCore → StacksFrontier | 候補、API 未照合 |
 | affine/Čech/sheaf cohomology | mathlib、Stacks | 候補、API 未照合 |
-| 基点のない線形形式の Koszul 完全列（生成性） | mathlib、Stacks | 候補、API 未照合 |
+| 基点のない線形形式の Koszul 完全列（生成性） | StacksFrontier | 座標 Koszul の完全性を専用 probe で検証済み。導来圏内の生成性への移送は未実装 |
 | Serre vanishing、ample twisting、大域生成性 | mathlib、Stacks | 候補、API 未照合 |
-| exceptional collection の admissibility、SOD、right orthogonal | mathlib、Stacks、専門ライブラリ | 候補、API 未照合 |
+| exceptional collection の admissibility、SOD、right orthogonal | StacksFrontier、mathlib | finite total Hom と右直交零検出からの充満性を専用 adapter で検証済み。幾何学的仮定は未証明 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
 | quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の行列モデルと右作用・逆向きの矢・射の具体的な対応を Lean 検証。具体的モデルについて全加群と有限次元加群の圏同値を構成済み。一般経路代数との同型は未実装 |
-| exceptional collections / tilting | Axiom BondalThomsen 等 | 関連プロジェクトを確認、再利用可能性は未確認 |
-| dg enhancement / derived Morita | mathlib、Stacks、外部専門ライブラリ | 実装範囲は未確認 |
+| exceptional collections / tilting | StacksFrontier、Axiom BondalThomsen | Koszul 生成性・非有界 dg 同値の正確な宣言を確認。追加 probe を検証中 |
+| dg enhancement / derived Morita | StacksFrontier | `Beilinson.beilinson_equivalence` は非有界 dg 加群と準連接導来圏の同値。ソース照合済み、ローカル検証中。有界・連接版との比較は未実装 |
 | Beilinson equivalence | 未確認 | 本研究の目標であり、実装済みと扱わない |
 
 ## 外部プロジェクト
@@ -116,6 +116,31 @@
 `Beilinson/KroneckerIdeals.lean` は、正則右加群の部分加群 `{a | e*a=a}` と冪等元が生成する右イデアル eA の一致を `mem_fixedLeft_iff` で示す。`sinkIdealEquiv` と `sourceIdealEquiv` は Aᵐᵒᵖ-線形同型として、e₀A と sink(k)、e₁A と source(k) をそれぞれ同定する。`vertexIdealDecomposition` は A≃e₀A×e₁A を右加群同型として与える。
 
 射影性の移送には `CategoryTheory.Projective.of_iso`（`Mathlib.CategoryTheory.Preadditive.Projective.Basic`）を再利用する。source 表現は単純表現の標準射影全射の始域から自明な零成分を除いた表現と同型である。通常の加群としての `Module.Projective` は `ModuleCat.projective_of_module_projective`（`Mathlib.Algebra.Category.ModuleCat.Projective`）で得る。この変換の Small 仮定はここでは環・加群を同じ universe u に置いて満たす。明示的同型・射影性・正則加群分解はビルドと公理監査の対象である。
+
+## Stacks の充満性・幾何学 probe
+
+すべて上記の固定 revision の `StacksFrontier`。以下の数学的照合とローカル kernel check は、上流の人間レビュー済みへの昇格を意味しない。
+
+- `CategoryTheory.Pretriangulated.prop_of_hasFiniteTotalHom_of_exceptional`、import `StacksFrontier.CategoryTheory.Triangulated.ExceptionalCollectionFiniteness`。有限列 G の各自己準同型が scalar、非零自己シフト Hom が零、逆順の全シフト Hom が零、必要な total Hom が有限、右直交が零を検出するという仮定から、G を含む strictly full triangulated subcategory が対象 M を含むと結論する。`HasFiniteTotalHom` は各次数の有限次元性に加え非零次数が有限であることも要求する。Tag [0FYB](https://stacks.math.columbia.edu/tag/0FYB) に関連する抽象的部分であり、幾何学的 tag 全体の形式化ではない。`StacksProbe.full_of_exceptional_and_detection` は ambient subcategory を全体に取った adapter。実 package import/build と公理監査に成功。
+- `Stacks.AlgebraicGeometry.ProjKoszulComplex.acyclic_koszulComplex`、import `StacksFrontier.AlgebraicGeometry.ProjKoszulComplex.Exactness`。任意の可換環 A、n≥0、a∈ℤ に対し、多項式環の全次数 Proj 上で O(a+j) の座標 Koszul cochain complex が acyclic。標準開集合上で一つの座標比が1となることを使う stalk contracting homotopy による証明で、完全性自体を仮定していない。`StacksGeometryProbe.coordinate_koszul_acyclic` の実 import/build と公理監査に成功。Stacks 側の import 閉包は92モジュール。
+- `Stacks.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.isZero_rightDerivedPlus_pushforward_twistOver_of_acyclic`、import `StacksFrontier.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.TwistAcyclicRange`。基底 scheme S、n=m+1≥1、-n≤d<0、q∈ℤ について R^q f_* O(d)=0。Tag [01XW](https://stacks.math.columbia.edu/tag/01XW) の各行の既存結果を合成する定理で、この宣言自身への tag 属性はない。`StacksCohomologyProbe` で検証中（閉包2125モジュール）。
+
+重要な型の境界：Koszul は多項式 Proj、higher direct image は整数上の射影空間を基底変換したモデルを使う。両者の同一視はまだ adapter に含めていない。`TwistGenerator.Negative` は自明化開集合上の線束の生成切断であり、導来圏の右直交零検出を直接述べる定理ではない。Ext/cohomology 比較、有限 total Hom、Koszul から全負捻りへの伝播と Serre による零検出、導来 Morita は未完成。
+
+検証済み二つの adapter の依存公理は `propext`、`Classical.choice`、`Quot.sound` のみ。root の production dependency は変更しない。専用 manifest を `integrations/stacks/` に保存する。
+
+## 深い階層で確認した生成性・dg 同値の候補
+
+以下は正確なソースと証明経路を確認した結果。宣言ごとにローカル build 状態を区別する。
+
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.Koszul` の `Stacks.AlgebraicGeometry.ExampleGenerator.twist_neg_mem_gen`。多項式 Proj 上で E=O⊕O(-1)⊕…⊕O(-n) とし、全ての m≥0 で O(-m) が `gen E` に属する。証明は座標 Koszul の stupid filtration による有限 cone と強い帰納法で、対角線の分解を使わない。閉包228モジュール。`StacksGenerationProbe.negative_twist_generated` と `negative_twist_orthogonal` の実 import/build・公理監査に成功。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.KoszulQuasiCoherent` の `isWeakTriangulatedGenerator_twistSumDerivedQCoh`（同 namespace、Tag [0A9V](https://stacks.math.columbia.edu/tag/0A9V)）。Koszul 生成性と ample 負捻りの零検出を多項式 Proj 上で接続する。この経路なら基底変換モデルのコホモロジーとの比較を経ず生成性を進められる。閉包2378モジュール、単独の検証は未実施。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEquivalenceLinear` の `Stacks.AlgebraicGeometry.Beilinson.beilinson_equivalence`（Tag [0BQU](https://stacks.math.columbia.edu/tag/0BQU)）。任意の可換環 A と n≥0 に対し、上記 E の dg 自己準同型代数 R からの derived tensor が D(R) と D_QCoh の A-線形三角同値を与え、正則加群を E に送る。定理の仮定に同値性自体は含まれない。ソースは生成性、compactness、正則加群間の Hom の同型から導く。閉包8353モジュール。`StacksBeilinsonProbe` を検証中。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEndAlgebra` の `Stacks.AlgebraicGeometry.Beilinson.endAlgebraRingEquiv`、`endAlgebra_d_eq_zero`、`endAlgebra_grading_eq_bot` は R が通常の End(E) に集中することを述べる。既存の `DifferentialGradedModule.degreeZeroDerivedEquivalence`（import `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`）は degree-zero DGA の右加群を通常の反対環の加群の複体へ比較する。`StacksOrdinaryProbe.rightModuleComparison` と `rightModuleComparison_exact` で、任意の非可換 R-代数 S の degree-zero DGA から Sᵐᵒᵖ の加群の導来圏への同値と三角の保存を検証済み。上流と同じ局所 pretriangulated instance を明示する必要があった。依存公理は標準の3つのみ。ただし幾何学側の DGA と degree-zero DGA の universe・基礎環の型を接続する adapter は未実装。
+
+- import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。幾何学的 End との同型はこの定理の一部ではなく、まだ probe していない。
+
+教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、その自然同型・自己準同型代数・右加群規約と bounded coherent / finite-dimensional 制限を Lean で移送する部分は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
 
 ## 更新と再現
 

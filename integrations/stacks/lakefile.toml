@@ -11,3 +11,17 @@ rev = "5ed82d14634e8d9576bb844c7bd4e3da66d450e7"
 
 [[lean_lib]]
 name = "StacksProbe"
+
+# Explicitly requested geometric probe; not part of defaultTargets.
+[[lean_lib]]
+name = "StacksGeometryProbe"
+
+
+# Koszul descent, without the much larger dg Morita closure.
+[[lean_lib]]
+name = "StacksGenerationProbe"
+
+
+# Noncommutative ordinary right-module comparison.
+[[lean_lib]]
+name = "StacksOrdinaryProbe"
