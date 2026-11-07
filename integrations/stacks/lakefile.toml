@@ -37,3 +37,7 @@ name = "DGAComparison"
 # Match the cone convention of the geometric dg equivalence.
 [[lean_lib]]
 name = "DegreeZeroConeComparison"
+
+# Transport a concentrated dg algebra to ordinary right modules without dg Morita.
+[[lean_lib]]
+name = "ConcentratedDGA"

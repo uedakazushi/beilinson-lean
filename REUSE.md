@@ -156,6 +156,12 @@
 
 新しい `integrations/stacks/DegreeZeroConeComparison.lean` はこの既存結果を使う。`signedHomotopyFunctor_isTriangulated` で sign twist 後の homogeneous-components functor が cone 規約で exact となることを示し、局所化を通して `coneRightModuleComparison_exact` を得た。基礎圏の比較を新しい shift 比較とともに降ろすので、単に primed の定理を型変換して exact と呼んでいない。実 build と公理監査に成功し、依存は標準の3つのみ。
 
+## 集中 dg 代数から通常右加群への直接比較
+
+`integrations/stacks/ConcentratedDGA.lean` の `eq_degreeZero_self` は、次数0への集中・非零次数成分の消滅・微分零を仮定し、基礎の R-代数 B.A を保つとき B=degreeZero R B.A を証明する。grading の分解データもその逆写像の一意性から一致させており、構造の等式を仮定していない。
+
+`comparison` はこの等式に沿って cone 規約の比較を輸送し、通常右 B.A-加群の標準導来圏への圏同値、shift 比較、三角の保存をデータとしてまとめる。`Comparison.inverse_isTriangulated` により、整合的な shift 比較を選んだ逆関手も exact。追加の dg Morita / quasi-isomorphism による代数変更定理を必要としない。実 build と公理監査に成功し、主要宣言は標準の3公理のみを使う。Stacks 側の import 閉包は462モジュール。幾何学的 endAlgebra に具体的に代入する検証はなお別ターゲットで行う。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

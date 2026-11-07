@@ -16,14 +16,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-seven targets. Explicit arguments select other targets when they are available.
+eight targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All seven targets have built successfully against the pinned package. Their exported
+All eight targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -36,10 +36,11 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `StacksAlgebraProbe` | `Homology.Perfect.BeilinsonAlgebra` | On the polynomial-matrix Beilinson algebra, compactness is equivalent to finite total cohomology. |
 | `DGAComparison` | `Algebra.DifferentialGraded.AlgebraCategory` and `…Module.DegreeZeroAlgebra` | A new adapter lifts an algebra identification with zero differential and degree-zero concentration to a strict dg algebra isomorphism. |
 | `DegreeZeroConeComparison` | `…Module.DegreeZeroTriangulated`, `…Module.ConeSignTransfer`, and `Algebra.DGA.DerivedCategory` | The ordinary right-module comparison is exact for the cone convention, after the shift sign is corrected. |
+| `ConcentratedDGA` | The two local adapters above and mathlib triangulated adjunctions | A concentrated dg algebra equals its degree-zero presentation on the same underlying algebra; its derived category has an exact comparison with ordinary right modules in both directions. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
-dg adapter 456. Counts
+dg adapter 456; the concentrated comparison uses a combined closure of 462. Counts
 exclude mathlib and are for this revision.
 Do not run `lake build Stacks` or import the umbrella module by default.
 
