@@ -21,15 +21,40 @@ $`T` は compact かつ perfect objects を thick に生成するため compact 
 
 # Perfect と bounded derived の比較
 
-**補題。** ここでの $`A` は有限次元で有限大域次元を持つ。
+**補題。** Beilinson 代数 $`A_n` は有限次元であり、全ての右加群の射影次元は高々 $`n` である。
 
-**証明。** Properness から $`\operatorname{End}_X(T)` は有限次元。
-smooth scheme の perfect dg category は smooth であり、smoothness は dg Morita 不変だから $`A` は $`A^e` 上 perfect である。
-このとき $`A` の有限次元加群は有限の射影次元を持つ。実際、$`A` の有限長の $`A^e`-projective resolution を任意の有限次元右加群 $`M` と左から tensor すると、$`M` の有限長の右 $`A`-projective resolution を得る。
-従って $`A` は有限大域次元を持つ。証明終。
+**証明。** 有限次元性は第5章の Hom の計算による。
+同章の頂点冪等元を $`e_0,\ldots,e_n` とすると、
+$$`e_jA_ne_i=0\quad(j<i),\qquad e_iA_ne_i=k e_i.`
+非対角成分の和 $`J` は両側イデアルで、$`J^{n+1}=0`、
+$`A_n/J\cong k^{n+1}` である。従って $`J` は Jacobson radical。
+頂点 $`i` に対応する単純右加群を $`S_i=e_iA_n/e_iJ` とおく。
 
-この比較では smoothness、Morita 不変性、有限次元代数に関する homological algebra が外部依存定理である。
-有限大域次元性から $`\operatorname{Perf}(A)=D^b(\operatorname{mod}_{\mathrm{fd}}A)`。また $`X` が smooth なので $`\operatorname{Perf}(X)=D^b(\operatorname{Coh}X)`。
+射影右加群 $`P_i=e_iA_n` は、頂点 $`0,\ldots,i` にのみ成分を持つ。
+その radical $`e_iJ` の組成因子は $`S_0,\ldots,S_{i-1}` に限られる。
+$`P_0=S_0` は射影である。帰納的に $`\operatorname{pd}S_j\leq j`（$`j<i`）とすれば、
+有限組成列に沿う短完全列の射影次元不等式から $`\operatorname{pd}(e_iJ)\leq i-1`。
+短完全列
+$$`0\longrightarrow e_iJ\longrightarrow P_i\longrightarrow S_i\longrightarrow0`
+により $`\operatorname{pd}S_i\leq i` となる。
+
+この上界は有限次元加群に限らない。任意の右加群 $`M` に対して
+$$`F_iM=\bigoplus_{0\leq j\leq i}Me_j,\qquad F_{-1}M=0`
+とおく。右乗法は頂点番号を下げるので $`F_iM` は右部分加群である。
+商 $`F_iM/F_{i-1}M` は頂点 $`i` のみに成分を持ち、$`k`-基底を選べば $`S_i` の直和となる。
+$`S_i` の長さ高々 $`i` の射影分解を直和することで、この商も射影次元高々 $`i`。
+有限列 $`0=F_{-1}M\subseteq F_0M\subseteq\cdots\subseteq F_nM=M` に沿って
+短完全列の射影次元不等式を使うと $`\operatorname{pd}M\leq n` である。証明終。
+
+この証明は幾何学的 dg category の smoothness の Morita 不変性を必要とせず、
+第5章の代数の三角形状と通常の加群の homological algebra から上界を与える。
+有限次元代数上の有限次元加群の有限射影分解は有限生成射影加群で選べるので、
+$$`\operatorname{Perf}(A_n)=D^b(\operatorname{mod}_{\mathrm{fd}}A_n).`
+一方、$`X=\mathbb P(V)` は正則な有限次元 noetherian scheme であり、
+全ての連接層は有限長の局所自由分解を持つ。従って
+$`\operatorname{Perf}(X)=D^b(\operatorname{Coh}X)`。
+この最後の比較では、$`D^b(\operatorname{Coh}X)` の層の導来圏への標準埋め込みと
+bounded coherent cohomology による記述を用いている。
 
 # 主定理の証明
 

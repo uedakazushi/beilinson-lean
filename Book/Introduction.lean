@@ -18,7 +18,7 @@ $$`\mathbf R\operatorname{Hom}_X(T,-): D^b(\operatorname{Coh}X)\xrightarrow{\sim
 # 全体の証明計画
 
 線束コホモロジーから $`\operatorname{Ext}^{>0}(T,T)=0` を証明する。
-線束の Koszul 完全列によって全ての $`\mathcal O(-k)` を作り、Serre の定理から right orthogonal が零であることを示す。例外集合が定める admissible な半直交分解を使い、$`T` の thick 生成性を得る。
+線束の Koszul 完全列によって全ての $`\mathcal O(-k)` を作り、Serre の定理から right orthogonal が零であることを示す。有限 total Hom から評価射の cone によって例外列の右射影を構成し、$`T` の thick 生成性を得る。
 この二つを抽象的な tilting theorem に代入し、終域の代数を Hom の掛け算から同定する。
 
 必要な基礎は層・射影空間・局所自由分解・Koszul 複体・導来圏である。

@@ -72,16 +72,55 @@ $$`\operatorname{Hom}_{\mathcal D}(\mathcal O(-k),F[q])\cong\mathbb H^q(X,F(k)),
 
 **証明。** 上の負捻り線束が全て $`\mathcal A` に属するので、右直交対象は前補題の仮定を満たす。証明終。
 
+# 有限 total Hom と評価射
+
+右直交の消滅を fullness へ結びつけるため、必要な admissibility を具体的に構成する。
+三角圏 $`\mathcal D` の二対象について「total Hom が有限」とは、
+各 $`\operatorname{Hom}(E,F[q])` が有限次元であり、かつ非零となる整数 $`q` が有限個しかないことをいう。
+各次数の有限次元性だけでは、以下の評価射の始域が有限直和になるとは限らない。
+
+**補題（例外対象による射影）。** $`E` を $`k`-線形三角圏の例外対象とし、
+$`E` から $`F` への total Hom が有限であるとする。このとき三角
+$$`U_E(F)\longrightarrow F\longrightarrow Q_E(F)\longrightarrow U_E(F)[1]`
+が存在し、$`U_E(F)\in\operatorname{thick}\langle E\rangle`、
+$`\operatorname{Hom}(E,Q_E(F)[r])=0`（全ての $`r`）を満たす。
+
+**証明。** 各 $`q` について $`\operatorname{Hom}(E,F[q])` の基底を選ぶ。
+各基底ベクトルを $`E[-q]\to F` と読み、これらを成分に持つ評価射を作る：
+$$`U_E(F)=\bigoplus_{q\in\mathbb Z}\operatorname{Hom}(E,F[q])\otimes_k E[-q]\longrightarrow F.`
+ここで有限次元ベクトル空間と対象の tensor は、基底を選んだ有限直和を意味する。
+仮定から直和全体も有限である。$`Q_E(F)` をこの射の cone とする。
+例外性から $`\operatorname{Hom}(E,E[t])` は $`t=0` 以外では零であり、$`t=0` では $`k`。
+従って各 $`r` に対し評価射が誘導する
+$$`\operatorname{Hom}(E,U_E(F)[r])\longrightarrow\operatorname{Hom}(E,F[r])`
+は、選んだ基底を送る同型となる。三角の Hom 長完全列から、cone への全ての次数の Hom は零である。証明終。
+
 # Semiorthogonal decomposition による fullness
+
+**補題（有限例外列の充満性判定）。** $`(E_0,\ldots,E_n)` を例外列とし、
+各 $`E_i` から全ての対象への total Hom が有限であるとする。
+この列の右直交が零なら、$`\operatorname{thick}\langle E_0,\ldots,E_n\rangle=\mathcal D`。
+
+**証明。** 任意の $`F` から始め、前補題で $`E_n,E_{n-1},\ldots,E_0` の順に Hom を消す。
+既に $`E_j` からの全シフト Hom が零である対象に対し、$`i<j` の段階で取り除く項は
+$`E_i` の有限直和とシフトからなる。半直交性
+$`\operatorname{Hom}(E_j,E_i[q])=0` により、この項への Hom も零であるから、
+新しい cone でも $`E_j` からの消滅は保たれる。
+最後の対象は全ての $`E_i` の右直交に属するので零。
+各段階の三角を逆順にたどると、取り除いた有限直和・シフトと有限回の cone から
+元の $`F` が構成される。従って $`F` は生成部分圏に属する。証明終。
+
+これは例外列の右射影と半直交分解を与える具体的な議論である。
+右直交が零であるという条件だけから fullness を結論したのではなく、
+有限 total Hom による有限の評価射を構成したことが論理的な橋渡しとなっている。
 
 **定理。** $`(\mathcal O,\mathcal O(1),\ldots,\mathcal O(n))` は full exceptional collection である。
 
-**証明。** 第2章の Ext 計算により、これらは exceptional collection である。
-$`X` は滑らかで射影的なので $`\mathcal D` は $`k` 上 Hom-finite かつ Serre functor を持つ。
-例外対象の生成する部分圏は admissible であり、例外対象の列から半直交分解が得られる。
-特に $`\mathcal A` の右直交を用いる形の semiorthogonal decomposition が存在する
-（成分の並べ方は semiorthogonal decomposition の規約に依存する）。
-前系により右直交成分は零だから $`\mathcal A=\mathcal D`。証明終。
-
-ここで **admissibility** は右直交が零であることから生成性へ進むための必要な論理的橋渡しである。
-Serre functor や admissibility を仮定せず、単に $`\mathcal A^\perp=0` だから $`\mathcal A=\mathcal D` と結論することはしない。
+**証明。** 第2章のコホモロジー計算により例外列である。
+$`F\in D^b(\operatorname{Coh}X)` に対し、
+$$`\operatorname{Hom}(\mathcal O(i),F[q])=\mathbb H^q(X,F(-i)).`
+連接層のコホモロジーは射影性により有限次元で、次数 $`0,\ldots,n` の外で零。
+$`F` のコホモロジー層は有限個なので、hypercohomology spectral sequence により
+上の Hom も各次数で有限次元、かつ有限個の次数以外で零である。
+従って有限 total Hom の仮定が満たされる。
+前節の Koszul 帰納法と Serre の定理により右直交は零だから、前補題を適用できる。証明終。
