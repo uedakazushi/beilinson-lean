@@ -115,6 +115,11 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 射影直線上の $`X=\mathcal O`、$`Y=\mathcal O(1)` について必要な Hom データを
 Lean で代入する幾何学的ステップはまだ残っている。
 
+`Beilinson/KroneckerYoneda.lean` は $`\operatorname{Hom}(X\oplus Y,Z)` を二つの Hom の積へ線形分解する。
+`homCoordinates_precompose` は End の前合成作用が、$`f_i` との合成による逆向きの
+二本の線形写像から作った右 Kronecker 作用と一致することを示す。
+これにより Hom 関手の右作用と本文の矢の規約を照合できる。
+
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。

@@ -41,3 +41,5 @@
 - `KroneckerEnd` の End 同定は、対角 Hom の正規化されたスカラー同定、逆 Hom 零、順 Hom の二元基底を追加仮定として持つ。実際の O と O(1) の Hom に未代入である。Lean 4.35 の `CategoryTheory.End` は構造体なので、射の計算では `asHom` と `End.of` を明示する。
 
 - ライブラリ入口 `Beilinson.lean` と Foundation を Lean 4 の module 形式へ揃えた。module クライアントから `import Beilinson` する経路も監査する。空の Foundation は Mathlib 全体を import せず、各数学ファイルが必要な依存を宣言する。
+
+- `KroneckerYoneda.homCoordinates_precompose` は、直和からの Hom の線形分解が End による前合成と `Kronecker.ofArrows` の右作用を絡み合わせることを検証した。幾何学的 Hom の計算を仮定しない一般の線形圏の補題である。
