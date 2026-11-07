@@ -36,7 +36,7 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定した Stacks の依存を含む。上流の膨大なビルドコストを通常の Verso 文書ビルドへ持ち込まず、再利用する正確な Stacks 定理を選別するためのもの。`StacksProbe`（例外生成列の充満性）と `StacksGeometryProbe`（座標 Koszul 完全性）は実際の import/build と依存公理の検査に成功した。`StacksGenerationProbe`（全負捻りの生成と直交性の伝播）も検証済み。`StacksOrdinaryProbe` で degree-zero dg 代数と通常右加群の導来圏の三角同値も検証した。負捻りのコホモロジーと非有界 dg 同値は個別に検証を進めている。幾何学モデルの比較と導来同値は未完成。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較を、6つの専用ターゲットで実 import/build・公理監査まで検証した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
 
 ```sh
 cd integrations/stacks
@@ -46,6 +46,8 @@ lake build StacksProbe
 lake build StacksGeometryProbe
 lake build StacksGenerationProbe
 lake build StacksOrdinaryProbe
+lake build StacksAlgebraProbe
+lake build DGAComparison
 ```
 
 README と [REUSE.md](REUSE.md) に記した通り、`StacksCore`（人間レビュー済み）と `StacksFrontier`（kernel-check 済みだが人間レビュー未完了）は区別し、重要な定式化は手動で確認する。

@@ -25,3 +25,11 @@ name = "StacksGenerationProbe"
 # Noncommutative ordinary right-module comparison.
 [[lean_lib]]
 name = "StacksOrdinaryProbe"
+
+# Finite total cohomology on the polynomial-matrix algebra.
+[[lean_lib]]
+name = "StacksAlgebraProbe"
+
+# A strict dg adapter from the ordinary endomorphism algebra.
+[[lean_lib]]
+name = "DGAComparison"

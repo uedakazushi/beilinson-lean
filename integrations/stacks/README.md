@@ -16,14 +16,14 @@ From this directory:
 ```sh
 lake update
 lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe
+lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-four targets. Explicit arguments select other targets when they are available.
+six targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All four targets have built successfully against the pinned package. Their exported
+All six targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
 
@@ -33,9 +33,13 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `StacksGeometryProbe` | `AlgebraicGeometry.ProjKoszulComplex.Exactness` | The coordinate Koszul complex on polynomial Proj is acyclic over any commutative ring, for every twist. |
 | `StacksGenerationProbe` | `AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.Koszul` | All non-positive twists lie in the thick subcategory of the finite twist sum; orthogonality propagates to them. |
 | `StacksOrdinaryProbe` | `Algebra.DifferentialGraded.Module.DegreeZeroTriangulated` | Degree-zero dg modules have the triangulated derived category of ordinary right modules, encoded by the opposite ring. |
+| `StacksAlgebraProbe` | `Homology.Perfect.BeilinsonAlgebra` | On the polynomial-matrix Beilinson algebra, compactness is equivalent to finite total cohomology. |
+| `DGAComparison` | `Algebra.DifferentialGraded.AlgebraCategory` and `…Module.DegreeZeroAlgebra` | A new adapter lifts an algebra identification with zero differential and degree-zero concentration to a strict dg algebra isomorphism. |
 
-The Koszul import closure contains 92 Stacks modules, Koszul descent 228, and the
-ordinary-module comparison 53. Counts exclude mathlib and are for this revision.
+The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
+ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
+dg adapter 456. Counts
+exclude mathlib and are for this revision.
 Do not run `lake build Stacks` or import the umbrella module by default.
 
 Further candidates include negative-twist higher-direct-image vanishing (2125

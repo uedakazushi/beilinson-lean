@@ -138,9 +138,15 @@
 - import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEquivalenceLinear` の `Stacks.AlgebraicGeometry.Beilinson.beilinson_equivalence`（Tag [0BQU](https://stacks.math.columbia.edu/tag/0BQU)）。任意の可換環 A と n≥0 に対し、上記 E の dg 自己準同型代数 R からの derived tensor が D(R) と D_QCoh の A-線形三角同値を与え、正則加群を E に送る。定理の仮定に同値性自体は含まれない。ソースは生成性、compactness、正則加群間の Hom の同型から導く。閉包8353モジュール。`StacksBeilinsonProbe` を検証中。
 - import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEndAlgebra` の `Stacks.AlgebraicGeometry.Beilinson.endAlgebraRingEquiv`、`endAlgebra_d_eq_zero`、`endAlgebra_grading_eq_bot` は R が通常の End(E) に集中することを述べる。既存の `DifferentialGradedModule.degreeZeroDerivedEquivalence`（import `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`）は degree-zero DGA の右加群を通常の反対環の加群の複体へ比較する。`StacksOrdinaryProbe.rightModuleComparison` と `rightModuleComparison_exact` で、任意の非可換 R-代数 S の degree-zero DGA から Sᵐᵒᵖ の加群の導来圏への同値と三角の保存を検証済み。上流と同じ局所 pretriangulated instance を明示する必要があった。依存公理は標準の3つのみ。ただし幾何学側の DGA と degree-zero DGA の universe・基礎環の型を接続する adapter は未実装。
 
-- import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。幾何学的 End との同型はこの定理の一部ではなく、まだ probe していない。
+- import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。`StacksAlgebraProbe.compact_iff_finite_total_cohomology` の実 import/build と公理監査に成功。依存公理は標準の3つのみ。幾何学的 End との同型はこの定理に含まれない。
 
 教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、その自然同型・自己準同型代数・右加群規約と bounded coherent / finite-dimensional 制限を Lean で移送する部分は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
+
+## dg 代数を degree-zero モデルに接続する adapter
+
+`integrations/stacks/DGAComparison.lean` の `Beilinson.DGAComparison.degreeZeroIso` は、可換基礎環 R、R 上の dg 代数 B、通常の R-代数 S と代数同型 B.A≃ₐ[R]S を取り、全ての元が次数0、非零次数の成分が零、微分が零であるという明示的仮定から B≅degreeZero R S を構成する。相互に逆な二つの dg 射を構成し、通常の環同型だけで dg 同型と見なしていない。
+
+既存の `DifferentialGradedAlgebra` の圏と `degreeZero` を再利用する薄い adapter であり、上流コードの複製ではない。import は `StacksFrontier.Algebra.DifferentialGraded.AlgebraCategory` と `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`。閉包456モジュール。実 build と公理監査に成功し、依存公理は標準の3つのみ。幾何学的 End の同型への具体的適用は、大きな幾何学側の検証ターゲットで別途確認する。
 
 ## 更新と再現
 
