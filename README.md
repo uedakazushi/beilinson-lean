@@ -2,7 +2,7 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、および有限次元部分圏への制限は Lean で検証済みです。本番の `lake build` は教科書 HTML 生成まで成功しました。
+**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、および有限次元部分圏への制限は Lean で検証済みです。教科書 HTML の生成について既存の検証報告があります。PDF 経路の実機検証は別途必要です。
 
 ## 最初に読むもの
 
@@ -15,25 +15,24 @@ Verso による日本語教科書と Lean 4 形式化を育てるプロジェク
 
 ## 依存関係とビルド
 
-**本番：** Lean 4、mathlib、Verso は v4.35.0 に揃え、root の Lake project に固定。Mathlib の既存 API を最優先して利用する。
+Lean 4、mathlib、Verso は v4.35.0 に固定。Verso が直接生成する TeX を LuaLaTeX で組版するため、**Playwright / pypdf / Python は不要**。
+
+**準備（初回）：** LuaLaTeX と、日本語用の `luatexja-fontspec` / HaranoAji 和文フォント、Verso 標準の `memoir`・Source Pro 等の TeX パッケージが必要。Mac ではフルの MacTeX を使うと揃えやすい。
 
 ```sh
-# 依存初回解決時のみ
-lake update
-# 継続的な検証
-bash scripts/check.sh
+# mathlib キャッシュ（初回または必要時のみ）
+lake exe cache get
+# 以降はこれだけで Lean + HTML + PDF をビルド
+lake build
 ```
 
-`lake-manifest.json` は Lake が生成したものを commit 済み。更新作業以外では意図せず `lake update` をしない。
+- HTML：`_out/html-multi/index.html`（`_out/html` が存在しない場合は互換シンボリックリンクも作成）
+- Verso が直接生成した TeX：`_out/tex/main.tex`
+- 日本語 PDF：`_out/beilinson-book.pdf`（元の `_out/tex/main.pdf` も保持）
 
-**PDF 生成の準備（初回のみ）：**
+`lake build` は Lean ライブラリをビルドし、`generate-book --with-tex` で HTML / TeX を同時生成する。TeX の `memoir` プリアンブルに LuaTeX-ja と HaranoAji フォントの設定を追加して `lualatex` を3回実行する。TeX が生成できない・LuaLaTeX が失敗する場合、`lake build` も失敗する。Python を使った HTML の印刷・PDF 結合は行わない。
 
-```sh
-python3 -m pip install playwright pypdf
-python3 -m playwright install chromium
-```
-
-`lake build` は Lean ライブラリを検証したうえで Verso HTML（`_out/html/index.html`）と単一 PDF（`_out/beilinson-book.pdf`）を生成する。PDF はローカル Chromium で各章を印刷して結合する。初回は上記の Python 依存関係とブラウザのインストールが必要。失敗した場合は build が失敗する。PDF は HTML の印刷版であり、LaTeX への変換ではない。
+`lake-manifest.json` は commit 済み。更新作業以外では意図せず `lake update` をしない。既存の `bash scripts/check.sh` も `lake build` を呼び出す。
 
 **オプション：Axiom Stacks の検証**
 
