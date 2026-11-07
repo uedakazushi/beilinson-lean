@@ -10,7 +10,7 @@ $$`W\otimes_k\mathcal O_X(-1)\longrightarrow\mathcal O_X`
 は、斉次座標のいずれかが各点で非零となるので全射である。
 その核を含む Koszul 複体は次の完全列を与える：
 
-$$`0\longrightarrow\bigwedge^{n+1}W\otimes\mathcal O(-n-1)\longrightarrow\bigwedge^nW\otimes\mathcal O(-n)\longrightarrow\cdots\longrightarrow W\otimes\mathcal O(-1)\longrightarrow\mathcal O\longrightarrow0.`
+$$`\begin{gathered}0\longrightarrow\bigwedge^{n+1}W\otimes\mathcal O(-n-1)\longrightarrow\bigwedge^nW\otimes\mathcal O(-n)\\\longrightarrow\cdots\longrightarrow W\otimes\mathcal O(-1)\longrightarrow\mathcal O\longrightarrow0.\end{gathered}`
 
 **証明。** 射影空間の各標準開集合 $`D_+(x_i)` では、評価射の成分の一つが可逆である。
 このとき Koszul 複体は収縮ホモトピーを持つので完全である。
@@ -35,7 +35,7 @@ $`m\geq0` とし、$`\mathcal O(-m),\mathcal O(-m+1),\ldots,\mathcal O(n)` が
 $`\mathcal A` に属すると仮定する。
 上の Koszul 完全列を $`\mathcal O(n-m)` で捻ると
 
-$$`0\longrightarrow\bigwedge^{n+1}W\otimes\mathcal O(-m-1)\longrightarrow\bigwedge^nW\otimes\mathcal O(-m)\longrightarrow\cdots\longrightarrow W\otimes\mathcal O(n-m-1)\longrightarrow\mathcal O(n-m)\longrightarrow0.`
+$$`\begin{gathered}0\longrightarrow\bigwedge^{n+1}W\otimes\mathcal O(-m-1)\longrightarrow\bigwedge^nW\otimes\mathcal O(-m)\\\longrightarrow\cdots\longrightarrow W\otimes\mathcal O(n-m-1)\longrightarrow\mathcal O(n-m)\longrightarrow0.\end{gathered}`
 
 先頭以外の項の捻り次数は $`-m,-m+1,\ldots,n-m` に含まれ、
 $`n-m\leq n` だから帰納法の仮定で全て $`\mathcal A` に属する。
@@ -99,7 +99,8 @@ $$`\operatorname{Hom}(E,U_E(F)[r])\longrightarrow\operatorname{Hom}(E,F[r])`
 
 **補題（有限例外列の充満性判定）。** $`(E_0,\ldots,E_n)` を例外列とし、
 各 $`E_i` から全ての対象への total Hom が有限であるとする。
-この列の右直交が零なら、$`\operatorname{thick}\langle E_0,\ldots,E_n\rangle=\mathcal D`。
+この列の右直交が零なら、
+$$`\operatorname{thick}\langle E_0,\ldots,E_n\rangle=\mathcal D.`
 
 **証明。** 任意の $`F` から始め、前補題で $`E_n,E_{n-1},\ldots,E_0` の順に Hom を消す。
 既に $`E_j` からの全シフト Hom が零である対象に対し、$`i<j` の段階で取り除く項は

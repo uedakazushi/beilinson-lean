@@ -14,7 +14,12 @@ $$`\mathbf R\operatorname{Hom}_X(T,-):\operatorname{Perf}(X)\xrightarrow{\sim}\o
 **証明（標準的な dg Morita theorem を使用）。** $`D(\operatorname{QCoh}X)` の dg 増強を用い、$`B=\mathbf R\operatorname{End}_X(T)` とする。
 $`T` は compact かつ perfect objects を thick に生成するため compact generator である。
 導来 Morita theorem から $`\operatorname{Perf}(X)\simeq\operatorname{Perf}(B)` を得る。
-自己 Ext の消滅により dg algebra $`B` の cohomology は次数0だけにあり、適切な truncation を通して $`B` は通常の代数 $`H^0(B)=A` と quasi-isomorphic である。
+自己 Ext の消滅により dg algebra $`B` の cohomology は次数0だけにある。
+乗法を保つ truncation $`\tau_{\leq0}B` を、負次数では $`B` と同じ、
+次数0では $`\ker(d:B^0\to B^1)`、正次数では零として作る。
+次数0の cocycle をその cohomology class へ送り、負次数を零へ送ることで、dg algebra の射の列
+$$`B\longleftarrow\tau_{\leq0}B\longrightarrow H^0(B)=A`
+を得る。両射は全ての次数で cohomology 同型なので quasi-isomorphism である。
 従って $`\operatorname{Perf}(B)\simeq\operatorname{Perf}(A)`。証明終。
 
 **注意。** 上記の証明は dg Morita theorem を引用している。Lean による形式化でこの定理自体が既に検証済みとは主張していない。
