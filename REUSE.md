@@ -186,6 +186,14 @@
 
 これは幾何学側の対象条件の確認である。Beilinson 関手の制限、代数側の有限次元条件、Db(Coh) 自体と D_QCoh 内の有界 coherent 対象の比較は別に必要である。
 
+## 非可換な代数側の有界 devissage
+
+本番 `Beilinson/DerivedDevissage.lean` は mathlib のみを使う。`of_bounded_cohomology` と `of_isBounded` は、任意のアーベル圏 C と同型で閉じた三角部分圏 P に対し、有界 K の全 H^i(K)[0] が P に入れば K も入ることを示す。truncation 三角の HomologySequence から必要な Homology の同型を構成する。
+
+再利用する API は `DerivedCategory.exists_iso_singleFunctor_obj_of_isGE_of_isLE`、`singleFunctorCompHomologyFunctorIso`、`TStructure.triangleLEGE`、`DerivedCategory.HomologySequence.exact₁` / `exact₂` / `exact₃` と `ObjectProperty.ext_of_isTriangulatedClosed₂`。上流 `Homology.Perfect.Basic.isPerfect_of_bounded_of_cohomology_isPerfect` の公開 statement は CommRing を仮定するため、非可換 End にそのまま使わない。ここでは任意のアーベル圏で一般的な三角部分圏への所属として検証し、cohomology の perfect 性という別の仮定を隠さない。
+
+`KroneckerPerfect.finite_module_mem` は既存の `rightModuleResolution_shortExact` と `finite_rightModuleResolution_terms` を `ShortComplex.ShortExact.singleTriangle` / `singleTriangle_distinguished`（mathlib `DerivedCategory.SingleTriangle`）へ接続する。これを一般 devissage と合成した `bounded_mem_of_finite_cohomology` は、有限射影加群を含む任意の厳密充満三角部分圏が有界・有限次元コホモロジーの Kronecker 複体も含むことを示す。外部の IsPerfect / IsCompactObject の述語はこの段階で仮定も同定もしていない。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

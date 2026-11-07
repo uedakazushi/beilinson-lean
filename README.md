@@ -65,4 +65,8 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 `Beilinson/KroneckerYoneda.lean` は Hom(X⊕Y,Z) の二成分への線形同型と、前合成による右作用が二本の逆向き写像と一致することを証明する。標準の右 End 作用を制限した通常の Hom 加群関手と、二頂点の表現から構成した加群関手の自然同型 `homFunctorIso` も検証済み。
 `Beilinson/KroneckerEndModules.lean` は環同型に沿って長さ1の射影分解を移送する。上の Hom の仮定を満たす直和の End についても、すべての右加群の射影次元が高々1となる。
 
+`Beilinson/DerivedDevissage.lean` は任意のアーベル圏で、有界対象がそのコホモロジー対象を含む厳密充満な三角部分圏に属することを示す。環の可換性を仮定せず、非可換な代数側でコホモロジーの perfect 性から複体全体へ進むための補題である。
+
+`Beilinson/KroneckerPerfect.lean` は長さ1の有限射影分解を導来圏の三角へ送り、有界かつコホモロジーが有限次元の Kronecker 複体が、有限射影加群を含む任意の厳密充満な三角部分圏に入ることを証明する。外部の perfect / compact という述語との同定は別途必要である。
+
 開発成果は検証後に main へ直接 push する。作業用ブランチや PR は作成しない。

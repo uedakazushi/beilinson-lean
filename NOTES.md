@@ -51,3 +51,7 @@
 - 第7章に Hom のコホモロジー頂点 (H^q(F),H^q(F(-1)))、Euler 列と単純加群の射影分解、skyscraper 層と二本のスカラー矢の対応を追加した。これらの幾何学的代入は自然言語の計算であり、一般圏の検証済み Yoneda 補題と区別する。ネイティブ PDF を確認し、第7章の長いファイル名による行幅超過も解消した。
 
 - `GeometricPerfectProbe.compact_iff_boundedCoherent` と `ProjectivePerfectProbe.regular` / `compact_iff_boundedCoherent` を検証した。perfect の二つの上流定義はスキームの宇宙レベルで定義上同じであることも確認した。主張は locally small な D_QCoh 内のコホモロジー条件であり、Db(Coh) 自体との同値を主張しない。
+
+- `DerivedDevissage.of_bounded_cohomology` / `of_isBounded` は任意のアーベル圏の導来圏と、同型で閉じた三角部分圏に対する一般的な再構成補題。標準 truncation 三角と HomologySequence の完全性で区間長を帰納する。非可換環の加群にも使え、個々のコホモロジー加群の perfect 性は別途必要である。
+
+- `KroneckerPerfect.finite_module_mem` は標準射影分解の短完全列を `ShortExact.singleTriangle` で送り、三角部分圏が全有限射影加群を含めば全有限次元加群も含むことを示す。`bounded_mem_of_finite_cohomology` は一般 devissage と合成して有界・有限次元コホモロジーの複体まで進める。外部の perfect / compact predicate との同定は主張しない。

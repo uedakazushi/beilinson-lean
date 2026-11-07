@@ -1,6 +1,7 @@
 module
 
 public import Beilinson.Foundation
+public import Beilinson.DerivedDevissage
 public import Beilinson.Kronecker
 public import Beilinson.KroneckerEnd
 public import Beilinson.KroneckerYoneda
@@ -8,6 +9,7 @@ public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule
 public import Beilinson.KroneckerCategory
 public import Beilinson.KroneckerResolution
+public import Beilinson.KroneckerPerfect
 public import Beilinson.KroneckerDimension
 public import Beilinson.KroneckerIdeals
 
@@ -27,6 +29,10 @@ with scalar diagonals, zero reverse Hom and a two-element forward Hom basis
 with the Kronecker model. Hom precomposition agrees with the reverse-arrow
 right action, and the length-one projective resolution transports to this End
 ring. Its geometric hypotheses are not yet instantiated.
+A general bounded devissage lemma reconstructs an object inside a strictly full
+triangulated subcategory from its cohomology objects in any abelian category.
+For Kronecker, bounded finite-dimensional cohomology then suffices for membership
+in every such subcategory containing the finite projective modules.
 The geometric Beilinson equivalence is not yet formalized.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
