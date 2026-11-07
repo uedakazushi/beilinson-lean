@@ -36,7 +36,7 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較、cone 規約との符号補正、集中 dg 代数の通常右加群への直接比較を、12個の専用ターゲットで実 import/build・公理監査まで検証した。正則 qcqs スキームでの compactness と有界 coherent コホモロジーの同値、および全ての次元の射影空間への代入も確認した。本番の Kronecker 証明を用いて、右 Kronecker 複体の compactness / perfect 性と有界・有限次元コホモロジーの同値も検証した。構造層からの Hom と大域切断の基礎体上の線形同型、切断とテンソルで使うスカラー構造の一致も確認した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較、cone 規約との符号補正、集中 dg 代数の通常右加群への直接比較を、13個の専用ターゲットで実 import/build・公理監査まで検証した。正則 qcqs スキームでの compactness と有界 coherent コホモロジーの同値、および全ての次元の射影空間への代入も確認した。本番の Kronecker 証明を用いて、右 Kronecker 複体の compactness / perfect 性と有界・有限次元コホモロジーの同値も検証した。構造層からの Hom と大域切断の基礎体上の線形同型、切断とテンソルで使うスカラー構造の一致も確認した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
 
 ```sh
 cd integrations/stacks
@@ -62,7 +62,7 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 
 `Beilinson/Kronecker.lean` は mathlib の行列部分代数を用い、任意の体上で Kronecker 代数の具体的モデル、4要素の基底、次元4、頂点と矢の積を証明する。幾何学的な自己準同型代数との同定と Beilinson の導来同値は未形式化。`Beilinson/KroneckerModule.lean` は右作用と二本の逆向きの線形写像を相互に構成し、頂点分解による作用の復元、有限次元の場合の次元公式、射の可換条件を証明する。`Beilinson/KroneckerCategory.lean` はこの対応を両方向の関手・自然同型からなる圏同値にまとめ、有限次元対象の充満部分圏にも制限する。`Beilinson/KroneckerResolution.lean` は任意の右加群を終点とする短完全列を構成し、分解の両項の射影性・有限次元性の保存・射影次元が高々1であることを証明する。`Beilinson/KroneckerDimension.lean` は有限次元の非射影単純加群を構成し、射影次元がちょうど1となることを証明する。`Beilinson/KroneckerIdeals.lean` は e₀A・e₁A と標準射影表現の明示的同型、両右イデアルの射影性、正則右加群の分解を証明する。次は幾何学側の既存 API と接続する。
 
-`Beilinson/KroneckerEnd.lean` は一般の k-線形圏の二対象について、対角 Hom のスカラー同定、逆向き Hom の消滅、順向き Hom の二元基底を仮定し、具体的 Kronecker 代数と直和の End の代数同型を構成する。頂点・矢の像と次元4も検証済み。射影直線の線束にこの Hom データを代入する幾何学的ステップは未完成である。
+`Beilinson/KroneckerEnd.lean` は一般の k-線形圏の二対象について、対角 Hom のスカラー同定、逆向き Hom の消滅、順向き Hom の二元基底を仮定し、具体的 Kronecker 代数と直和の End の代数同型を構成する。頂点・矢の像と次元4も検証済み。独立した `ProjectiveLineEnd` ターゲットで、実際の射影直線上の O(0), O(1) にこのデータを代入し、End の代数同型と全右加群の射影次元≤1を検証した。同型には二次元 Hom の基底選択を用いる。
 `Beilinson/KroneckerYoneda.lean` は Hom(X⊕Y,Z) の二成分への線形同型と、前合成による右作用が二本の逆向き写像と一致することを証明する。標準の右 End 作用を制限した通常の Hom 加群関手と、二頂点の表現から構成した加群関手の自然同型 `homFunctorIso` も検証済み。
 `Beilinson/KroneckerEndModules.lean` は環同型に沿って長さ1の射影分解を移送する。上の Hom の仮定を満たす直和の End についても、すべての右加群の射影次元が高々1となる。
 

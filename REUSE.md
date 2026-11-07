@@ -206,6 +206,12 @@
 
 本番 `KroneckerEnd.scalarAlgebraEquiv` / `scalarHomEquiv` は、一次元の自己準同型環をスカラーと同定し、恒等射の正規化も証明する。`nonemptyBasisOfFinrank` は正の有限次元から基底の存在を供給する。これらは一般の線形圏・ベクトル空間に関する補題であり、幾何学的 Hom データの代入は別に検証している。
 
+## 射影直線の幾何学的 End
+
+`integrations/stacks/ProjectiveLineEnd.lean` は任意の体上の多項式 Proj P¹ で O(0), O(1) を実際に使う。`unitToTwist_finrank` は Hom(O,O(d)) と大域切断、斉次多項式の比較から d≥0 の次元 d+1 を計算する。O(0)≅O の移送と、線形な捻り自己同値から両対角 Hom の次元1を得る。負捻りの H⁰ の消滅と捻りの忠実性から逆 Hom の消滅を得る。本番 `KroneckerEnd.nonemptyAlgebraEquivOfFinrank` に次元1,1,2と逆 Hom の消滅を渡し、`algebraEquiv` を構成する。基底は選択しており、二本の矢と特定の座標切断の一致は主張しない。`projectiveDimension_le_one` はこの実際の環同型で本番の全右加群の分解を移送する。実 build と標準3公理の監査に成功した。
+
+線形同型のデータを幾何学側で何度も合成するとカーネルで大きな定義展開を生むため、一般の線形圏で次元と零 Hom を移す本番補題 `finrank_hom_map`、`finrank_hom_congr`、`subsingleton_hom_congr` を用いる。検証の制限値は本番の既定値のままである。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。

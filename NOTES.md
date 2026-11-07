@@ -17,7 +17,7 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較の12ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの12個で、一括実行に成功した。大きな幾何学的 dg 同値とコホモロジーは検証中。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End の13ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの13個で、一括実行に成功した。大きな幾何学的 dg 同値とコホモロジーは検証中。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
@@ -38,7 +38,7 @@
 
 - 主定理の tilting bundle に対しては、有限生成射影複体との tensor と層の単射分解による Hom の随伴を構成する。単位を A、余単位を T で確認し、それぞれの同型 locus が thick であることから Perf 圏の同値を示す。一般の perfect complex に関する dg Morita は別の補足に分離した。
 
-- `KroneckerEnd` の End 同定は、対角 Hom の正規化されたスカラー同定、逆 Hom 零、順 Hom の二元基底を追加仮定として持つ。実際の O と O(1) の Hom に未代入である。Lean 4.35 の `CategoryTheory.End` は構造体なので、射の計算では `asHom` と `End.of` を明示する。
+- `KroneckerEnd` の End 同定は、対角 Hom の正規化されたスカラー同定、逆 Hom 零、順 Hom の二元基底を追加仮定として持つ。`ProjectiveLineEnd` で実際の O(0) と O(1) の Hom に代入済み。大域切断による順 Hom の次元2、捻りによる対角 Hom の次元1、逆 Hom の消滅を確認した。同型は基底選択に依存し、二本の矢を特定の座標切断とはまだ同定していない。Lean 4.35 の `CategoryTheory.End` は構造体なので、射の計算では `asHom` と `End.of` を明示する。
 
 - ライブラリ入口 `Beilinson.lean` と Foundation を Lean 4 の module 形式へ揃えた。module クライアントから `import Beilinson` する経路も監査する。空の Foundation は Mathlib 全体を import せず、各数学ファイルが必要な依存を宣言する。
 

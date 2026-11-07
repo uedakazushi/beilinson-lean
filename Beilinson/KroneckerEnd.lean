@@ -3,6 +3,7 @@ module
 public import Beilinson.Kronecker
 public import Mathlib.CategoryTheory.Preadditive.Biproducts
 public import Mathlib.CategoryTheory.Linear.Basic
+public import Mathlib.CategoryTheory.Linear.LinearFunctor
 public import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
 public import Mathlib.Tactic.Abel
 
@@ -32,6 +33,23 @@ theorem nonemptyBasisOfFinrank {V : Type v} [AddCommGroup V] [Module k V]
   exact ⟨Module.finBasisOfFinrankEq k V h⟩
 
 variable {C : Type w} [Category.{v} C] [Preadditive C] [Linear k C] {X Y : C}
+
+/-- Isomorphisms of the two objects preserve the dimension of Hom. -/
+theorem finrank_hom_congr {X' Y' : C} (eX : X ≅ X') (eY : Y ≅ Y') :
+    Module.finrank k (X ⟶ Y) = Module.finrank k (X' ⟶ Y') :=
+  (Linear.homCongr k eX eY).finrank_eq
+
+/-- A fully faithful linear functor preserves Hom dimensions. -/
+theorem finrank_hom_map {D : Type*} [Category D] [Preadditive D] [Linear k D]
+    (F : C ⥤ D) [F.Full] [F.Faithful] [F.Additive] [F.Linear k] :
+    Module.finrank k (X ⟶ Y) = Module.finrank k (F.obj X ⟶ F.obj Y) :=
+  (LinearEquiv.ofBijective (F.mapLinearMap k) ⟨F.map_injective, F.map_surjective⟩).finrank_eq
+
+include k in
+/-- Transport vanishing of a Hom space along object isomorphisms. -/
+theorem subsingleton_hom_congr {X' Y' : C} (eX : X ≅ X') (eY : Y ≅ Y')
+    [Subsingleton (X' ⟶ Y')] : Subsingleton (X ⟶ Y) :=
+  (Linear.homCongr k eX eY).toEquiv.subsingleton
 
 /-- A one-dimensional endomorphism algebra is canonically its scalar algebra. -/
 def scalarAlgebraEquiv (X : C) (h : Module.finrank k (X ⟶ X) = 1) :
@@ -200,6 +218,15 @@ def algebraEquiv [Subsingleton (Y ⟶ X)]
     (e₀ : (X ⟶ X) ≃ₗ[k] k) (e₁ : (Y ⟶ Y) ≃ₗ[k] k)
     (b : Module.Basis (Fin 2) k (X ⟶ Y)) (h₀ : e₀ (𝟙 X) = 1) (h₁ : e₁ (𝟙 Y) = 1)
     (a : Kronecker.Algebra k) : algebraEquiv k e₀ e₁ b h₀ h₁ a = ofArrows k b a := rfl
+
+/-- The dimension criterion for a noncanonical Kronecker identification. -/
+theorem nonemptyAlgebraEquivOfFinrank [Subsingleton (Y ⟶ X)]
+    (hX : Module.finrank k (X ⟶ X) = 1) (hY : Module.finrank k (Y ⟶ Y) = 1)
+    (hXY : Module.finrank k (X ⟶ Y) = 2) :
+    Nonempty (Kronecker.Algebra k ≃ₐ[k] End (X ⊞ Y)) := by
+  let b := Classical.choice (nonemptyBasisOfFinrank k hXY (by omega))
+  exact ⟨algebraEquiv k (scalarHomEquiv k X hX) (scalarHomEquiv k Y hY) b
+    (scalarHomEquiv_id k X hX) (scalarHomEquiv_id k Y hY)⟩
 
 /-- In particular, the endomorphism algebra of such a pair is finite dimensional. -/
 theorem finiteDimensional [Subsingleton (Y ⟶ X)]

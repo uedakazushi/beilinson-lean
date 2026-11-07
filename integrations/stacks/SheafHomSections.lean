@@ -1,5 +1,6 @@
 module
 
+public import StacksFrontier.Algebra.Category.ModuleCat.Sheaf.TensorPower
 public import StacksFrontier.AlgebraicGeometry.DerivedGlobalSectionsLinear
 public import StacksFrontier.AlgebraicGeometry.DerivedGlobalSectionsHomUnit
 public import StacksFrontier.AlgebraicGeometry.FunctorsAndMorphisms.IntegralTransformQcoh.Basic
@@ -79,6 +80,23 @@ theorem linearOver_eq_modulesLinear :
     Scheme.linearOver f = modulesLinear A (Over.mk f) := by
   rfl
 
+/-- Right tensoring is base-linear, by symmetry from left tensoring. -/
+theorem tensorRightLinear (L : X.Modules) :
+    letI := Scheme.linearOver f
+    (show X.Modules ⥤ X.Modules from
+      (Stacks.SheafOfModules.Tensor.sheafTensor.{u,u,u,u,u} X.sheaf).flip.obj L).Linear A := by
+  let : Linear A X.Modules := modulesLinear A (Over.mk f)
+  let : Linear A (SheafOfModules.{u}
+      (Stacks.SheafOfModules.Tensor.ringSheaf X.sheaf)) :=
+    Linear.ofRingMorphism (baseRingToCenter A (Over.mk f))
+  let : ((Stacks.SheafOfModules.Tensor.sheafTensor.{u,u,u,u,u} X.sheaf).obj L).Linear A :=
+    tensorLeft_linear A (Over.mk f) L
+  exact Functor.linear_of_iso (R := A)
+    (F := (Stacks.SheafOfModules.Tensor.sheafTensor.{u,u,u,u,u} X.sheaf).obj L)
+    (G := (Stacks.SheafOfModules.Tensor.sheafTensor.{u,u,u,u,u} X.sheaf).flip.obj L)
+    (Stacks.SheafOfModules.TensorPower.tensorLeftIsoTensorRight X.presheaf X.ringCatSheaf.2 L)
+
+#print axioms Beilinson.SheafHomSections.tensorRightLinear
 #print axioms Beilinson.SheafHomSections.unitHomLinearEquivOfLinear
 #print axioms Beilinson.SheafHomSections.unitHomLinearEquiv
 #print axioms Beilinson.SheafHomSections.unitHomLinearEquiv_id

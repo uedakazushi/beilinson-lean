@@ -125,7 +125,7 @@ Lean で代入する幾何学的ステップはまだ残っている。
 `Beilinson/KroneckerEndModules.lean` は反対環の環同型に沿って短完全列と
 射影性を移送し、最後の項を元の加群と同型で結ぶ。
 したがって上の Hom の仮定の下では、$`\operatorname{End}(X\oplus Y)` のすべての
-右加群の射影次元も高々1である。幾何学的 Hom データの代入は引き続き必要である。
+右加群の射影次元も高々1である。独立ターゲット `ProjectiveLineEnd` で、実際の射影直線の O(0), O(1) に Hom データを代入する計算も検証した。
 
 # 有界対象のコホモロジーからの再構成
 
@@ -150,7 +150,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十二個は検証済みである。
+次の十三個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -167,6 +167,8 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 11. `KroneckerCompact`：本番の Kronecker 証明を再利用し、右加群の複体について、compactness / perfect 性と有界・有限次元コホモロジーの同値を確認する。幾何学的な End の同定は含まない。
 
 12. `SheafHomSections`：構造層からの Hom と大域切断の線形同型、対象に関する自然性、切断とテンソルのスカラー構造の一致。
+
+13. `ProjectiveLineEnd`：任意の体上の実際の多項式 Proj で、O(0) と O(1) の直和の End を Kronecker 代数と同定し、全右加群の射影次元≤1を導く。二次元 Hom の基底を選ぶ同型である。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。

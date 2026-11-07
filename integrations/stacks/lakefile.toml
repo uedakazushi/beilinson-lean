@@ -64,3 +64,7 @@ name = "KroneckerCompact"
 # Base-linear Hom from the structure sheaf and the scalar-structure comparison.
 [[lean_lib]]
 name = "SheafHomSections"
+
+# Actual geometric End(O + O(1)) on the projective line.
+[[lean_lib]]
+name = "ProjectiveLineEnd"
