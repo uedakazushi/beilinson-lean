@@ -1,10 +1,13 @@
-import Beilinson.Foundation
-import Beilinson.Kronecker
-import Beilinson.KroneckerModule
-import Beilinson.KroneckerCategory
-import Beilinson.KroneckerResolution
-import Beilinson.KroneckerDimension
-import Beilinson.KroneckerIdeals
+module
+
+public import Beilinson.Foundation
+public import Beilinson.Kronecker
+public import Beilinson.KroneckerEnd
+public import Beilinson.KroneckerModule
+public import Beilinson.KroneckerCategory
+public import Beilinson.KroneckerResolution
+public import Beilinson.KroneckerDimension
+public import Beilinson.KroneckerIdeals
 
 /-!
 # Beilinson Lean: library entry point
@@ -17,6 +20,9 @@ Every right module has a short exact projective presentation of length one
 and projective dimension at most one. A finite-dimensional simple module
 attains projective dimension one. The vertex right ideals are explicitly
 identified with the standard projective representations.
+A categorical algebra equivalence identifies the endomorphism algebra of a pair
+with scalar diagonals, zero reverse Hom and a two-element forward Hom basis
+with the Kronecker model. Its geometric hypotheses are not yet instantiated.
 The geometric Beilinson equivalence is not yet formalized.
 
 Formal declarations will be imported from `Beilinson/` as they become available.

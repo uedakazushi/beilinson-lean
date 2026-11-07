@@ -37,3 +37,7 @@
 - 第2章の Čech 計算は、Laurent 単項式の負指数集合 N による三場合と明示的な収縮ホモトピーに展開した。最上次数の次元公式と負次数の derived Hom の消滅も明記する。この追加は自然言語の証明であり、Verso のビルドを Lean による証明と見なさない。
 
 - 主定理の tilting bundle に対しては、有限生成射影複体との tensor と層の単射分解による Hom の随伴を構成する。単位を A、余単位を T で確認し、それぞれの同型 locus が thick であることから Perf 圏の同値を示す。一般の perfect complex に関する dg Morita は別の補足に分離した。
+
+- `KroneckerEnd` の End 同定は、対角 Hom の正規化されたスカラー同定、逆 Hom 零、順 Hom の二元基底を追加仮定として持つ。実際の O と O(1) の Hom に未代入である。Lean 4.35 の `CategoryTheory.End` は構造体なので、射の計算では `asHom` と `End.of` を明示する。
+
+- ライブラリ入口 `Beilinson.lean` と Foundation を Lean 4 の module 形式へ揃えた。module クライアントから `import Beilinson` する経路も監査する。空の Foundation は Mathlib 全体を import せず、各数学ファイルが必要な依存を宣言する。

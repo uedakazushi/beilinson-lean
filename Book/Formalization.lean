@@ -100,6 +100,21 @@ $$`\operatorname{Mod}\text{-}A\simeq\operatorname{Rep}_k(K_2^{\mathrm{op}})`
 証明済み Lean 宣言、外部の既知数学定理、自然言語の証明、未実装の仕様を常に区別する。
 
 
+# 二対象の直和の自己準同型代数
+
+`Beilinson/KroneckerEnd.lean` は一般の $`k`-線形圏での計算である。
+二対象 $`X,Y` の対角 Hom を $`k` と線形同定し、それぞれ恒等射を1へ送ると仮定する。
+さらに $`\operatorname{Hom}(Y,X)=0` とし、$`\operatorname{Hom}(X,Y)` の二元基底を選ぶ。
+このとき `algebraEquiv` は具体的 Kronecker 代数と $`\operatorname{End}(X\oplus Y)` の代数同型を与える。
+
+`ofArrows` は、任意の二本の射 $`f_0,f_1:X\to Y` からこの直和への代数作用を作る。
+頂点は $`X,Y` への射影と包含の合成へ、矢は $`f_i` を順向きの非対角成分へ置いた射へ送る。
+`finrank` は、上の基底と対角 Hom の仮定の下で、End の次元が4であることを示す。
+
+これは追加仮定を明示した一般的な End の同定であり、
+射影直線上の $`X=\mathcal O`、$`Y=\mathcal O(1)` について必要な Hom データを
+Lean で代入する幾何学的ステップはまだ残っている。
+
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。

@@ -162,6 +162,16 @@
 
 `comparison` はこの等式に沿って cone 規約の比較を輸送し、通常右 B.A-加群の標準導来圏への圏同値、shift 比較、三角の保存をデータとしてまとめる。`Comparison.inverse_isTriangulated` により、整合的な shift 比較を選んだ逆関手も exact。追加の dg Morita / quasi-isomorphism による代数変更定理を必要としない。実 build と公理監査に成功し、主要宣言は標準の3公理のみを使う。Stacks 側の import 閉包は462モジュール。幾何学的 endAlgebra に具体的に代入する検証はなお別ターゲットで行う。
 
+## n=1 の End 同定に向けた二対象の計算
+
+本番 `Beilinson/KroneckerEnd.lean` は Stacks に依存しない。k-線形 preadditive 圏で binary biproducts を仮定する。`ofArrows` は二本の射 X→Y から具体的 Kronecker 代数の単位的な代数準同型 A→End(X⊞Y) を構成する。
+
+`algebraEquiv` の追加仮定は、Hom(X,X)≃ₗ[k]k と Hom(Y,Y)≃ₗ[k]k（各恒等射を1へ送る）、Subsingleton Hom(Y,X)、および Hom(X,Y) の Fin 2 基底。4成分の座標抽出と再構成を示して全単射性を証明し、`ofArrows` の乗法保存で代数同型へ昇格する。`ofArrows_e₀`、`ofArrows_e₁`、`ofArrows_arrow` は生成元の像を射影・包含と選んだ射として確認し、`finiteDimensional` と `finrank` は条件付き End の有限次元性と次元4を与える。幾何学的 Hom の仮定は未代入であり、End(O⊕O(1)) の具体的同定が完成したとは扱わない。
+
+再利用した pinned mathlib API：`Biprod.ofComponents`、`Biprod.ofComponents_comp`、`Biprod.ofComponents_eq`（`Mathlib.CategoryTheory.Preadditive.Biproducts`）、`CategoryTheory.End` とその `asHom` / `of`、`Module.Basis.sum_repr`、`AlgHom.ofLinearMap`、`AlgEquiv.ofLinearEquiv`。End は Hom の単なる略記ではないため、morphism の計算へは `asHom` で移す。主要宣言の実 build と公理監査に成功し、依存は標準の3公理のみ。
+
+ライブラリ入口は `module` / `public import` を使い、新しい module クライアントからの公開 API を確認する。空の Foundation の Mathlib umbrella import は最小限の category import へ整理し、数学ファイルが個別の依存を持つ。
+
 ## 更新と再現
 
 本番は root `lean-toolchain`, `lakefile.lean` と実生成 `lake-manifest.json` に固定する。Stacks は独立環境で revision を固定し、統合検証に成功した場合にのみ必要な範囲を本番へ移す。上流 63k モジュールの更新に通常の Verso ビルドを従属させない。
