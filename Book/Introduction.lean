@@ -22,4 +22,4 @@ $$`\mathbf R\operatorname{Hom}_X(T,-): D^b(\operatorname{Coh}X)\xrightarrow{\sim
 この二つを抽象的な tilting theorem に代入し、終域の代数を Hom の掛け算から同定する。
 
 必要な基礎は層・射影空間・局所自由分解・Koszul 複体・導来圏である。
-後から形式化する際のため、幾何的証明と抽象的な dg Morita の部分を分離する。
+後から形式化する際のため、幾何学的な生成性と導来 Hom–tensor 随伴の部分を分離する。

@@ -15,7 +15,7 @@ Verso のビルドは文書の構文と Lean コード例を確認するが、�
 4. Serre vanishing と大域生成性、hypercohomology spectral sequence による負捻り線束の検出、right orthogonal の消滅、exceptional collection の admissibility と SOD。
 5. full strong exceptional collection の定式化。
 6. Beilinson 箙の関係式付き経路代数。
-7. 抽象的 tilting/dg Morita theorem と finite global dimension。
+7. Tilting bundle の導来 Hom–tensor 随伴と finite global dimension。dg モデルの再利用では通常右加群への比較も確認する。
 8. 導来同値の主定理。
 
 # 検証済みの代数的モデル

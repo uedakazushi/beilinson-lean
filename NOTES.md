@@ -35,3 +35,5 @@
 - dg の primed / unprimed な導来圏は同じ基礎圏でも三角の符号規約が異なる。`DegreeZeroConeComparison` で sign twist を経由する exactness の橋渡しを検証した。既存の exactness を構造ごと混用しない。
 
 - 第2章の Čech 計算は、Laurent 単項式の負指数集合 N による三場合と明示的な収縮ホモトピーに展開した。最上次数の次元公式と負次数の derived Hom の消滅も明記する。この追加は自然言語の証明であり、Verso のビルドを Lean による証明と見なさない。
+
+- 主定理の tilting bundle に対しては、有限生成射影複体との tensor と層の単射分解による Hom の随伴を構成する。単位を A、余単位を T で確認し、それぞれの同型 locus が thick であることから Perf 圏の同値を示す。一般の perfect complex に関する dg Morita は別の補足に分離した。

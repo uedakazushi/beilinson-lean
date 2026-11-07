@@ -11,7 +11,7 @@ Book/ に自然言語による初稿、Beilinson/ に独立した Lean library�
 1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。次は pinned mathlib / Stacks の射影空間・線束・層コホモロジーの正確な API と定式化を照合し、幾何学側との橋渡しを実装する。
 2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
 3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
-4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、dg Morita の根拠を精査する。
+4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、導来 Hom–tensor 随伴と dg モデル比較の根拠を精査する。
 5. 既存定理で不足する薄い bridge だけを実装し、n=1 から一般 n へ進む。
 
 ## 現行の技術方針

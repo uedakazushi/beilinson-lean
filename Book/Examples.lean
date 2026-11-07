@@ -42,8 +42,13 @@ $$`u_0\circ f_i=g_i\circ u_1\quad(i=0,1)`
 加群側の $`m\mapsto(me_0,me_1)` と、表現側の復元した頂点空間から元の空間への射影は、
 ともに射と可換な同型である。従って右 $`A`-加群圏と逆向きの Kronecker 表現圏は圏同値となる。
 上の次元公式により、これは有限次元対象の充満部分圏にも制限される。
-二本の関手、両方向の自然同型、全体と有限次元部分圏の圏同値は
-`Beilinson/KroneckerCategory.lean` の `moduleEquivalence` と `finiteModuleEquivalence` で Lean 検証した。
+二本の関手、両方向の自然同型、全体と有限次元部分圏の圏同値を、次のファイルで Lean 検証した。
+
+`Beilinson/KroneckerCategory.lean`
+
+1. `moduleEquivalence`：全ての右加群と逆向きの表現の圏同値。
+2. `finiteModuleEquivalence`：有限次元対象の充満部分圏への制限。
+
 幾何学的自己準同型代数との同定と Beilinson の導来同値は依然として別の課題である。
 
 # 長さ1の射影分解

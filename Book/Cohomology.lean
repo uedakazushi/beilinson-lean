@@ -11,6 +11,7 @@ $$`H^0(X,\mathcal O(d))=\begin{cases}\operatorname{Sym}^{d}(V^\vee)&d\geq0,\\0&d
 特に $`-n\leq d\leq n` なら $`q>0` に対して $`H^q(X,\mathcal O(d))=0` である。
 
 **証明。** 斉次座標 $`x_0,\dots,x_n` と標準開被覆 $`U_i=D_+(x_i)` を取る。
+
 $`S=k[x_0,\ldots,x_n]` とおく。空でない添字集合 $`I` に対し、
 $`U_I=\bigcap_{i\in I}U_i` は affine であり、
 切断は次のように書ける：
