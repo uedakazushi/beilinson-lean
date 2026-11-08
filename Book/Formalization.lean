@@ -165,7 +165,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の四十個は検証済みである。
+次の四十四個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -218,6 +218,10 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 38. `DerivedHomTransport`：通常の右 End 加群に値を持つ Hom の全右導来関手の存在と、完全同値・係数変更との自然な対応。
 39. `PositiveDerivedHom`：全次元で、別に定義した古典的 RHom(E,−) と RHom(T,−) を捻りと係数変更を通して自然に同型にする。
 40. `GeometricHomEvaluation`：実際の幾何学的 dg Hom の各斉次成分を通常の Hom と同定し、微分・右 End 作用・後合成の対応を確認する。
+41. `ConcentratedComponents`：次数0に集中する dg 代数上の加群から、斉次成分の通常の加群複体を直接構成する。
+42. `GeometricHomComplex`：実際の dg Hom の成分複体と、通常の右加群 Hom の項別適用を関手として自然に同型にする。
+43. `ConcentratedComparisonComponents`：既存の通常加群への導来比較そのものが、成分複体の局所化として計算できること。
+44. `GeometricDerivedHom`：実際の幾何学的 dg RHom を通常加群へ移した関手と、独立に導来化した古典的 RHom の自然同型。
 
 本番の `CochainFromZero.functorIso` は、次数0に集中する複体からの Hom 複体と
 通常の Hom を各項へ適用した複体を自然に同型にする。

@@ -169,3 +169,15 @@ name = "PositiveDerivedHom"
 [[lean_lib]]
 name = "GeometricHomEvaluation"
 
+[[lean_lib]]
+name = "ConcentratedComponents"
+
+[[lean_lib]]
+name = "GeometricHomComplex"
+
+[[lean_lib]]
+name = "ConcentratedComparisonComponents"
+
+[[lean_lib]]
+name = "GeometricDerivedHom"
+

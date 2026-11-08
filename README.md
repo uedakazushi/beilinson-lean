@@ -38,7 +38,7 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。40個の専用ターゲットで実 import/build と公理監査を行っています。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。44個の専用ターゲットで実 import/build と公理監査を行っています。
 
 非有界 dg Beilinson 同値から通常右 End(E) 加群への比較を経て、全次元で実際の D^b(有限次元右 Beilinson 行列代数加群) と D^b(Coh Pⁿ) 自体の三角同値を合成しました。幾何学的 End との環同型を使い、Hom の基底選択は不要です。射影直線では具体的 Kronecker 代数からの同値も検証済みです。正の窓については E(n)≅T、End の代数同型、右 End 加群値 Hom の自然同型と複体上の比較を確認しました。正の窓の実際の有界導来捻りと、実際の End(T) の有限次元始域への移送も確認しました。別定義の古典的 RHom・導来 tensor 関手との自然同型は残っています。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
 
