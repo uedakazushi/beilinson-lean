@@ -5,6 +5,7 @@ public import Beilinson.DerivedDevissage
 public import Beilinson.Kronecker
 public import Beilinson.KroneckerEnd
 public import Beilinson.EndTransport
+public import Beilinson.EndTransportYoneda
 public import Beilinson.KroneckerYoneda
 public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule

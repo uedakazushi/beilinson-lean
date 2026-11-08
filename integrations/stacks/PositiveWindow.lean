@@ -1,6 +1,7 @@
 module
 
 public import Beilinson.EndTransport
+public import Beilinson.EndTransportYoneda
 public import SheafHomSections
 public import StacksFrontier.AlgebraicGeometry.ProjTwistFunctor.Derived
 public import StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEquivalenceLinear
@@ -86,6 +87,26 @@ def endAlgebraEquiv : End (twistSumModule k n) ≃ₐ[k] End (positiveGenerator 
 def endRingEquiv : End (twistSumModule k n) ≃+* End (positiveGenerator k n) :=
   (endAlgebraEquiv k n).toRingEquiv
 
+/-- The positive-window Hom functor, after twisting and restriction of the right End action. -/
+def positiveHom : (AlgebraicGeometry.Proj (polyGrading k n)).Modules ⥤
+    ModuleCat.{u} (End (twistSumModule k n))ᵐᵒᵖ :=
+  twistModules k n (n : ℤ) ⋙ preadditiveCoyonedaObj (positiveGenerator k n) ⋙
+    ModuleCat.restrictScalars (RingEquiv.op (endRingEquiv k n)).toRingHom
+
+/-- Hom(E,M) ≅ Hom(T,M(n)), naturally as actual right End(E)-modules. -/
+def homFunctorIso : preadditiveCoyonedaObj (twistSumModule k n) ≅ positiveHom k n := by
+  let : (twistModules k n (n : ℤ)).Linear k := twist_linear k n (n : ℤ)
+  exact EndTransportYoneda.homFunctorIso k (twistModules k n (n : ℤ))
+    (twistSumModule k n) (generatorIso k n)
+
+/-- The comparison on Hom is compatible with the differentials of arbitrary complexes. -/
+def homComplexFunctorIso {ι : Type*} (c : ComplexShape ι) :=
+  letI : (twistModules k n (n : ℤ)).Linear k := twist_linear k n (n : ℤ)
+  EndTransportYoneda.homComplexFunctorIso k (twistModules k n (n : ℤ))
+    (twistSumModule k n) (generatorIso k n) c
+
+#print axioms Beilinson.PositiveWindow.homComplexFunctorIso
+#print axioms Beilinson.PositiveWindow.homFunctorIso
 #print axioms Beilinson.PositiveWindow.twist_linear
 #print axioms Beilinson.PositiveWindow.generatorIso
 #print axioms Beilinson.PositiveWindow.endAlgebraEquiv

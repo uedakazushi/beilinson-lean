@@ -195,7 +195,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 20. `ProjectiveLineWindow`：実際の負の窓の生成対象の End を Kronecker 代数と同定し、正の窓の End とも比較する。基底選択を用いる代数同型である。
 21. `ProjectiveLineBeilinson`：具体的 Kronecker 代数の有限次元右加群の有界導来圏自体と、射影直線の連接層の有界導来圏自体との三角同値を合成する。
 
-22. `PositiveWindow`：任意の可換環・全次元で、実際の E(n) と正の窓 T の同型と、捻りによる End 代数の同型を得る。Hom の基底選択を用いない。
+22. `PositiveWindow`：任意の可換環・全次元で、実際の E(n) と正の窓 T の同型と、捻りによる End 代数の同型を得る。Hom の基底選択を用いない。右 End(E) 加群として自然な Hom(E,M)≅Hom(T,M(n)) と、その複体上の比較も確認する。
 
 23. `CentralDegreeZero`：集中 dg 代数の通常右加群への比較が、追加の中心的な係数環について両方向とも線形となること。
 24. `OrdinaryBeilinsonLinear`：実際の通常右加群からの Beilinson tensor 関手が、幾何学的基礎環上で線形となること。

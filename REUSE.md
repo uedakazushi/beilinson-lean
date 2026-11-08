@@ -244,13 +244,13 @@
 
 `PositiveWindow.lean` は任意の可換環 k と次元 n に対し、`positiveFamily` を O(0),…,O(n) と定義する。`componentIso` は O(-i)(n)≅O(n-i) を、`generatorIso` は捻り関手の有限直和の保存と `Fin.revPerm` による並べ替えで E(n)≅T を構成する。`endAlgebraEquiv` は `EndTransport.mapEquiv` と対象の同型による移送を合成し、Hom の基底を選ばず End(E)≃ₐEnd(T) を与える。
 
-線形構造には上流の `projectiveSpaceModulesLinear` をそのまま使う。`Scheme.linearOver` と `modulesLinear` の一致を使うときは、暗黙のインスタンス引数を simp で変えるのではなく、データの等式で型を明示的に移送する。対象の同型・線形性・代数同型は実 build と標準3公理の監査に成功した。これは対象と End の比較であり、正の窓の tensor/Hom 関手全体の自然同型をまだ主張しない。
+線形構造には上流の `projectiveSpaceModulesLinear` をそのまま使う。`Scheme.linearOver` と `modulesLinear` の一致を使うときは、暗黙のインスタンス引数を simp で変えるのではなく、データの等式で型を明示的に移送する。対象の同型・線形性・代数同型は実 build と標準3公理の監査に成功した。本番の `EndTransportYoneda` は fully faithful な線形関手と生成対象の同型から、右 End 加群に値を持つ Hom 関手の自然同型を構成する。`PositiveWindow.homFunctorIso` はこれを適用して Hom(E,M)≅Hom(T,M(n)) を実際の右 End(E) 加群として与え、`homComplexFunctorIso` は微分と両立する複体の自然同型を与える。導来 tensor/Hom 関手全体の自然同型はまだ主張しない。
 
 ## 中心的係数環と通常加群比較の線形性
 
 `CentralDegreeZero` は、dg 代数の定義上の基礎環 R とは別の可換環 K が中心的な次数0の閉元として作用するとき、局所化・次数成分関手・通常右加群との比較と逆関手が K-線形であることを示す。集中 dg 代数の同一視は基礎環と次数分解を保持して行う。
 
-`OrdinaryBeilinsonLinear` は上流の `scalarRingHom` から実際の幾何学的 dg 環の A-代数構造を構成し、`ordinaryComparison` とその逆、`ordinaryTensor` の A-線形性を確認する。ℤ-線形性だけから基礎体上の有限次元性を主張せず、幾何学的な中心作用との一致を使う。通常右 End(E) 表記への環変更のスカラー比較と、一般次元の有限次元始域への制限は引き続き別の課題である。
+`OrdinaryBeilinsonLinear` は上流の `scalarRingHom` から実際の幾何学的 dg 環の A-代数構造を構成し、`ordinaryComparison` とその逆、`ordinaryTensor` の A-線形性を確認する。ℤ-線形性だけから基礎体上の有限次元性を主張せず、幾何学的な中心作用との一致を使う。`endAlgebraToEnd_scalar` は dg 環の係数が通常のスカラー自己準同型へ写ることを示し、`endAlgebraEquiv` は環同型を幾何学的基礎環上の代数同型へ強化する。`restrictEnd_linear` と `endTensor_linear` により、環変更後の実際の通常右 End(E) 加群からの tensor 関手も同じ基礎環上で線形となる。一般次元の有限次元始域への制限は引き続き別の課題である。
 
 ## 更新と再現
 

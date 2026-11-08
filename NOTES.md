@@ -69,3 +69,9 @@
 - `PositiveWindow` で任意の可換環・全次元の実際の E(n)≅T を構成した。各成分の捻りの同型、有限直和の保存、Fin.rev による並べ替えを合成する。fully faithful な線形捻り関手と対象の同型から End(E)≃ₐEnd(T) を得る。幾何学的な構成で Hom の基底選択を使わない。
 
 - `CentralDegreeZero` で、集中 dg 代数の通常右加群への比較と逆関手について追加の中心的係数環に関する線形性を検証した。`OrdinaryBeilinsonLinear` では幾何学的な `scalarRingHom` を使い、実際の通常加群からの tensor 関手の基礎環上の線形性を確認する。
+
+- 本番 `EndTransportYoneda` で fully faithful な線形関手と生成対象の同型に沿う右 End 加群値 Hom の自然比較を構成。正の窓では Hom(E,M)≅Hom(T,M(n)) を基底選択なしで得て、任意の形の複体にも持ち上げる。
+
+- `OrdinaryBeilinsonLinear.endAlgebraToEnd_scalar` と `endAlgebraEquiv` により、幾何学的 dg 環と End(E) の環同型が基礎環上の代数同型であることを確認した。
+
+- 通常右 End(E) 加群への環変更の線形性と `endTensor` 自体の基礎環上の線形性も検証した。

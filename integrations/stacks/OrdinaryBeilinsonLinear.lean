@@ -18,7 +18,12 @@ attribute [local instance] MvPolynomial.gradedAlgebra
 attribute [local instance] SheafOfModules.hasDerivedCategory
   AlgebraicGeometry.Scheme.Modules.hasDerivedCategory
 
+attribute [local instance] tensorModOLinear projectiveSpaceModulesLinear
+
 namespace Beilinson.OrdinaryBeilinsonLinear
+
+local instance moduleDerivedCategory (S : Type) [Ring S] :
+    HasDerivedCategory (ModuleCat.{0} S) := HasDerivedCategory.standard _
 
 variable (A : Type) [CommRing A] (n : ℕ)
 
@@ -61,6 +66,50 @@ theorem ordinaryTensor_linear : (OrdinaryBeilinson.ordinaryTensor A n).Linear A 
     tensorWithGenerator A n).Linear A
   infer_instance
 
+/-- The geometric dg-to-End ring comparison sends coefficients to the usual scalar endomorphisms. -/
+theorem endAlgebraToEnd_scalar (a : A) :
+    endAlgebraToEnd A n (scalarRingHom A n a) = a • 1 := by
+  apply End.ext
+  rw [endAlgebraToEnd]
+  have h : (⟨scalarRingHom A n a, endAlgebra_mem_grading_zero A n _⟩ :
+      (endAlgebra A n).grading 0) = scalarHom A n a := rfl
+  rw [h, algebraHom_scalarHom, CochainComplex.HomComplex.Cochain.smul_v,
+    CochainComplex.HomComplex.Cochain.ofHom_v, HomologicalComplex.id_f]
+  simp only [Linear.comp_smul, Linear.smul_comp, Category.id_comp,
+    Iso.hom_inv_id, End.smul_asHom, End.one_asHom]
+
+/-- The geometric ring comparison is an algebra equivalence for the actual base scalars. -/
+def endAlgebraEquiv : (endAlgebra A n).A ≃ₐ[A]
+    End (Stacks.AlgebraicGeometry.ExampleGenerator.twistSumModule A n) :=
+  { endAlgebraRingEquiv A n with
+    commutes' := fun a => by
+      change endAlgebraToEnd A n (scalarRingHom A n a) = a • 1
+      exact endAlgebraToEnd_scalar A n a }
+
+/-- Changing rings along the geometric End comparison preserves base coefficients. -/
+theorem restrictEnd_linear : (OrdinaryBeilinson.restrictEnd A n).Linear A := by
+  rw [Functor.linear_iff]
+  intro M a
+  apply ModuleCat.hom_ext
+  apply LinearMap.ext
+  intro x
+  change (algebraMap A (End (Stacks.AlgebraicGeometry.ExampleGenerator.twistSumModule A n))ᵐᵒᵖ a) • x =
+    (RingEquiv.op (endAlgebraRingEquiv A n))
+      (algebraMap A (endAlgebra A n).Aᵐᵒᵖ a) • x
+  exact congrArg (fun c => c • x) ((AlgEquiv.op (endAlgebraEquiv A n)).commutes a).symm
+
+/-- The actual End(E)-module tensor equivalence preserves the geometric coefficient ring. -/
+theorem endTensor_linear : (OrdinaryBeilinson.endTensor A n).Linear A := by
+  let : (OrdinaryBeilinson.restrictEnd A n).Linear A := restrictEnd_linear A n
+  let : (OrdinaryBeilinson.ordinaryTensor A n).Linear A := ordinaryTensor_linear A n
+  change ((OrdinaryBeilinson.restrictEnd A n).mapDerivedCategory ⋙
+    OrdinaryBeilinson.ordinaryTensor A n).Linear A
+  infer_instance
+
+#print axioms endTensor_linear
+#print axioms restrictEnd_linear
+#print axioms endAlgebraEquiv
+#print axioms endAlgebraToEnd_scalar
 #print axioms comparison_linear
 #print axioms comparison_inverse_linear
 #print axioms ordinaryTensor_linear

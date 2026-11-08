@@ -55,10 +55,10 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `BoundedBeilinson` | `OrdinaryBeilinson`, `ProjectivePerfectProbe`, and `CoherentDerivedComparison` | Over a field in Type 0, in every dimension including zero, the compact ordinary End(E)-module derived category is equivalent to actual Dᵇ(Coh Pⁿ). Both directions preserve triangles and shifts. |
 | `ProjectiveLineWindow` | `ProjectiveLineEnd`, production `EndTransport`, and `…ExampleGenerator.QuasiCoherentGenerator` | End of the actual Fin 2 negative-window generator E = O ⊕ O(-1) is the concrete Kronecker algebra. Its comparison with the positive-window End uses chosen bases. |
 | `ProjectiveLineBeilinson` | The preceding adapters and `KroneckerBoundedDerived` | For a field in Type 0, an actual exact equivalence Dᵇ(finite-dimensional right Kronecker modules) ≌ Dᵇ(Coh P¹), composed from the checked tensor functor and ring changes. |
-| `PositiveWindow` | Production `EndTransport`, `SheafHomSections`, and the geometric twist functor | Over every commutative ring and in every dimension, E(n) is isomorphic to the actual positive twist sum. Twisting gives the corresponding End algebra isomorphism, without choosing Hom bases. |
+| `PositiveWindow` | Production `EndTransport`, `SheafHomSections`, and the geometric twist functor | Over every commutative ring and in every dimension, E(n) is isomorphic to the actual positive twist sum. Twisting gives the corresponding End algebra isomorphism, without choosing Hom bases. The Hom comparison is natural as actual right End(E)-modules, and extends to complexes. |
 
 | `CentralDegreeZero` | Central dg actions and the concentrated comparison | The ordinary right-module comparison preserves an additional central coefficient ring in both directions. |
-| `OrdinaryBeilinsonLinear` | The actual ordinary tensor equivalence and central coefficients | The ordinary negative-window tensor functor is linear over the geometric coefficient ring, although its dg presentation is over ℤ. |
+| `OrdinaryBeilinsonLinear` | The actual ordinary tensor equivalence and central coefficients | The ordinary negative-window tensor functor is linear over the geometric coefficient ring, although its dg presentation is over ℤ. The dg ring comparison with End(E) is an algebra equivalence for the geometric scalars. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
