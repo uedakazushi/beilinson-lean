@@ -17,14 +17,14 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較を含む28ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの28個で、一括実行に成功した。非有界 dg 同値、通常右 End 加群への移送、compact 始域から実際の有界連接導来圏への同値、射影直線の実際の有界導来圏間の三角同値まで検証済み。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較を含む35ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの35個で、一括実行に成功した。非有界 dg 同値、通常右 End 加群への移送、compact 始域から実際の有界連接導来圏への同値、射影直線の実際の有界導来圏間の三角同値まで検証済み。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。射影直線の幾何学的 End との同定は独立ターゲットで検証済み。一般の関係式付き経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
 - `Beilinson/KroneckerDimension.lean` は頂点1に集中した有限次元単純加群を構成し、射影次元がちょうど1であることを検証した。
 - `Beilinson/KroneckerIdeals.lean` は e₀A≃sink(k)、e₁A≃source(k) を右加群同型として構成し、両右イデアルの射影性と A≃e₀A×e₁A を確認した。固定条件は左乗法 eᵢa=a であり、頂点空間の右乗法 aeᵢ=a とは区別する。
 - 次は幾何学側の既存 API と定式化を照合する。
-- 全次元の有限次元右 Beilinson 行列代数加群と有界連接層の実際の有界導来圏間の三角同値は検証済み。本文の正の窓の導来関手との一致が残る。詳細は REUSE.md。
+- 全次元の有限次元右 Beilinson 行列代数加群と有界連接層の実際の有界導来圏間の三角同値は検証済み。正の窓の実際の End(T) 始域と導来捻り合成も検証済み。別定義の古典的 RHom・導来 tensor 関手との自然同型が残る。詳細は REUSE.md。
 
 ## 証明の明示化
 
@@ -79,3 +79,8 @@
 - `FiniteModuleCategory` は任意の有限次元代数上の有限次元加群の Serre 性と有限自由被覆の持ち上げを与える。`FiniteBoundedDerived` はこれを使い、実際の D^b(有限次元加群) と有界有限次元コホモロジー部分圏の三角同値を与える。
 - `MatrixAlgebraComparison` で algebra.adjoin による Beilinson 代数と整数次数の幾何学的行列代数が同じ部分代数であること、および有限次元性を検証。`GeometricMatrixEnd` は上流 `matrixRingEquivEnd` を実際の負の窓の End(E) に接続する。
 - `MatrixBeilinson.equivalence` は全ての n≥0 で D^b(有限次元右 Beilinson 行列代数加群) 自体と D^b(Coh Pⁿ) 自体の三角同値を与える。順逆ともシフトと三角を保存し、主要宣言の公理は標準3公理のみ。正の窓の導来関手との一致は未完成。
+
+- `CoherentTensor` は可逆層との tensor を連接層へ制限し、逆の整数 tensor power の連接性から essential surjectivity を示す。`ExactBoundedEquivalence` は完全同値から実際の D^b の三角同値を任意の選択した導来モデルで構成する。
+- `CoherentTensorBounded` / `PositiveBounded` により、実際の D^b(Coh Pⁿ) 上の捻り、次数0の連接層上の値、および導来圏内の E(n)≅T を確認した。具体的な single functor の比較は、一般の連接層の同型について先に `singleMapIso` を作ることで kernel の過度な unfolding を避ける。
+- `GeometricMatrixLinear` は定数対角行列の各成分から、行列–End 同型の基礎体上のスカラー保存を証明する。行列代数と正負両窓の End は k-代数同型で結ばれる。`FiniteScalarEquivalence` はその同型に沿う基礎体のベクトル空間の同型を明示し、有限次元性を保存・反映する。
+- `PositiveEndBounded.equivalence` は全ての n≥0 で実際の D^b(有限次元右 End(T) 加群) と実際の D^b(Coh Pⁿ) を三角同値で結ぶ。両方向の exactness、別モジュールからの正確な始域・終域と公開インスタンスの利用を検証した。古典的 RHom / tensor との別定義の自然同型は引き続き未検証。

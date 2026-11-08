@@ -124,3 +124,31 @@ name = "GeometricMatrixEnd"
 # Actual D^b of finite-dimensional Beilinson modules to D^b(Coh P^n), all n.
 [[lean_lib]]
 name = "MatrixBeilinson"
+
+# Tensoring with an invertible sheaf is an equivalence on actual coherent modules.
+[[lean_lib]]
+name = "CoherentTensor"
+
+# Exact equivalences on abelian categories induce exact equivalences on actual D^b.
+[[lean_lib]]
+name = "ExactBoundedEquivalence"
+
+# Actual bounded derived tensor autoequivalence of coherent modules.
+[[lean_lib]]
+name = "CoherentTensorBounded"
+
+# The actual bounded derived twist and positive-window generator comparison.
+[[lean_lib]]
+name = "PositiveBounded"
+
+# Coefficient compatibility of the geometric matrix-to-End comparison.
+[[lean_lib]]
+name = "GeometricMatrixLinear"
+
+# Algebra isomorphisms preserve finite-dimensional module categories and their actual D^b.
+[[lean_lib]]
+name = "FiniteScalarEquivalence"
+
+# Actual D^b of finite-dimensional right End(T)-modules to actual D^b(Coh P^n).
+[[lean_lib]]
+name = "PositiveEndBounded"

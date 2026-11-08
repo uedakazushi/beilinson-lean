@@ -9,12 +9,12 @@
 
 本番では具体的 Kronecker 代数、右加群と逆向き表現の圏同値、有限次元部分圏、長さ1の射影分解と射影次元、一般の線形圏での End 同定、Hom 前合成の作用、有限次元加群の Serre 性と被覆条件、有界 devissage を検証した。
 
-独立環境では28ターゲットを検証した。全次元で実際の D^b(有限次元右 Beilinson 行列代数加群) から D^b(Coh Pⁿ) 自体への三角同値を両方向で確認した。非有界 dg Beilinson 同値を通常右 End(E) 加群へ移し、全ての次元で compact 始域から実際の D^b(Coh Pⁿ) への三角同値を構成した。n=1 では実際の負の窓の End(E) と Kronecker 代数を同定し、D^b(有限次元右 Kronecker 加群) 自体から D^b(Coh P¹) 自体への三角同値を両方向で確認した。通常加群への移送の現状の universe は Type 0 である。任意の可換環・全次元で E(n)≅T と、捻りによる End の代数同型も確認した。
+独立環境では35ターゲットを検証した。全次元で実際の D^b(有限次元右 Beilinson 行列代数加群) から D^b(Coh Pⁿ) 自体への三角同値を両方向で確認した。非有界 dg Beilinson 同値を通常右 End(E) 加群へ移し、全ての次元で compact 始域から実際の D^b(Coh Pⁿ) への三角同値を構成した。n=1 では実際の負の窓の End(E) と Kronecker 代数を同定し、D^b(有限次元右 Kronecker 加群) 自体から D^b(Coh P¹) 自体への三角同値を両方向で確認した。通常加群への移送の現状の universe は Type 0 である。任意の可換環・全次元で E(n)≅T と、捻りによる End の代数同型も確認した。
 
 ## 現在の核心と優先順位
 
-1. 全次元の `MatrixBeilinson.equivalence` を始域・終域を明記した別モジュールからも検証し、実際の End の係数構造との比較を保つ。
-2. 検証済みの E(n)≅T、End 代数の同型、右 End 加群としての Hom の自然同型と複体上の比較を、本文の正の窓の導来 tensor/Hom 関手全体へ移送する。n=1 の現在の代数同型は基底選択を用いるため、特定の座標矢との同定も別に確認する。
+1. `PositiveEndBounded.equivalence` と、別定義の古典的 RHom・導来 tensor 関手を明示的な自然同型で比較する。始域・終域は既に本文と一致し、別モジュールからも検証した。
+2. 検証済みの実際の有界導来捻りと、右 End 加群値 Hom の複体上の自然同型を、全加群の導来モデルと dg Hom の計算へ接続する。
 3. 検証済みのモデルと三角の規約を保ち、コホモロジーの基礎体上の線形構造を明示して、既存の有限 total Hom 判定や代数の compactness 判定を再利用する。
 4. 本文の Čech、Koszul、admissibility / SOD、導来 Hom–tensor 随伴の説明と、完成した Lean 宣言の範囲を同期する。
 5. 本番と独立 Stacks 環境のチェックを継続し、正確な宣言・仮定・依存公理・ビルドコストを REUSE.md に記録する。
@@ -29,3 +29,5 @@ Book/ と Beilinson/ を分離した一つの本番 Lake project。Lean/mathlib/
 このファイル → REUSE.md → Book.lean / Book/ → NOTES.md → Beilinson/ → integrations/stacks/README.md の順に読む。
 
 全次元の有限次元始域は `MatrixBeilinson.equivalence` で接続した。`MatrixAlgebraComparison` の同じ部分代数としての比較、幾何学的 End の同定、有限次元代数に対する一般的な Serre 有界導来比較を使う。残る中心課題は正の窓の導来 tensor/Hom 関手全体との照合である。
+
+正の窓も `PositiveEndBounded.equivalence` で、実際の有限次元右 End(T) 加群からの三角同値に接続した。行列–End 同型は基礎体上の代数同型として確認し、有限次元加群の有界導来圏自体を移す。残る関手の照合は独立した課題として明記する。

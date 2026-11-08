@@ -65,6 +65,14 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `GeometricMatrixEnd` | The upstream geometric matrix-to-End isomorphism | The polynomial-matrix algebra is the actual End(E) in every dimension, without choosing Hom bases. |
 | `MatrixBeilinson` | The matrix compactness criterion, ring change, and bounded coherent comparison | Actual Dᵇ of finite-dimensional right Beilinson matrix-algebra modules is equivalent to actual Dᵇ(Coh Pⁿ), in all dimensions at Type 0; both directions preserve shifts and triangles. |
 
+| `CoherentTensor` | Invertible tensor, coherence, and inverse tensor powers | Actual tensoring restricts to an equivalence of coherent-module categories. |
+| `ExactBoundedEquivalence` | Exact functors on derived categories | An exact equivalence of abelian categories induces an exact equivalence of their actual bounded derived categories, for the chosen models. |
+| `CoherentTensorBounded` | The preceding comparisons | Actual bounded derived tensor, its value on coherent modules placed in degree zero, and both directions of exactness. |
+| `PositiveBounded` | Matrix Beilinson and the actual bounded derived twist | E(n) ≅ T inside actual Dᵇ(Coh Pⁿ), and the negative-window equivalence composed with that twist. |
+| `GeometricMatrixLinear` | Geometric scalar actions and abstract biproduct components | The matrix-to-End comparison respects k, giving algebra isomorphisms with both actual windows. |
+| `FiniteScalarEquivalence` | Production finite module categories | Algebra isomorphisms preserve and reflect coefficient finiteness, and induce exact equivalences of actual Dᵇ of finite-dimensional modules. |
+| `PositiveEndBounded` | The positive algebra identification and bounded twist | Actual Dᵇ of finite-dimensional right End(T)-modules is exactly equivalent to actual Dᵇ(Coh Pⁿ), both ways exact, all n at Type 0. The functor is an explicit composite; comparison with a separately defined classical RHom/tensor remains open. |
+
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
 dg adapter 456; the concentrated comparison uses a combined closure of 462. Counts
@@ -80,9 +88,10 @@ space. It is not silently identified with polynomial Proj. The unbounded geometr
 functor and the bounded adapters use the actual polynomial Proj throughout.
 
 The geometric generator is E = O ⊕ O(-1) ⊕ … ⊕ O(-n). The object isomorphism E(n) ≅ T and the induced End algebra isomorphism are checked
-by `PositiveWindow`. The remaining book-level boundaries are the comparison of the
-positive-window derived tensor/Hom functor. The general finite-dimensional matrix-algebra source
-is connected by `MatrixBeilinson`.
+by `PositiveWindow`. The actual positive-window End(T) finite-dimensional source and bounded derived twist
+are connected by `PositiveEndBounded`. The remaining book-level boundary is the natural
+isomorphism with separately defined classical derived tensor/Hom functors. The general
+finite-dimensional matrix-algebra source is also available in `MatrixBeilinson`.
 The dimension-one bounded theorem uses a chosen Kronecker basis; it does not identify
 the two arrows with particular coordinate sections.
 

@@ -4,14 +4,15 @@ open Verso.Genre Manual
 
 # 状態
 
-本書の幾何学的な主定理について、始域・終域・関手まで一致する *Lean の証明は未完成* である。
-ただし独立検証環境では、全ての次元について実際の有界導来圏間の同値を合成し、両方向の三角保存まで確認した。
+本書の主定理と同じ始域・終域を持つ *三角同値を Lean で構成した*。
+全ての次元について、実際の有限次元右 End(T) 加群の有界導来圏と、実際の有界連接導来圏を結び、両方向のシフトと三角保存を確認した。
 
-$$`D^b(\mathrm{mod}_{\mathrm{fd}} A_{\mathrm{mat}})\simeq D^b(\operatorname{Coh}\mathbf P^n_k)`
+$$`D^b(\mathrm{mod}_{\mathrm{fd}}\operatorname{End}(T))\simeq D^b(\operatorname{Coh}\mathbf P^n_k)`
 
-ここで $`A_{\mathrm{mat}}` は多項式行列として実装された Beilinson 代数である。
-現在の関手は負の捻りの生成対象と、その実際の End への環同型を用いる。基礎体は Lean の `Type 0` に置く。
-全次元の構成は Hom の基底を選ばない。本文の正の窓との導来関手の一致は残る。
+ここで $`T=\mathcal O\oplus\mathcal O(1)\oplus\cdots\oplus\mathcal O(n)` は実際の正の窓である。
+基礎体は Lean の `Type 0` に置く。行列代数との基礎体上の代数同型で有限次元加群の始域を移し、負の窓の同値に実際の有界導来捻りを合成する。
+$`E(n)\simeq T` は実際の $`D^b(\operatorname{Coh}\mathbf P^n)` 内でも確認した。
+Hom の基底は選ばない。ただし、別途古典的に定義した RHom・導来 tensor 関手との明示的な自然同型は *未検証* であり、関手の同定まで含む完成とは区別する。
 Verso のビルドは文書の構文と Lean コード例を確認するが、数学の自然言語部分を証明するものではない。
 
 # 実装の依存グラフ
@@ -205,10 +206,18 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 27. `GeometricMatrixEnd`：全次元で行列代数を実際の負の窓の End と環同型で同定する。
 28. `MatrixBeilinson`：全次元で、有限次元右 Beilinson 行列代数加群の有界導来圏自体と、実際の有界連接導来圏自体との三角同値を得る。
 
+29. `CoherentTensor`：可逆層とのテンソルは、実際の連接層の圏の同値を与える。
+30. `ExactBoundedEquivalence`：アーベル圏の完全な同値から、選択した導来モデル上の実際の有界導来圏の三角同値を得る。
+31. `CoherentTensorBounded`：可逆層との実際の有界導来 tensor 同値と、次数0に置いた連接層での値。
+32. `PositiveBounded`：全次元の有界導来捻り、実際の有界連接導来圏内の E(n)≅T、および負の窓の同値との合成。
+33. `GeometricMatrixLinear`：幾何学的行列–End 同型の基礎体上のスカラー保存と、正負両窓の End との代数同型。
+34. `FiniteScalarEquivalence`：代数同型に沿う有限次元加群の実際の圏と、その有界導来圏の三角比較。
+35. `PositiveEndBounded`：実際の有限次元右 End(T) 加群の有界導来圏自体と、実際の有界連接導来圏自体との全次元の三角同値。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
 
 ここでの有限直和は $`E=\mathcal O\oplus\mathcal O(-1)\oplus\cdots\oplus\mathcal O(-n)`。
 本書の $`T` とは $`E\otimes\mathcal O(n)` の直和成分を逆順に並べることで対応する。
-対象・End・Hom と複体の移送は検証済みであり、正の窓の導来 tensor/Hom 関手全体の比較が残る。
+対象・End・Hom と複体の移送に加え、実際の有界導来捻りとの合成と正の End(T) の始域を確認した。別定義の古典的 RHom・導来 tensor 関手全体との自然同型が残る。

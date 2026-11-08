@@ -5,6 +5,7 @@ public import Beilinson.DerivedDevissage
 public import Beilinson.Kronecker
 public import Beilinson.KroneckerEnd
 public import Beilinson.EndTransport
+public import Beilinson.BiproductEnd
 public import Beilinson.EndTransportYoneda
 public import Beilinson.KroneckerYoneda
 public import Beilinson.KroneckerEndModules
@@ -46,7 +47,9 @@ In dimension one it composes an equivalence from the actual bounded derived cate
 of finite-dimensional Kronecker modules to the actual bounded coherent derived category.
 In every dimension it also connects the actual bounded derived category of finite-dimensional
 right Beilinson matrix-algebra modules with the actual bounded coherent derived category.
-The positive-window derived tensor/Hom functor remains to be identified.
+It also constructs the positive-window equivalence with the actual finite-dimensional
+right End(T)-module source, using the derived coherent twist. Comparison with separately
+defined classical derived tensor/Hom functors remains to be checked.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
 -/

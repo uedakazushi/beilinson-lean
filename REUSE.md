@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。28ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。35ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -261,6 +261,18 @@
 本番 `FiniteModuleCategory.coversEpis` は有限次元代数上の有限次元加群の有限自由被覆を任意の epimorphism を通して持ち上げる。`FiniteBoundedDerived` はこれを Serre 比較定理へ代入する。`bounded_iff_finite_total` は有界性と非零コホモロジー次数の有限性を比較し、既存の行列代数の compactness 判定と接続する。
 
 `MatrixBeilinson.equivalence` の始域は D^b(有限次元右 Beilinson 行列代数加群) 自体、終域は実際の D^b(Coh Pⁿ) 自体であり、Type 0 の任意の体と全ての n≥0 で定式化している。環変更・導来化・compact 部分圏への制限と `BoundedBeilinson.coherentEquivalence` を合成し、両方向のシフトと三角保存を検証した。これは正の窓の導来 tensor/Hom 関手全体との一致をまだ主張しない。
+
+## 実際の正の End(T) 始域と有界導来捻り
+
+`CoherentTensor` は、任意のスキーム上で可逆層との実際の tensor 関手を連接層の圏へ制限する。負の整数 tensor power を使って連接な preimage を構成し、全忠実性と合わせて同値を得る。`ExactBoundedEquivalence` は任意のアーベル圏の完全同値を、選択した導来モデルの実際の有界導来圏の三角同値へ移す。`CoherentTensorBounded.equivalence_functor` は、その前向き関手が実際の制限 tensor 関手の導来化であることを定義的に確認する。
+
+`PositiveBounded.derivedGeneratorIso` は E(n)≅T を実際の D^b(Coh Pⁿ) 内で与える。有限直和の連接性では任意に与えられた `HasBiproduct` を使い、`singleMapIso` は連接層の同型を次数0の有界導来対象へ移す。具体的な射影空間で異なる spelling の single functor を直接比較して膨大な kernel unfolding を起こさず、抽象的な同型の宣言を先に固定する。
+
+`GeometricMatrixLinear.matrix_scalar` は定数対角行列が基礎体のスカラー自己準同型に写ることを行列成分で示す。定数多項式の作用と構造射由来の作用の一致には上流 `TwistEndomorphisms.twistScalar_eq_twistBaseScalar` を使う。本番 `BiproductEnd` の抽象的な成分補題により、具体的 End の加法・スカラー構造の不要な展開を避ける。`positiveAlgebraEquiv` は実際の正の窓の End と Beilinson 行列代数を k-代数同型で結ぶ。
+
+`FiniteScalarEquivalence.coefficientIso` は代数同型による環変更の前後の基礎体上のベクトル空間を明示的に同型にする。単なる環同型だけから有限次元性の保存を仮定しない。実際の有限次元加群の圏の同値を作り、その有界導来圏自体の三角同値へ移す。
+
+`PositiveEndBounded.equivalence` の始域は実際の D^b(有限次元右 End(T) 加群)、終域は実際の D^b(Coh Pⁿ) である。Type 0 の任意の体と全ての n≥0 で、前向き関手・逆向き関手のシフトと三角保存を確認した。始域は構造射由来の正準的な k-代数構造を使い、別モジュールで始域・終域を完全に書いた client も検証した。関手は係数変更、負の窓の tensor 同値、実際の有界導来捻りの合成である。別に古典的に定義する RHom / 導来 tensor との明示的な自然同型は未検証として残す。
 
 ## 更新と再現
 
