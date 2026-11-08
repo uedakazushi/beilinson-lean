@@ -5,13 +5,13 @@ open Verso.Genre Manual
 # 状態
 
 本書の幾何学的な主定理について、始域・終域・関手まで一致する *Lean の証明は未完成* である。
-ただし独立検証環境では、射影直線について実際の有界導来圏間の同値を合成し、両方向の三角保存まで確認した。
+ただし独立検証環境では、全ての次元について実際の有界導来圏間の同値を合成し、両方向の三角保存まで確認した。
 
-$$`D^b(\mathrm{mod}_{\mathrm{fd}} A_{\mathrm{Kr}})\simeq D^b(\operatorname{Coh}\mathbf P^1_k)`
+$$`D^b(\mathrm{mod}_{\mathrm{fd}} A_{\mathrm{mat}})\simeq D^b(\operatorname{Coh}\mathbf P^n_k)`
 
-現在の関手は負の捻りの生成対象と基底選択を用い、基礎体は Lean の `Type 0` に置く。
-一般の次元でも、compact な通常右 End 加群を始域とする有界連接版は検証済みである。
-本文の正の窓との関手の一致と、一般の次元の有限次元加群の始域への移送は残る。
+ここで $`A_{\mathrm{mat}}` は多項式行列として実装された Beilinson 代数である。
+現在の関手は負の捻りの生成対象と、その実際の End への環同型を用いる。基礎体は Lean の `Type 0` に置く。
+全次元の構成は Hom の基底を選ばない。本文の正の窓との導来関手の一致は残る。
 Verso のビルドは文書の構文と Lean コード例を確認するが、数学の自然言語部分を証明するものではない。
 
 # 実装の依存グラフ
@@ -200,10 +200,15 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 23. `CentralDegreeZero`：集中 dg 代数の通常右加群への比較が、追加の中心的な係数環について両方向とも線形となること。
 24. `OrdinaryBeilinsonLinear`：実際の通常右加群からの Beilinson tensor 関手が、幾何学的基礎環上で線形となること。
 
+25. `MatrixAlgebraComparison`：compactness 判定の行列代数と幾何側の行列代数が同じ部分代数であることと、有限次元性。
+26. `FiniteBoundedDerived`：任意の有限次元代数について、有限次元加群の有界導来圏と、通常の導来圏の有限次元コホモロジー部分圏を三角同値で結ぶ。
+27. `GeometricMatrixEnd`：全次元で行列代数を実際の負の窓の End と環同型で同定する。
+28. `MatrixBeilinson`：全次元で、有限次元右 Beilinson 行列代数加群の有界導来圏自体と、実際の有界連接導来圏自体との三角同値を得る。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
 
 ここでの有限直和は $`E=\mathcal O\oplus\mathcal O(-1)\oplus\cdots\oplus\mathcal O(-n)`。
 本書の $`T` とは $`E\otimes\mathcal O(n)` の直和成分を逆順に並べることで対応する。
-対象と End の移送は検証済みだが、関手全体の比較と一般の次元の有限次元始域は残る。
+対象・End・Hom と複体の移送は検証済みであり、正の窓の導来 tensor/Hom 関手全体の比較が残る。

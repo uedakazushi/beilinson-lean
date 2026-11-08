@@ -108,3 +108,19 @@ name = "CentralDegreeZero"
 # Base-ring linearity of the actual ordinary Beilinson tensor equivalence.
 [[lean_lib]]
 name = "OrdinaryBeilinsonLinear"
+
+# Compare the compactness and geometric polynomial-matrix algebra presentations.
+[[lean_lib]]
+name = "MatrixAlgebraComparison"
+
+# The Serre bounded-derived comparison for any finite-dimensional coefficient algebra.
+[[lean_lib]]
+name = "FiniteBoundedDerived"
+
+# The polynomial-matrix algebra is the actual geometric End(E) in every dimension.
+[[lean_lib]]
+name = "GeometricMatrixEnd"
+
+# Actual D^b of finite-dimensional Beilinson modules to D^b(Coh P^n), all n.
+[[lean_lib]]
+name = "MatrixBeilinson"

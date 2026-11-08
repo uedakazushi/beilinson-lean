@@ -12,6 +12,7 @@ public import Beilinson.KroneckerModule
 public import Beilinson.KroneckerCategory
 public import Beilinson.KroneckerResolution
 public import Beilinson.KroneckerFinite
+public import Beilinson.FiniteModuleCategory
 public import Beilinson.KroneckerPerfect
 public import Beilinson.KroneckerDimension
 public import Beilinson.KroneckerIdeals
@@ -43,7 +44,9 @@ The optional integration checks the actual unbounded dg equivalence, its ordinar
 right-module form and the compact-source bounded restriction in every dimension.
 In dimension one it composes an equivalence from the actual bounded derived category
 of finite-dimensional Kronecker modules to the actual bounded coherent derived category.
-The positive-window functor and the general finite-dimensional source remain to be connected.
+In every dimension it also connects the actual bounded derived category of finite-dimensional
+right Beilinson matrix-algebra modules with the actual bounded coherent derived category.
+The positive-window derived tensor/Hom functor remains to be identified.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
 -/

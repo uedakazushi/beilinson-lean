@@ -60,6 +60,11 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `CentralDegreeZero` | Central dg actions and the concentrated comparison | The ordinary right-module comparison preserves an additional central coefficient ring in both directions. |
 | `OrdinaryBeilinsonLinear` | The actual ordinary tensor equivalence and central coefficients | The ordinary negative-window tensor functor is linear over the geometric coefficient ring, although its dg presentation is over ℤ. The dg ring comparison with End(E) is an algebra equivalence for the geometric scalars. |
 
+| `MatrixAlgebraComparison` | Polynomial-matrix compactness and geometric matrix entries | The two matrix algebras are the same subalgebra, and are finite-dimensional over the field. |
+| `FiniteBoundedDerived` | Production finite free covers and the Serre derived comparison | Actual Dᵇ of finite-dimensional modules agrees with bounded finite-dimensional cohomology, for any finite-dimensional algebra. A supplied compactness criterion gives a triangulated equivalence with compact objects. |
+| `GeometricMatrixEnd` | The upstream geometric matrix-to-End isomorphism | The polynomial-matrix algebra is the actual End(E) in every dimension, without choosing Hom bases. |
+| `MatrixBeilinson` | The matrix compactness criterion, ring change, and bounded coherent comparison | Actual Dᵇ of finite-dimensional right Beilinson matrix-algebra modules is equivalent to actual Dᵇ(Coh Pⁿ), in all dimensions at Type 0; both directions preserve shifts and triangles. |
+
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
 dg adapter 456; the concentrated comparison uses a combined closure of 462. Counts
@@ -76,8 +81,8 @@ functor and the bounded adapters use the actual polynomial Proj throughout.
 
 The geometric generator is E = O ⊕ O(-1) ⊕ … ⊕ O(-n). The object isomorphism E(n) ≅ T and the induced End algebra isomorphism are checked
 by `PositiveWindow`. The remaining book-level boundaries are the comparison of the
-positive-window tensor/Hom functor and, in general
-dimension, replacing the compact source by Dᵇ of finite-dimensional ordinary modules.
+positive-window derived tensor/Hom functor. The general finite-dimensional matrix-algebra source
+is connected by `MatrixBeilinson`.
 The dimension-one bounded theorem uses a chosen Kronecker basis; it does not identify
 the two arrows with particular coordinate sections.
 

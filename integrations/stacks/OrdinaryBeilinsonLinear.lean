@@ -2,6 +2,7 @@ module
 
 public import OrdinaryBeilinson
 public import CentralDegreeZero
+public import StacksProbe
 
 /-! The ordinary negative-window Beilinson functor is linear over the geometric
 coefficient ring, even though its dg algebra is declared over the integers. -/
@@ -106,6 +107,17 @@ theorem endTensor_linear : (OrdinaryBeilinson.endTensor A n).Linear A := by
     OrdinaryBeilinson.ordinaryTensor A n).Linear A
   infer_instance
 
+/-- Over a field, the actual tensor equivalence preserves and reflects finite total Hom. -/
+theorem finiteTotalHom_endTensor (k : Type) [Field k] (m : ℕ)
+    (X M : OrdinaryBeilinson.endDerivedCategory k m) :
+    CategoryTheory.Pretriangulated.HasFiniteTotalHom k X M ↔
+      CategoryTheory.Pretriangulated.HasFiniteTotalHom k
+        ((OrdinaryBeilinson.endTensor k m).obj X)
+        ((OrdinaryBeilinson.endTensor k m).obj M) := by
+  let : (OrdinaryBeilinson.endTensor k m).Linear k := endTensor_linear k m
+  exact StacksProbe.finiteTotalHom_iff_map k (OrdinaryBeilinson.endTensor k m) X M
+
+#print axioms finiteTotalHom_endTensor
 #print axioms endTensor_linear
 #print axioms restrictEnd_linear
 #print axioms endAlgebraEquiv

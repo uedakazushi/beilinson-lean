@@ -19,8 +19,11 @@ namespace Beilinson.StacksProbe
 universe w v u
 
 variable (k : Type w) [Field k] {C : Type u} [Category.{v} C] [Preadditive C]
-  [HasZeroObject C] [HasShift C ℤ] [∀ n : ℤ, (shiftFunctor C n).Additive]
-  [Pretriangulated C] [Linear k C] [∀ n : ℤ, (shiftFunctor C n).Linear k]
+  [HasShift C ℤ] [Linear k C]
+
+section Generation
+variable [HasZeroObject C] [∀ n : ℤ, (shiftFunctor C n).Additive]
+  [Pretriangulated C] [∀ n : ℤ, (shiftFunctor C n).Linear k]
 
 /-- An exceptional collection which detects zero and has finite total Hom
 is contained in no proper strictly full triangulated subcategory. -/
@@ -40,6 +43,56 @@ theorem full_of_exceptional_and_detection {r : ℕ} (G : Fin r → C)
     (fun a b _ => hfinite a (G b)) ⊤ (fun _ => trivial)
     (fun M _ h => hdetect M h) P hP M trivial (fun a => hfinite a M)
 
+end Generation
+
+/-- Finite total Hom descends to every retract of the source object. -/
+theorem finiteTotalHom_retract {E G M : C} (i : G ⟶ E) (p : E ⟶ G)
+    (hip : i ≫ p = 𝟙 G) (h : HasFiniteTotalHom k E M) : HasFiniteTotalHom k G M := by
+  have hinj (n : ℤ) : Function.Injective
+      (Linear.leftComp k (M⟦n⟧) p) := by
+    intro f g hfg
+    have hh := congrArg (fun t => i ≫ t) hfg
+    simpa only [Linear.leftComp_apply, ← Category.assoc, hip, Category.id_comp] using hh
+  constructor
+  · intro n
+    let := h.1 n
+    exact Module.Finite.of_injective (Linear.leftComp k (M⟦n⟧) p) (hinj n)
+  · apply h.2.subset
+    intro n hn
+    let : Nontrivial (G ⟶ M⟦n⟧) := hn
+    exact (hinj n).nontrivial
+
+section Transport
+universe v' u'
+variable {D : Type u'} [Category.{v'} D] [Preadditive D] [HasShift D ℤ] [Linear k D]
+
+/-- A fully faithful coefficient-linear functor commuting with shifts preserves and
+reflects finite total Hom; an integral linearity statement would not suffice. -/
+theorem finiteTotalHom_iff_map (F : C ⥤ D) [F.Additive] [F.Linear k]
+    [F.Full] [F.Faithful] [F.CommShift ℤ] (X M : C) :
+    HasFiniteTotalHom k X M ↔ HasFiniteTotalHom k (F.obj X) (F.obj M) := by
+  let e (n : ℤ) : (X ⟶ M⟦n⟧) ≃ₗ[k] (F.obj X ⟶ (F.obj M)⟦n⟧) :=
+    (LinearEquiv.ofBijective (F.mapLinearMap k)
+      ⟨F.map_injective, F.map_surjective⟩) ≪≫ₗ
+        Linear.homCongr k (Iso.refl _) ((F.commShiftIso n).app M)
+  have hs : {n : ℤ | Nontrivial (X ⟶ M⟦n⟧)} =
+      {n : ℤ | Nontrivial (F.obj X ⟶ (F.obj M)⟦n⟧)} := by
+    ext n
+    exact (e n).nontrivial_congr
+  constructor
+  · rintro ⟨hf, hb⟩
+    refine ⟨fun n => ?_, hs ▸ hb⟩
+    let := hf n
+    exact Module.Finite.equiv (e n)
+  · rintro ⟨hf, hb⟩
+    refine ⟨fun n => ?_, hs.symm ▸ hb⟩
+    let := hf n
+    exact Module.Finite.equiv (e n).symm
+
+end Transport
+
+#print axioms Beilinson.StacksProbe.finiteTotalHom_iff_map
+#print axioms Beilinson.StacksProbe.finiteTotalHom_retract
 #print axioms CategoryTheory.Pretriangulated.prop_of_hasFiniteTotalHom_of_exceptional
 #print axioms Beilinson.StacksProbe.full_of_exceptional_and_detection
 

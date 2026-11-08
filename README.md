@@ -2,9 +2,9 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-08:** 独立した Stacks 検証環境で、n=1 の具体的 Kronecker 代数の D^b(有限次元右加群) と、実際の D^b(Coh P¹) の三角同値を Lean で検証しました。両方向のシフト・三角保存を確認し、依存公理は標準3公理のみです。この関手は負の捻りの生成対象と基底選択を用います。全ての次元についても、compact な通常右 End(E) 加群から D^b(Coh Pⁿ) への三角同値を検証済みです。現在の通常加群への移送は Lean の Type 0 で定式化しています。
+**2026-11-08:** 独立した Stacks 検証環境で、全次元の Beilinson 行列代数の D^b(有限次元右加群) と、実際の D^b(Coh Pⁿ) の三角同値を Lean で検証しました。両方向のシフト・三角保存を確認し、依存公理は標準3公理のみです。負の捻りの生成対象と、その実際の End への環同型を用い、Hom の基底選択を使いません。n=1 の具体的 Kronecker 代数からの同値もあります。通常加群への移送は Lean の Type 0 で定式化しています。
 
-本文の正の捻り T と関手の規約の一致、および一般の次元の有限次元加群の始域を結ぶ部分は未完成です。自然言語の数学的証明は初稿で、本番チェックは Lean ライブラリ・教科書 HTML・LuaLaTeX の日本語 PDF 生成まで成功しています。
+本文の正の捻り T について、対象・End・Hom と複体の比較は検証済みですが、導来 tensor/Hom 関手全体との一致は未完成です。自然言語の数学的証明は初稿で、本番チェックは Lean ライブラリ・教科書 HTML・LuaLaTeX の日本語 PDF 生成まで成功しています。
 
 ## 最初に読むもの
 
@@ -38,9 +38,9 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。24個の専用ターゲットで実 import/build と公理監査を行っています。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。28個の専用ターゲットで実 import/build と公理監査を行っています。
 
-非有界 dg Beilinson 同値、通常の右 End(E) 加群への比較、compact 部分圏への制限、D^b(Coh Pⁿ) 自体との合成を検証済みです。n=1 では負の窓の End(E) を Kronecker 代数と同定し、実際の D^b(有限次元右加群) を始域とする同値まで合成しました。一般の次元で E(n) と正の窓 T の対象の同型、および捻りによる End 代数の同型も確認しました。右 End(E) 加群としての Hom の自然同型と複体上の比較も検証しました。導来 tensor/Hom 関手全体の比較と、基底選択を特定の座標切断へ同定する部分は残っています。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
+非有界 dg Beilinson 同値から通常右 End(E) 加群への比較を経て、全次元で実際の D^b(有限次元右 Beilinson 行列代数加群) と D^b(Coh Pⁿ) 自体の三角同値を合成しました。幾何学的 End との環同型を使い、Hom の基底選択は不要です。射影直線では具体的 Kronecker 代数からの同値も検証済みです。正の窓については E(n)≅T、End の代数同型、右 End 加群値 Hom の自然同型と複体上の比較を確認しました。本文の正の窓の導来 tensor/Hom 関手全体との一致は残っています。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
 
 ```sh
 cd integrations/stacks

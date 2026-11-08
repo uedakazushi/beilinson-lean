@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。24ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。28ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -140,7 +140,7 @@
 
 - import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。`StacksAlgebraProbe.compact_iff_finite_total_cohomology` の実 import/build と公理監査に成功。依存公理は標準の3つのみ。幾何学的 End との同型はこの定理に含まれない。
 
-教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、通常右 End(E) 加群への比較と compact 始域の bounded coherent 制限は検証済みである。E(n)≅T と End の移送は `PositiveWindow` で検証した。正の窓との関手全体の比較と、一般の次元で有限次元加群の有界導来圏自体を始域とする移送は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
+教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、通常右 End(E) 加群への比較と compact 始域の bounded coherent 制限は検証済みである。E(n)≅T と End の移送は `PositiveWindow` で検証した。全次元の有限次元右行列代数加群の有界導来圏からの移送は `MatrixBeilinson` で接続した。正の窓の導来関手全体の比較は残る。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
 
 ## dg 代数を degree-zero モデルに接続する adapter
 
@@ -228,7 +228,7 @@
 
 `OrdinaryBeilinson.lean` は `endAlgebra_mem_grading_zero`、`endAlgebra_grading_eq_bot`、`endAlgebra_d_eq_zero` を `ConcentratedDGA.comparison` に渡す。幾何学的 dg 代数の基礎環は ℤ なので、現状の adapter は Type 0 の可換環と加群を扱う。逆比較と実際の `tensorWithGenerator` を合成し、`endAlgebraRingEquiv` の反対環でスカラーを変更して、通常の右 End(E) 加群の導来圏からの `endTensor` を得る。これは三角を保つ実際の同値である。
 
-`BoundedBeilinson.lean` は同値による compactness の保存と、射影空間の regular / bounded coherent 判定を合成する。`coherentEquivalence` は任意の次元 n≥0 で compact な通常右 End(E) 加群の部分圏と、実際の D^b(Coh Pⁿ) を三角同値で結び、逆方向の exactness も確認する。この始域を一般の次元で D^b(有限次元右加群) に書き換える部分は残る。通常加群への adapter の基礎体上の線形性も、三角保存とは別に整備する対象である。
+`BoundedBeilinson.lean` は同値による compactness の保存と、射影空間の regular / bounded coherent 判定を合成する。`coherentEquivalence` は任意の次元 n≥0 で compact な通常右 End(E) 加群の部分圏と、実際の D^b(Coh Pⁿ) を三角同値で結び、逆方向の exactness も確認する。有限次元右行列代数加群の有界導来圏への接続は後述の `MatrixBeilinson` で検証した。基礎環上の線形性は `OrdinaryBeilinsonLinear` で別途検証している。
 
 `StacksBeilinsonProbe`、`StacksCohomologyProbe`、`OrdinaryBeilinson`、`BoundedBeilinson` の主要宣言は標準3公理のみを使用し、実 build に成功した。初回の大きなビルドは Stacks の閉包8353モジュールを含み、この4 CPU / 16 GiB 環境では2時間以上を要した。
 
@@ -250,7 +250,17 @@
 
 `CentralDegreeZero` は、dg 代数の定義上の基礎環 R とは別の可換環 K が中心的な次数0の閉元として作用するとき、局所化・次数成分関手・通常右加群との比較と逆関手が K-線形であることを示す。集中 dg 代数の同一視は基礎環と次数分解を保持して行う。
 
-`OrdinaryBeilinsonLinear` は上流の `scalarRingHom` から実際の幾何学的 dg 環の A-代数構造を構成し、`ordinaryComparison` とその逆、`ordinaryTensor` の A-線形性を確認する。ℤ-線形性だけから基礎体上の有限次元性を主張せず、幾何学的な中心作用との一致を使う。`endAlgebraToEnd_scalar` は dg 環の係数が通常のスカラー自己準同型へ写ることを示し、`endAlgebraEquiv` は環同型を幾何学的基礎環上の代数同型へ強化する。`restrictEnd_linear` と `endTensor_linear` により、環変更後の実際の通常右 End(E) 加群からの tensor 関手も同じ基礎環上で線形となる。一般次元の有限次元始域への制限は引き続き別の課題である。
+`OrdinaryBeilinsonLinear` は上流の `scalarRingHom` から実際の幾何学的 dg 環の A-代数構造を構成し、`ordinaryComparison` とその逆、`ordinaryTensor` の A-線形性を確認する。ℤ-線形性だけから基礎体上の有限次元性を主張せず、幾何学的な中心作用との一致を使う。`endAlgebraToEnd_scalar` は dg 環の係数が通常のスカラー自己準同型へ写ることを示し、`endAlgebraEquiv` は環同型を幾何学的基礎環上の代数同型へ強化する。`restrictEnd_linear` と `endTensor_linear` により、環変更後の実際の通常右 End(E) 加群からの tensor 関手も同じ基礎環上で線形となる。有限次元右行列代数加群を始域とする全次元の有界版は、下記の環同型と compactness 判定を使って接続した。
+
+## 全次元の行列代数から実際の有界連接導来圏へ
+
+上流 `StacksFrontier.AlgebraicGeometry.Perfect.ProjectiveGeneratorHomGroups` の `Stacks.AlgebraicGeometry.ProjectiveGenerator.matrixRingEquivEnd` は、実際の負捻り和の End を整数次数の同次成分を持つ行列代数と環同型で結ぶ。`GeometricMatrixEnd` では dg 生成対象と同じ負捻り和であることを確認する。数学的に同じ対象でも異なる spelling の End に付随する加法構造は明示して比較する。
+
+`MatrixAlgebraComparison.algebra_eq` は、compactness 判定側の `StacksDraft.Perfect.beilinsonAlgebra` が、幾何学側の `endomorphismMatrices` と同じ部分代数であることを示す。生成集合自体が既に部分代数であり、非負次数の同次性と下三角の零条件が整数次数の同次成分の条件と一致する。`finite_matrix` / `finite_algebra` は各成分の同次多項式空間への単射から有限次元性を得る。
+
+本番 `FiniteModuleCategory.coversEpis` は有限次元代数上の有限次元加群の有限自由被覆を任意の epimorphism を通して持ち上げる。`FiniteBoundedDerived` はこれを Serre 比較定理へ代入する。`bounded_iff_finite_total` は有界性と非零コホモロジー次数の有限性を比較し、既存の行列代数の compactness 判定と接続する。
+
+`MatrixBeilinson.equivalence` の始域は D^b(有限次元右 Beilinson 行列代数加群) 自体、終域は実際の D^b(Coh Pⁿ) 自体であり、Type 0 の任意の体と全ての n≥0 で定式化している。環変更・導来化・compact 部分圏への制限と `BoundedBeilinson.coherentEquivalence` を合成し、両方向のシフトと三角保存を検証した。これは正の窓の導来 tensor/Hom 関手全体との一致をまだ主張しない。
 
 ## 更新と再現
 
