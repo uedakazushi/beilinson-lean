@@ -57,6 +57,9 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `ProjectiveLineBeilinson` | The preceding adapters and `KroneckerBoundedDerived` | For a field in Type 0, an actual exact equivalence Dᵇ(finite-dimensional right Kronecker modules) ≌ Dᵇ(Coh P¹), composed from the checked tensor functor and ring changes. |
 | `PositiveWindow` | Production `EndTransport`, `SheafHomSections`, and the geometric twist functor | Over every commutative ring and in every dimension, E(n) is isomorphic to the actual positive twist sum. Twisting gives the corresponding End algebra isomorphism, without choosing Hom bases. |
 
+| `CentralDegreeZero` | Central dg actions and the concentrated comparison | The ordinary right-module comparison preserves an additional central coefficient ring in both directions. |
+| `OrdinaryBeilinsonLinear` | The actual ordinary tensor equivalence and central coefficients | The ordinary negative-window tensor functor is linear over the geometric coefficient ring, although its dg presentation is over ℤ. |
+
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
 dg adapter 456; the concentrated comparison uses a combined closure of 462. Counts

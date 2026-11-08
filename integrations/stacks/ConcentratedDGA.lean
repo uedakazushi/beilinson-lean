@@ -21,7 +21,7 @@ universe u
 
 variable {R : Type u} [CommRing R]
 
-private theorem gradedAlgebra_unique {A : Type u} [Ring A] [Algebra R A]
+theorem gradedAlgebra_unique {A : Type u} [Ring A] [Algebra R A]
     (g : ℤ → Submodule R A) (p q : GradedAlgebra g) : p = q := by
   have h : p.toDecomposition = q.toDecomposition := Subsingleton.elim _ _
   cases p

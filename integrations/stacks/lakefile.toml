@@ -100,3 +100,11 @@ name = "ProjectiveLineBeilinson"
 # Canonical twisting and reindexing between the negative and positive windows.
 [[lean_lib]]
 name = "PositiveWindow"
+
+# Central coefficient linearity of the ordinary dg comparison.
+[[lean_lib]]
+name = "CentralDegreeZero"
+
+# Base-ring linearity of the actual ordinary Beilinson tensor equivalence.
+[[lean_lib]]
+name = "OrdinaryBeilinsonLinear"

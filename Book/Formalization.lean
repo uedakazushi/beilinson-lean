@@ -197,6 +197,9 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 
 22. `PositiveWindow`：任意の可換環・全次元で、実際の E(n) と正の窓 T の同型と、捻りによる End 代数の同型を得る。Hom の基底選択を用いない。
 
+23. `CentralDegreeZero`：集中 dg 代数の通常右加群への比較が、追加の中心的な係数環について両方向とも線形となること。
+24. `OrdinaryBeilinsonLinear`：実際の通常右加群からの Beilinson tensor 関手が、幾何学的基礎環上で線形となること。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。

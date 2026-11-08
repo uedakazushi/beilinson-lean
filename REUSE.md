@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。22ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。24ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -245,6 +245,12 @@
 `PositiveWindow.lean` は任意の可換環 k と次元 n に対し、`positiveFamily` を O(0),…,O(n) と定義する。`componentIso` は O(-i)(n)≅O(n-i) を、`generatorIso` は捻り関手の有限直和の保存と `Fin.revPerm` による並べ替えで E(n)≅T を構成する。`endAlgebraEquiv` は `EndTransport.mapEquiv` と対象の同型による移送を合成し、Hom の基底を選ばず End(E)≃ₐEnd(T) を与える。
 
 線形構造には上流の `projectiveSpaceModulesLinear` をそのまま使う。`Scheme.linearOver` と `modulesLinear` の一致を使うときは、暗黙のインスタンス引数を simp で変えるのではなく、データの等式で型を明示的に移送する。対象の同型・線形性・代数同型は実 build と標準3公理の監査に成功した。これは対象と End の比較であり、正の窓の tensor/Hom 関手全体の自然同型をまだ主張しない。
+
+## 中心的係数環と通常加群比較の線形性
+
+`CentralDegreeZero` は、dg 代数の定義上の基礎環 R とは別の可換環 K が中心的な次数0の閉元として作用するとき、局所化・次数成分関手・通常右加群との比較と逆関手が K-線形であることを示す。集中 dg 代数の同一視は基礎環と次数分解を保持して行う。
+
+`OrdinaryBeilinsonLinear` は上流の `scalarRingHom` から実際の幾何学的 dg 環の A-代数構造を構成し、`ordinaryComparison` とその逆、`ordinaryTensor` の A-線形性を確認する。ℤ-線形性だけから基礎体上の有限次元性を主張せず、幾何学的な中心作用との一致を使う。通常右 End(E) 表記への環変更のスカラー比較と、一般次元の有限次元始域への制限は引き続き別の課題である。
 
 ## 更新と再現
 
