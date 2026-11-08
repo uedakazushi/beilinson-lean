@@ -7,6 +7,7 @@ public import Beilinson.KroneckerEnd
 public import Beilinson.EndTransport
 public import Beilinson.BiproductEnd
 public import Beilinson.EndTransportYoneda
+public import Beilinson.CochainFromZero
 public import Beilinson.KroneckerYoneda
 public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule

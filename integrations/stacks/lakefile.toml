@@ -152,3 +152,10 @@ name = "FiniteScalarEquivalence"
 # Actual D^b of finite-dimensional right End(T)-modules to actual D^b(Coh P^n).
 [[lean_lib]]
 name = "PositiveEndBounded"
+
+# Derived tensor on any chosen ambient model and compatibility with coherent inclusion.
+[[lean_lib]]
+name = "TensorDerivedModels"
+
+[[lean_lib]]
+name = "ExactFunctorModels"

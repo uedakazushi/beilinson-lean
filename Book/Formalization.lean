@@ -165,7 +165,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の二十二個は検証済みである。
+次の三十七個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -213,6 +213,12 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 33. `GeometricMatrixLinear`：幾何学的行列–End 同型の基礎体上のスカラー保存と、正負両窓の End との代数同型。
 34. `FiniteScalarEquivalence`：代数同型に沿う有限次元加群の実際の圏と、その有界導来圏の三角比較。
 35. `PositiveEndBounded`：実際の有限次元右 End(T) 加群の有界導来圏自体と、実際の有界連接導来圏自体との全次元の三角同値。
+36. `TensorDerivedModels`：全加群の選択した導来モデル上の捻りと連接層の導来捻りが、導来包含を通して自然に対応すること。
+37. `ExactFunctorModels`：完全関手の導来化と、終域の導来圏モデルの変更を比較する自然同型。
+
+本番の `CochainFromZero.functorIso` は、次数0に集中する複体からの Hom 複体と
+通常の Hom を各項へ適用した複体を自然に同型にする。
+微分、写像による後合成、次数0の自己準同型による前合成の対応も検証した。
 
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
