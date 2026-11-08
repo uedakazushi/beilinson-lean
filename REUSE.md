@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。37ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。40ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -279,6 +279,8 @@
 本番 `CochainFromZero.functorIso` は、次数0に集中する複体 P と P⁰≅E から、Hom 複体と通常の Hom(E,−) の項別適用の自然同型を構成する。微分の符号、対象複体の写像による後合成、次数0の自己準同型の前合成を確認し、自然同型だけで写像の作用を隠さない。
 
 独立ターゲット `ExactFunctorModels.targetModelIso` は、完全関手の導来化と終域の導来圏モデルの変更を局所化の一意性で比較する。`TensorDerivedModels.derivedInclusionTensorIso` は、連接層を全加群へ含めてから導来 tensor を施す関手と、連接層側の導来 tensor の後に含める関手の自然同型を与える。`derivedInclusionModelIso` は標準モデルから任意の ambient モデルへの変更を明示する。いずれも古典的 RHom 全体との同型の完成は主張しない。
+
+`DerivedHomTransport` は通常の右 End 加群に値を持つ Hom を独立に全右導来化し、K-injective 分解による存在・普遍性・計算を確認する。`PositiveDerivedHom.twistIso` は、可換基礎環上の全次元で、その古典的 RHom の正負の窓の比較を係数変更込みの自然同型として与える。`GeometricHomEvaluation` は実際の dg Hom の各斉次成分を通常の Hom と線形同型にし、微分、実際の End 作用、後合成を比較する。既存の同値の逆関手との自然同型はまだ完成していない。
 
 ## 更新と再現
 

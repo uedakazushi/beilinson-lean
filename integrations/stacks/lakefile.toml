@@ -159,3 +159,13 @@ name = "TensorDerivedModels"
 
 [[lean_lib]]
 name = "ExactFunctorModels"
+
+[[lean_lib]]
+name = "DerivedHomTransport"
+
+[[lean_lib]]
+name = "PositiveDerivedHom"
+
+[[lean_lib]]
+name = "GeometricHomEvaluation"
+
