@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。44ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。48ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -283,6 +283,8 @@
 `DerivedHomTransport` は通常の右 End 加群に値を持つ Hom を独立に全右導来化し、K-injective 分解による存在・普遍性・計算を確認する。`PositiveDerivedHom.twistIso` は、可換基礎環上の全次元で、その古典的 RHom の正負の窓の比較を係数変更込みの自然同型として与える。`GeometricHomEvaluation` は実際の dg Hom の各斉次成分を通常の Hom と線形同型にし、微分、実際の End 作用、後合成を比較する。既存の同値の逆関手との自然同型はまだ完成していない。
 
 `ConcentratedComponents` は集中 dg 代数の斉次成分から通常の加群複体を直接作り、標準モデルでは既存の成分関手と定義的に一致する。`GeometricHomComplex.complexFunctorIso` は実際の dg Hom の成分計算を関手全体の自然同型にする。`ConcentratedComparisonComponents.componentIso` は既存の選択した導来比較にこの計算を接続し、`GeometricDerivedHom.ordinaryDerivedIso` は homotopy 商・局所化・全右導来化を経て、実際の dg RHom と別定義の古典的 RHom(E,−) を自然に比較する。最後の段階は Type 0 の可換基礎環で検証した。既存の同値の逆関手との照合、有界版と正の窓への移送はまだ残る。
+
+`RingChangeDerived` の抽象的な係数変更の打ち消しを用いて、`GeometricEndHom` は実際の右 End(E) 加群に値を持つ古典的 RHom を既存の dg RHom と比較する。`DerivedFunctorModels` は局所化の比較同値に沿う全右導来関手の比較を、`DerivedEquivalenceModels` は明示した二つの源モデルを使う完全同値との比較を与える。本番 `AdjunctionLift`、`EndRingYoneda`、`EquivalenceSquare` は、それぞれ随伴の制限と逆関手、指定された End 環同型に沿う Hom、逆向きの同値の可換な比較を扱う。
 
 ## 更新と再現
 

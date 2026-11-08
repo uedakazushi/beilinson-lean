@@ -165,7 +165,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の四十四個は検証済みである。
+次の四十八個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -222,6 +222,14 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 42. `GeometricHomComplex`：実際の dg Hom の成分複体と、通常の右加群 Hom の項別適用を関手として自然に同型にする。
 43. `ConcentratedComparisonComponents`：既存の通常加群への導来比較そのものが、成分複体の局所化として計算できること。
 44. `GeometricDerivedHom`：実際の幾何学的 dg RHom を通常加群へ移した関手と、独立に導来化した古典的 RHom の自然同型。
+45. `RingChangeDerived`：実際の通常加群の導来圏で、連続する環変更を自然同型によって打ち消す。
+46. `DerivedFunctorModels`：局所化のモデル変更と、全右導来関手の自然な対応。
+47. `GeometricEndHom`：古典的 RHom の終域を実際の右 End(E) 加群として記述し、幾何学的 dg RHom と比較する。
+48. `DerivedEquivalenceModels`：源の二つの導来モデルを明示して、完全同値を通した古典的導来関手の比較を与える。
+
+本番の `AdjunctionLift` は随伴の終域を充満部分圏へ制限し、指定された右随伴と同値の逆関手を比較する。
+`EndRingYoneda` は指定された End 環同型に沿う通常の右加群 Hom の自然同型を与え、
+`EquivalenceSquare.inverse` は同値の前向き関手の可換な比較を逆関手へ移す。
 
 本番の `CochainFromZero.functorIso` は、次数0に集中する複体からの Hom 複体と
 通常の Hom を各項へ適用した複体を自然に同型にする。

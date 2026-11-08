@@ -17,7 +17,7 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較を含む44ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの44個で、一括実行に成功した。非有界 dg 同値、通常右 End 加群への移送、compact 始域から実際の有界連接導来圏への同値、射影直線の実際の有界導来圏間の三角同値まで検証済み。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較を含む48ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの48個で、一括実行に成功した。非有界 dg 同値、通常右 End 加群への移送、compact 始域から実際の有界連接導来圏への同値、射影直線の実際の有界導来圏間の三角同値まで検証済み。
 - `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。射影直線の幾何学的 End との同定は独立ターゲットで検証済み。一般の関係式付き経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
@@ -95,3 +95,7 @@
 - `GeometricHomComplex.complexFunctorIso` は、実際の dg Hom を成分複体として読む関手と通常の右加群 Hom の項別適用を自然に同型にする。
 - `ConcentratedComparisonComponents.componentIso` は既存の比較の選択そのものと成分複体の局所化を結ぶ。等式による輸送では比較と計算用同型を同じ構造体で運び、射影と輸送の可換性を証明する。
 - `GeometricDerivedHom.ordinaryDerivedIso` は、実際の dg RHom を既存の比較で通常加群へ移した関手と、独立に定義した古典的 RHom(E,−) に係数変更を施した関手を、ambient 導来圏全体で自然に同型にする。homotopy 商への降下と全右導来関手の一意性を使う。既存の幾何学的同値の逆関手との照合と、有界・正の窓への移送は引き続き必要。
+
+- 本番 `AdjunctionLift` は左随伴の像が入る充満部分圏への随伴の制限、指定された右随伴と同値の逆関手の比較、および係数同値の打ち消しを抽象化する。`EndRingYoneda` は指定された環同型について通常の右加群 Hom の比較を与える。`EquivalenceSquare.inverse` は前向きの同値の可換な比較を逆向きへ移す。
+- `RingChangeDerived` は通常加群の環変更の合成を打ち消す導来自然同型を与える。`GeometricEndHom` はこれを使って実際の右 End(E) に値を持つ古典的 RHom を記述し、既存の幾何学的 dg RHom から比較する。具体的な射影空間の型を直接展開せず、先に源・終域を固定した Hom と抽象的な係数比較の定数を使う。
+- `DerivedFunctorModels` は局所化の比較同値を通して全右導来関手を比較する。`DerivedEquivalenceModels` は源のモデルをデータ引数として固定し、同じ圏の異なる spelling によるインスタンス探索で両辺のモデルが混同されることを防ぐ。

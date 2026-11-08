@@ -181,3 +181,15 @@ name = "ConcentratedComparisonComponents"
 [[lean_lib]]
 name = "GeometricDerivedHom"
 
+[[lean_lib]]
+name = "RingChangeDerived"
+
+[[lean_lib]]
+name = "DerivedFunctorModels"
+
+[[lean_lib]]
+name = "GeometricEndHom"
+
+[[lean_lib]]
+name = "DerivedEquivalenceModels"
+
