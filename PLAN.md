@@ -31,3 +31,5 @@ Book/ と Beilinson/ を分離した一つの本番 Lake project。Lean/mathlib/
 全次元の有限次元始域は `MatrixBeilinson.equivalence` で接続した。`MatrixAlgebraComparison` の同じ部分代数としての比較、幾何学的 End の同定、有限次元代数に対する一般的な Serre 有界導来比較を使う。残る中心課題は正の窓の導来 tensor/Hom 関手全体との照合である。
 
 正の窓も `PositiveEndBounded.equivalence` で、実際の有限次元右 End(T) 加群からの三角同値に接続した。行列–End 同型は基礎体上の代数同型として確認し、有限次元加群の有界導来圏自体を移す。残る関手の照合は独立した課題として明記する。
+
+負の窓については `NegativeDerivedHom.classicalEndInverseIso` で、既存の通常右 End(E) 加群値同値の逆関手を古典的 RHom と自然同型で同定した。`ProjectiveHomModels.standardToSmallIso` は標準モデルと小さい幾何学的モデルを接続し、`FiniteDerivedTransport` は代数同型に沿って有限次元コホモロジーと compactness 判定を移す。これらを含む追加5ターゲットは個別検証済みで、48ターゲットとの一括再検証と正の窓の有界関手全体の比較が残る。

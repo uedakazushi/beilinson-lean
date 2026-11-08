@@ -79,3 +79,13 @@ GitHub Actions は使わない。Lean/mathlib/Verso と Stacks の更新は明�
 開発成果は検証後に main へ直接 push する。作業用ブランチや PR は作成しない。
 
 `Beilinson/KroneckerFinite.lean` は有限次元右加群が Serre 部分圏を作ることと、有限射影被覆が任意の全射を通して持ち上がることを証明する。独立した `KroneckerBoundedDerived` ターゲットはこれを導来包含へ適用し、D^b(有限次元右加群) 自体と有界・有限次元コホモロジーの部分圏、さらに compact 部分圏を三角同値で結ぶ。
+
+### 古典的 RHom と有限コホモロジーの追加比較
+
+既定の48ターゲットの一括検証とは別に、次の5ターゲットは個別に Lean で検証し、監査した宣言の依存公理は `propext`、`Classical.choice`、`Quot.sound` のみである。
+
+```bash
+bash scripts/check-stacks.sh NegativeDerivedHom DerivedRingEquivalence NegativeEndDerivedHom ProjectiveHomModels FiniteDerivedTransport
+```
+
+負の窓の通常右 End(E) 加群値同値の逆関手を、独立に定義した古典的 RHom と自然同型で同定した。標準導来モデルと幾何学的な小さいモデルの RHom 比較、および係数代数同型に沿う有界有限次元コホモロジー・compactness 判定の移送も検証した。正の窓の有界同値全体と古典的 RHom・導来 tensor の最終比較は未完成である。追加5ターゲットを含む一括再検証は未実施である。

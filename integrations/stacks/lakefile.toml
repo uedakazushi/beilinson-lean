@@ -193,3 +193,18 @@ name = "GeometricEndHom"
 [[lean_lib]]
 name = "DerivedEquivalenceModels"
 
+
+[[lean_lib]]
+name = "NegativeDerivedHom"
+
+[[lean_lib]]
+name = "DerivedRingEquivalence"
+
+[[lean_lib]]
+name = "NegativeEndDerivedHom"
+
+[[lean_lib]]
+name = "ProjectiveHomModels"
+
+[[lean_lib]]
+name = "FiniteDerivedTransport"
