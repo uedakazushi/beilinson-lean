@@ -1,18 +1,23 @@
-# 研究方針 — 2026-11-07 v0.4
+# 研究方針 — 2026-11-08 v0.5
 
 ## 現時点の目標
 自然言語の Beilinson 定理の Verso 教科書を完成させ、既存形式化を最大限再利用して Lean 4 で三角圏同値を形式化する。達成基準は自足的な数学的証明と、主定理・必要な依存補題について sorry-free かつ数学的意味を監査した Lean proof。
 
 ## 現在の到達点
-生成性については対角線の resolution を用いず、O(-k) の Koszul 帰納法と SOD right orthogonal の消滅に置き換えた。数学的な admissibility と Serre の定理を明示した。
-Book/ に自然言語による初稿、Beilinson/ に独立した Lean library。root は Lean/mathlib/Verso v4.35.0 へ固定している。Axiom Stacks の公開 source を確認し、同じ Lean/mathlib v4.35.0 に統一されていることを確認した。約 63,000 モジュールでビルドが重いため、本番とは別の `integrations/stacks/` に明示的な upstream commit を固定した実験環境を置いた。root の manifest は生成・commit 済み。本番 `bash scripts/check.sh` は library / book / HTML / LuaLaTeX PDF 生成まで成功。`Beilinson/Kronecker.lean` で n=1 の行列部分代数モデル、4要素の基底、次元4、頂点と矢の積を Lean 検証した。`Beilinson/KroneckerModule.lean` で右作用と二本の逆向きの線形写像の相互構成、頂点分解下の作用の復元、射の可換条件、頂点次元の加法性を検証した。`Beilinson/KroneckerCategory.lean` で mathlib の反対代数の加群圏と逆向きの Kronecker 表現圏の圏同値、および有限次元充満部分圏への制限を構成した。`Beilinson/KroneckerResolution.lean` で任意の右加群の長さ1の射影分解、有限次元の場合の項の有限次元性、mathlib の射影次元が高々1であることを証明した。`Beilinson/KroneckerDimension.lean` で有限次元の単純加群が非射影で射影次元1となることを確認し、上界の鋭さを検証した。`Beilinson/KroneckerIdeals.lean` で頂点右イデアルと標準射影表現の明示的同型、両右イデアルの射影性、正則右加群の直和分解を確認した。`Beilinson/KroneckerEnd.lean` で、一般の二対象の対角 Hom がスカラー、逆 Hom が零、順 Hom が二次元という仮定から、直和の End と Kronecker モデルの代数同型を検証した。`KroneckerYoneda` で Hom の前合成と逆向きの右作用を同定し、`KroneckerEndModules` で環同型に沿う射影分解の移送と条件付き End の全右加群の射影次元≤1を検証した。`DerivedDevissage` では任意のアーベル圏の有界対象をコホモロジー対象から三角部分圏の中で再構成する補題を検証した。独立 Stacks 環境でこれを実際の compact / perfect 述語に代入し、Kronecker 複体の有界・有限次元コホモロジーとの同値を確認した。n=1 では実際の O(0), O(1) の Hom データの代入、Kronecker 代数との同型と全右加群の射影次元≤1も独立ターゲットで検証した。任意の Noether スキームで D^b(Coh X) 自体と小さい導来モデルの有界連接部分圏との三角同値も検証した。Kronecker 側では有限次元加群の Serre 性と有限射影被覆を用い、実際の D^b(有限次元右加群) と compact 部分圏との三角同値も検証した。一般の次元の End 同定と主導来同値は未完成。Stacks 実験では例外生成列の充満性と座標 Koszul 完全性の import/build・依存公理を検証済み。Koszul 帰納法による全負捻りの生成と直交性の伝播、degree-zero dg 代数と通常右加群の導来圏の三角同値、多項式行列代数の compactness 判定、集中 dg 代数の厳密同型 adapter も検証済み。さらに正則 qcqs スキームで compactness と有界 coherent コホモロジーを同定し、任意の体上の全ての次元の射影空間へ代入する検証に成功した。負の捻りの消滅は別ターゲットで検証中。多項式 Proj と基底変換の射影空間モデルの比較、Ext と層コホモロジーの比較、有限 total Hom、右直交の零検出が次の橋渡し課題。
+
+生成性の自然言語の証明は、対角線の resolution を使わず、負捻りの Koszul 帰納法と SOD の right orthogonal の消滅に置き換えた。Book/ は Verso の日本語教科書、Beilinson/ は Stacks に依存しない本番ライブラリである。Lean/mathlib/Verso v4.35.0 と、独立 Stacks project の上流 revision を固定し、本番の library / HTML / LuaLaTeX PDF 生成を検証している。
+
+本番では具体的 Kronecker 代数、右加群と逆向き表現の圏同値、有限次元部分圏、長さ1の射影分解と射影次元、一般の線形圏での End 同定、Hom 前合成の作用、有限次元加群の Serre 性と被覆条件、有界 devissage を検証した。
+
+独立環境では21ターゲットを検証した。非有界 dg Beilinson 同値を通常右 End(E) 加群へ移し、全ての次元で compact 始域から実際の D^b(Coh Pⁿ) への三角同値を構成した。n=1 では実際の負の窓の End(E) と Kronecker 代数を同定し、D^b(有限次元右 Kronecker 加群) 自体から D^b(Coh P¹) 自体への三角同値を両方向で確認した。通常加群への移送の現状の universe は Type 0 である。
 
 ## 現在の核心と優先順位
-1. commit 済みの本番 manifest を保ち、`bash scripts/check.sh` で検証を継続する。次は pinned mathlib / Stacks の射影空間・線束・層コホモロジーの正確な API と定式化を照合し、幾何学側との橋渡しを実装する。
-2. Stacks の tagged declarations、mathlib、専門形式化を調査し、REUSE.md の候補を実際の定理名、必要仮定、import と対応づける。巨大 Stacks 全体のコンパイルを最初から必須にしない。
-3. 選ばれた少数の Stacks 定理を `integrations/stacks/` で probe し、kernel check と数学的定式化のレビューを分離する。
-4. Book/ の Čech、負捻り線束の Koszul 帰納法、right orthogonal の消滅、admissibility / SOD、導来 Hom–tensor 随伴と dg モデル比較の根拠を精査する。
-5. 既存定理で不足する薄い bridge だけを実装し、n=1 から一般 n へ進む。
+
+1. 一般の次元で compact な通常右 End(E) 加群を、有界・有限次元コホモロジー、さらに D^b(有限次元加群) 自体へ結ぶ。
+2. 負の窓 E と本文の正の窓 T の捻り・並べ替えを関手まで移送する。n=1 の現在の代数同型は基底選択を用いるため、特定の座標矢との同定も別に確認する。
+3. 検証済みのモデルと三角の規約を保ち、コホモロジーの基礎体上の線形構造を明示して、既存の有限 total Hom 判定や代数の compactness 判定を再利用する。
+4. 本文の Čech、Koszul、admissibility / SOD、導来 Hom–tensor 随伴の説明と、完成した Lean 宣言の範囲を同期する。
+5. 本番と独立 Stacks 環境のチェックを継続し、正確な宣言・仮定・依存公理・ビルドコストを REUSE.md に記録する。
 
 ## 現行の技術方針
 Book/ と Beilinson/ を分離した一つの本番 Lake project。Lean/mathlib/Verso の更新は意図的に固定・検証してから行う。Stacks は巨大なので実験用の別 Lake project で調査し、必要な定理と現実的なビルド負担が確認された時点で本番依存を再評価する。既存の定義や定理を無用にコピーしない。REUSE.md を軽量な再利用台帳とし、API/数学的仮定・人間レビュー・ビルド状況を区別する。GitHub Actions は使わない。検証後の成果は main に直接 push し、作業用ブランチや PR は作成しない。

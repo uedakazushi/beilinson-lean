@@ -5,6 +5,13 @@ open Verso.Genre Manual
 # 状態
 
 本書の幾何学的な主定理について、始域・終域・関手まで一致する *Lean の証明は未完成* である。
+ただし独立検証環境では、射影直線について実際の有界導来圏間の同値を合成し、両方向の三角保存まで確認した。
+
+$$`D^b(\mathrm{mod}_{\mathrm{fd}} A_{\mathrm{Kr}})\simeq D^b(\operatorname{Coh}\mathbf P^1_k)`
+
+現在の関手は負の捻りの生成対象と基底選択を用い、基礎体は Lean の `Type 0` に置く。
+一般の次元でも、compact な通常右 End 加群を始域とする有界連接版は検証済みである。
+本文の正の窓との関手の一致と、一般の次元の有限次元加群の始域への移送は残る。
 Verso のビルドは文書の構文と Lean コード例を確認するが、数学の自然言語部分を証明するものではない。
 
 # 実装の依存グラフ
@@ -157,7 +164,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の十五個は検証済みである。
+次の二十一個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -181,16 +188,18 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 
 15. `KroneckerBoundedDerived`：有限次元右 Kronecker 加群の有界導来圏自体と、通常の右加群の導来圏の compact 部分圏との三角同値を両方向で確認する。
 
+16. `StacksCohomologyProbe`：基底変換モデルの射影空間で、Beilinson の負捻りの帯の全ての高次順像が零となること。
+17. `StacksBeilinsonProbe`：実際の非有界 dg tensor 関手の同値性・三角保存と、幾何学的 dg 代数の次数0への集中。
+18. `OrdinaryBeilinson`：cone の符号を補正した通常右 End 加群への移送。現状は `Type 0` の可換基礎環を使う。
+19. `BoundedBeilinson`：任意の次元で、compact な通常右 End 加群の導来部分圏と実際の有界連接導来圏を結ぶ。両方向の三角保存を確認する。
+20. `ProjectiveLineWindow`：実際の負の窓の生成対象の End を Kronecker 代数と同定し、正の窓の End とも比較する。基底選択を用いる代数同型である。
+21. `ProjectiveLineBeilinson`：具体的 Kronecker 代数の有限次元右加群の有界導来圏自体と、射影直線の連接層の有界導来圏自体との三角同値を合成する。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
 
 ここでの有限直和は $`E=\mathcal O\oplus\mathcal O(-1)\oplus\cdots\oplus\mathcal O(-n)`。
 本書の $`T` とは $`E\otimes\mathcal O(n)` の直和成分を逆順に並べることで対応する。
-多項式行列モデルと幾何学的 End の同定は、この compactness 判定とは別の課題である。
-この自然同型と自己準同型代数の移送、幾何学的な右直交零検出、
-通常の右加群への比較と有界連接部分圏への制限は、なお接続する必要がある。
-正確な上流宣言と追加の検証ターゲットは、リポジトリの再利用台帳を参照する。
-
-この幾何学側の判定は、$`D_{\mathrm{QCoh}}` の中の有界 coherent コホモロジーを持つ対象に関するものである。
-$`D^b(\operatorname{Coh}X)` 自体との比較は独立に検証済みである。一般の次元での代数側の有限次元条件と、Beilinson 関手による制限・合成は引き続き検証中である。
+現在の合成は負の窓を使う。正の窓との関手の比較と、一般の次元で
+有限次元右加群の有界導来圏を始域とする版が残る。

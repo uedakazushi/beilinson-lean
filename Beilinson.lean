@@ -4,6 +4,7 @@ public import Beilinson.Foundation
 public import Beilinson.DerivedDevissage
 public import Beilinson.Kronecker
 public import Beilinson.KroneckerEnd
+public import Beilinson.EndTransport
 public import Beilinson.KroneckerYoneda
 public import Beilinson.KroneckerEndModules
 public import Beilinson.KroneckerModule
@@ -37,7 +38,11 @@ For Kronecker, bounded finite-dimensional cohomology then suffices for membershi
 in every such subcategory containing the finite projective modules.
 Finite-dimensional right modules also form a Serre subcategory, and their finite
 projective covers lift through epimorphisms.
-The geometric Beilinson equivalence is not yet formalized.
+The optional integration checks the actual unbounded dg equivalence, its ordinary
+right-module form and the compact-source bounded restriction in every dimension.
+In dimension one it composes an equivalence from the actual bounded derived category
+of finite-dimensional Kronecker modules to the actual bounded coherent derived category.
+The positive-window functor and the general finite-dimensional source remain to be connected.
 
 Formal declarations will be imported from `Beilinson/` as they become available.
 -/

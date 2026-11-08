@@ -20,17 +20,17 @@ From this directory:
 
 ```sh
 lake update
-lake exe cache get
-lake build StacksProbe StacksGeometryProbe StacksGenerationProbe StacksOrdinaryProbe StacksAlgebraProbe DGAComparison DegreeZeroConeComparison ConcentratedDGA GeometricPerfectProbe ProjectivePerfectProbe KroneckerCompact SheafHomSections ProjectiveLineEnd CoherentDerivedComparison KroneckerBoundedDerived
+../../scripts/check-stacks.sh
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-fifteen targets. Explicit arguments select other targets when they are available.
+twenty-one targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All fifteen targets have built successfully against the pinned package. Their exported
+All twenty-one targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
-`sorryAx` or a new axiom. None proves the bounded coherent Beilinson equivalence.
+`sorryAx` or a new axiom. `ProjectiveLineBeilinson` proves an actual bounded equivalence in dimension one.
+`BoundedBeilinson` uses compact ordinary End(E)-modules as its source in all dimensions.
 
 | Target | Module suffix under `StacksFrontier` | Checked claim |
 |---|---|---|
@@ -49,6 +49,12 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `ProjectiveLineEnd` | The preceding comparison and `…ProjTwistFunctor.Derived`, `…Cohomology.DerivedTwistSections`, `…TwistMonomialBasis` | On actual polynomial P¹ over every field, End(O(0) ⊕ O(1)) is isomorphic to the concrete Kronecker algebra; every right End module has projective dimension at most one. The isomorphism chooses a basis of Hom(O(0),O(1)). |
 | `CoherentDerivedComparison` | `…DerivedCoherent.Modules`, `…SiblingFunctors.BoundedCoherent`, and derived-model comparison | For a Noetherian scheme, Dᵇ(Coh X) is equivalent to the bounded-coherent full subcategory of D_QCoh in the locally small model. Both functors preserve triangles and shifts. |
 | `KroneckerBoundedDerived` | Production `Beilinson.KroneckerFinite`, `…DerivedCategory.SerreSubcategory`, and `KroneckerCompact` | The actual Dᵇ of finite-dimensional right Kronecker modules is equivalent to the compact ambient module derived category. Finite projective covers verify the Serre comparison; both directions preserve triangles and shifts. |
+| `StacksCohomologyProbe` | `…ProjectiveSpaceHigherDirectImage.TwistAcyclicRange` | Negative twists in the Beilinson band have zero higher direct images in every degree, on the base-change model of projective space. |
+| `StacksBeilinsonProbe` | `…ExampleGenerator.BeilinsonEquivalenceLinear` | The actual unbounded dg tensor functor is an exact equivalence; its dg algebra is concentrated in degree zero and its underlying ring is End(E). |
+| `OrdinaryBeilinson` | The preceding theorem and the checked concentrated-dg adapters | At universe zero, convert the actual dg tensor functor to an exact equivalence from ordinary right End(E)-modules, with the cone sign corrected. |
+| `BoundedBeilinson` | `OrdinaryBeilinson`, `ProjectivePerfectProbe`, and `CoherentDerivedComparison` | Over a field in Type 0, in every dimension including zero, the compact ordinary End(E)-module derived category is equivalent to actual Dᵇ(Coh Pⁿ). Both directions preserve triangles and shifts. |
+| `ProjectiveLineWindow` | `ProjectiveLineEnd`, production `EndTransport`, and `…ExampleGenerator.QuasiCoherentGenerator` | End of the actual Fin 2 negative-window generator E = O ⊕ O(-1) is the concrete Kronecker algebra. Its comparison with the positive-window End uses chosen bases. |
+| `ProjectiveLineBeilinson` | The preceding adapters and `KroneckerBoundedDerived` | For a field in Type 0, an actual exact equivalence Dᵇ(finite-dimensional right Kronecker modules) ≌ Dᵇ(Coh P¹), composed from the checked tensor functor and ring changes. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
@@ -56,22 +62,22 @@ dg adapter 456; the concentrated comparison uses a combined closure of 462. Coun
 exclude mathlib and are for this revision.
 Do not run `lake build Stacks` or import the umbrella module by default.
 
-Further candidates include negative-twist higher-direct-image vanishing (2125
-Stacks modules) and an unbounded dg Beilinson equivalence (8353). They are under
-separate local validation; see [../../REUSE.md](../../REUSE.md) for exact declarations
-and the semantic audits. Higher direct images use a different base-change model
-of projective space from the polynomial Proj used by the Koszul probe. The ordinary
-module comparison also needs an adapter from the geometric dg algebra to the
-specific degree-zero model. Neither type boundary is silently identified here.
+The unbounded geometric equivalence imports 8353 Stacks modules. The first build in
+this environment took over two hours on four CPU cores, with a 16 GiB memory limit;
+subsequent checks reuse the compiled artifacts. The production book remains independent.
 
-The geometric zero-detection hypotheses, matching the positive twist sum of the
-book, the ordinary endomorphism algebra, and the bounded coherent restriction
-remain to be connected in this project. The geometric target finiteness criterion
-is now checked, but the restriction of the Beilinson functor to it is not yet checked.
-The comparison with the bounded derived category of coherent sheaves itself is now checked
-by `CoherentDerivedComparison`; composing it with the Beilinson restriction remains under validation. Promotion to a production dependency
-requires recording the exact declarations, assumptions, model comparisons, and
-build cost in the reuse ledger.
+The negative-twist higher-direct-image probe uses a base-change model of projective
+space. It is not silently identified with polynomial Proj. The unbounded geometric
+functor and the bounded adapters use the actual polynomial Proj throughout.
+
+The geometric generator is E = O ⊕ O(-1) ⊕ … ⊕ O(-n). The remaining book-level boundaries
+are its comparison with the positive-window tensor/Hom functor and, in general
+dimension, replacing the compact source by Dᵇ of finite-dimensional ordinary modules.
+The dimension-one bounded theorem uses a chosen Kronecker basis; it does not identify
+the two arrows with particular coordinate sections.
+
+Promotion to a production dependency requires keeping the exact declarations,
+assumptions, model comparisons and build cost in the reuse ledger.
 
 The geometric dg equivalence uses the cone triangulation; the original ordinary-module
 comparison uses admissible-sequence triangles. The sign correction in

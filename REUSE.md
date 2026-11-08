@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。例外生成列・Koszul の二つの実験 probe は実 import/build に成功し、コホモロジー probe は検証中。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。21ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -29,8 +29,8 @@
 | exceptional collection の admissibility、SOD、right orthogonal | StacksFrontier、mathlib | finite total Hom と右直交零検出からの充満性を専用 adapter で検証済み。幾何学的仮定は未証明 |
 | perfect complexes、derived tensor、pushforward | mathlib、Stacks | 候補、API 未照合 |
 | quiver、path algebra、representations | mathlib の行列・部分代数・基底 | n=1 の行列モデルと右作用・逆向きの矢・射の具体的な対応を Lean 検証。具体的モデルについて全加群と有限次元加群の圏同値を構成済み。一般経路代数との同型は未実装 |
-| exceptional collections / tilting | StacksFrontier、Axiom BondalThomsen | Koszul 生成性・非有界 dg 同値の正確な宣言を確認。追加 probe を検証中 |
-| dg enhancement / derived Morita | StacksFrontier | `Beilinson.beilinson_equivalence` は非有界 dg 加群と準連接導来圏の同値。ソース照合済み、ローカル検証中。有界・連接版との比較は未実装 |
+| exceptional collections / tilting | StacksFrontier、Axiom BondalThomsen | Koszul 生成性・非有界 dg 同値を実ビルド。通常加群への比較と compact 始域の有界版も検証済み |
+| dg enhancement / derived Morita | StacksFrontier | `Beilinson.beilinson_equivalence` は非有界 dg 加群と準連接導来圏の同値。実ビルド・公理監査済み。Type 0 で compact な通常右 End 加群から D^b(Coh) への比較を検証済み |
 | Beilinson equivalence | 未確認 | 本研究の目標であり、実装済みと扱わない |
 
 ## 外部プロジェクト
@@ -123,24 +123,24 @@
 
 - `CategoryTheory.Pretriangulated.prop_of_hasFiniteTotalHom_of_exceptional`、import `StacksFrontier.CategoryTheory.Triangulated.ExceptionalCollectionFiniteness`。有限列 G の各自己準同型が scalar、非零自己シフト Hom が零、逆順の全シフト Hom が零、必要な total Hom が有限、右直交が零を検出するという仮定から、G を含む strictly full triangulated subcategory が対象 M を含むと結論する。`HasFiniteTotalHom` は各次数の有限次元性に加え非零次数が有限であることも要求する。Tag [0FYB](https://stacks.math.columbia.edu/tag/0FYB) に関連する抽象的部分であり、幾何学的 tag 全体の形式化ではない。`StacksProbe.full_of_exceptional_and_detection` は ambient subcategory を全体に取った adapter。実 package import/build と公理監査に成功。
 - `Stacks.AlgebraicGeometry.ProjKoszulComplex.acyclic_koszulComplex`、import `StacksFrontier.AlgebraicGeometry.ProjKoszulComplex.Exactness`。任意の可換環 A、n≥0、a∈ℤ に対し、多項式環の全次数 Proj 上で O(a+j) の座標 Koszul cochain complex が acyclic。標準開集合上で一つの座標比が1となることを使う stalk contracting homotopy による証明で、完全性自体を仮定していない。`StacksGeometryProbe.coordinate_koszul_acyclic` の実 import/build と公理監査に成功。Stacks 側の import 閉包は92モジュール。
-- `Stacks.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.isZero_rightDerivedPlus_pushforward_twistOver_of_acyclic`、import `StacksFrontier.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.TwistAcyclicRange`。基底 scheme S、n=m+1≥1、-n≤d<0、q∈ℤ について R^q f_* O(d)=0。Tag [01XW](https://stacks.math.columbia.edu/tag/01XW) の各行の既存結果を合成する定理で、この宣言自身への tag 属性はない。`StacksCohomologyProbe` で検証中（閉包2125モジュール）。
+- `Stacks.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.isZero_rightDerivedPlus_pushforward_twistOver_of_acyclic`、import `StacksFrontier.AlgebraicGeometry.ProjectiveSpaceHigherDirectImage.TwistAcyclicRange`。基底 scheme S、n=m+1≥1、-n≤d<0、q∈ℤ について R^q f_* O(d)=0。Tag [01XW](https://stacks.math.columbia.edu/tag/01XW) の各行の既存結果を合成する定理で、この宣言自身への tag 属性はない。`StacksCohomologyProbe` の実 build・標準3公理の監査に成功した（閉包2125モジュール）。
 
-重要な型の境界：Koszul は多項式 Proj、higher direct image は整数上の射影空間を基底変換したモデルを使う。両者の同一視はまだ adapter に含めていない。`TwistGenerator.Negative` は自明化開集合上の線束の生成切断であり、導来圏の右直交零検出を直接述べる定理ではない。Ext/cohomology 比較、有限 total Hom、Koszul から全負捻りへの伝播と Serre による零検出、導来 Morita は未完成。
+重要な型の境界：Koszul は多項式 Proj、higher direct image は整数上の射影空間を基底変換したモデルを使う。両者の同一視はまだ adapter に含めていない。`TwistGenerator.Negative` は自明化開集合上の線束の生成切断であり、導来圏の右直交零検出を直接述べる定理ではない。多項式 Proj 側の Koszul 生成性と零検出、および非有界 dg 同値は別の経路で検証済みである。基底変換モデルとの比較を暗黙に消してはいない。
 
-検証済み二つの adapter の依存公理は `propext`、`Classical.choice`、`Quot.sound` のみ。root の production dependency は変更しない。専用 manifest を `integrations/stacks/` に保存する。
+上記の検証済み adapter の依存公理は `propext`、`Classical.choice`、`Quot.sound` のみ。root の production dependency は変更しない。専用 manifest を `integrations/stacks/` に保存する。
 
-## 深い階層で確認した生成性・dg 同値の候補
+## 検証した生成性・dg 同値
 
 以下は正確なソースと証明経路を確認した結果。宣言ごとにローカル build 状態を区別する。
 
 - import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.Koszul` の `Stacks.AlgebraicGeometry.ExampleGenerator.twist_neg_mem_gen`。多項式 Proj 上で E=O⊕O(-1)⊕…⊕O(-n) とし、全ての m≥0 で O(-m) が `gen E` に属する。証明は座標 Koszul の stupid filtration による有限 cone と強い帰納法で、対角線の分解を使わない。閉包228モジュール。`StacksGenerationProbe.negative_twist_generated` と `negative_twist_orthogonal` の実 import/build・公理監査に成功。
-- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.KoszulQuasiCoherent` の `isWeakTriangulatedGenerator_twistSumDerivedQCoh`（同 namespace、Tag [0A9V](https://stacks.math.columbia.edu/tag/0A9V)）。Koszul 生成性と ample 負捻りの零検出を多項式 Proj 上で接続する。この経路なら基底変換モデルのコホモロジーとの比較を経ず生成性を進められる。閉包2378モジュール、単独の検証は未実施。
-- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEquivalenceLinear` の `Stacks.AlgebraicGeometry.Beilinson.beilinson_equivalence`（Tag [0BQU](https://stacks.math.columbia.edu/tag/0BQU)）。任意の可換環 A と n≥0 に対し、上記 E の dg 自己準同型代数 R からの derived tensor が D(R) と D_QCoh の A-線形三角同値を与え、正則加群を E に送る。定理の仮定に同値性自体は含まれない。ソースは生成性、compactness、正則加群間の Hom の同型から導く。閉包8353モジュール。`StacksBeilinsonProbe` を検証中。
-- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEndAlgebra` の `Stacks.AlgebraicGeometry.Beilinson.endAlgebraRingEquiv`、`endAlgebra_d_eq_zero`、`endAlgebra_grading_eq_bot` は R が通常の End(E) に集中することを述べる。既存の `DifferentialGradedModule.degreeZeroDerivedEquivalence`（import `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`）は degree-zero DGA の右加群を通常の反対環の加群の複体へ比較する。`StacksOrdinaryProbe.rightModuleComparison` と `rightModuleComparison_exact` で、任意の非可換 R-代数 S の degree-zero DGA から Sᵐᵒᵖ の加群の導来圏への同値と三角の保存を検証済み。上流と同じ局所 pretriangulated instance を明示する必要があった。依存公理は標準の3つのみ。ただし幾何学側の DGA と degree-zero DGA の universe・基礎環の型を接続する adapter は未実装。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.KoszulQuasiCoherent` の `isWeakTriangulatedGenerator_twistSumDerivedQCoh`（同 namespace、Tag [0A9V](https://stacks.math.columbia.edu/tag/0A9V)）。Koszul 生成性と ample 負捻りの零検出を多項式 Proj 上で接続する。この経路なら基底変換モデルのコホモロジーとの比較を経ず生成性を進められる。閉包2378モジュール。非有界同値の依存として実ビルド済み。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEquivalenceLinear` の `Stacks.AlgebraicGeometry.Beilinson.beilinson_equivalence`（Tag [0BQU](https://stacks.math.columbia.edu/tag/0BQU)）。任意の可換環 A と n≥0 に対し、上記 E の dg 自己準同型代数 R からの derived tensor が D(R) と D_QCoh の A-線形三角同値を与え、正則加群を E に送る。定理の仮定に同値性自体は含まれない。ソースは生成性、compactness、正則加群間の Hom の同型から導く。閉包8353モジュール。`StacksBeilinsonProbe` の実 build と標準3公理の監査に成功した。
+- import `StacksFrontier.AlgebraicGeometry.ProjectiveSpace.ExampleGenerator.BeilinsonEndAlgebra` の `Stacks.AlgebraicGeometry.Beilinson.endAlgebraRingEquiv`、`endAlgebra_d_eq_zero`、`endAlgebra_grading_eq_bot` は R が通常の End(E) に集中することを述べる。既存の `DifferentialGradedModule.degreeZeroDerivedEquivalence`（import `StacksFrontier.Algebra.DifferentialGraded.Module.DegreeZeroAlgebra`）は degree-zero DGA の右加群を通常の反対環の加群の複体へ比較する。`StacksOrdinaryProbe.rightModuleComparison` と `rightModuleComparison_exact` で、任意の非可換 R-代数 S の degree-zero DGA から Sᵐᵒᵖ の加群の導来圏への同値と三角の保存を検証済み。上流と同じ局所 pretriangulated instance を明示する必要があった。依存公理は標準の3つのみ。幾何学側との接続は `ConcentratedDGA` と `OrdinaryBeilinson` で Type 0 の場合に検証済み。
 
 - import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。`StacksAlgebraProbe.compact_iff_finite_total_cohomology` の実 import/build と公理監査に成功。依存公理は標準の3つのみ。幾何学的 End との同型はこの定理に含まれない。
 
-教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、その自然同型・自己準同型代数・右加群規約と bounded coherent / finite-dimensional 制限を Lean で移送する部分は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
+教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、通常右 End(E) 加群への比較と compact 始域の bounded coherent 制限は検証済みである。正の窓との関手の比較と、一般の次元で有限次元加群の有界導来圏自体を始域とする移送は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
 
 ## dg 代数を degree-zero モデルに接続する adapter
 
@@ -166,7 +166,7 @@
 
 本番 `Beilinson/KroneckerEnd.lean` は Stacks に依存しない。k-線形 preadditive 圏で binary biproducts を仮定する。`ofArrows` は二本の射 X→Y から具体的 Kronecker 代数の単位的な代数準同型 A→End(X⊞Y) を構成する。
 
-`algebraEquiv` の追加仮定は、Hom(X,X)≃ₗ[k]k と Hom(Y,Y)≃ₗ[k]k（各恒等射を1へ送る）、Subsingleton Hom(Y,X)、および Hom(X,Y) の Fin 2 基底。4成分の座標抽出と再構成を示して全単射性を証明し、`ofArrows` の乗法保存で代数同型へ昇格する。`ofArrows_e₀`、`ofArrows_e₁`、`ofArrows_arrow` は生成元の像を射影・包含と選んだ射として確認し、`finiteDimensional` と `finrank` は条件付き End の有限次元性と次元4を与える。幾何学的 Hom の仮定は未代入であり、End(O⊕O(1)) の具体的同定が完成したとは扱わない。
+`algebraEquiv` の追加仮定は、Hom(X,X)≃ₗ[k]k と Hom(Y,Y)≃ₗ[k]k（各恒等射を1へ送る）、Subsingleton Hom(Y,X)、および Hom(X,Y) の Fin 2 基底。4成分の座標抽出と再構成を示して全単射性を証明し、`ofArrows` の乗法保存で代数同型へ昇格する。`ofArrows_e₀`、`ofArrows_e₁`、`ofArrows_arrow` は生成元の像を射影・包含と選んだ射として確認し、`finiteDimensional` と `finrank` は条件付き End の有限次元性と次元4を与える。この一般補題には仮定が残るが、射影直線への代入は後述の `ProjectiveLineEnd` で検証した。
 
 再利用した pinned mathlib API：`Biprod.ofComponents`、`Biprod.ofComponents_comp`、`Biprod.ofComponents_eq`（`Mathlib.CategoryTheory.Preadditive.Biproducts`）、`CategoryTheory.End` とその `asHom` / `of`、`Module.Basis.sum_repr`、`AlgHom.ofLinearMap`、`AlgEquiv.ofLinearEquiv`。End は Hom の単なる略記ではないため、morphism の計算へは `asHom` で移す。主要宣言の実 build と公理監査に成功し、依存は標準の3公理のみ。
 
@@ -196,7 +196,7 @@
 
 ## Kronecker の実際の compact / perfect 判定
 
-`integrations/stacks/KroneckerCompact.lean` は本番 `Beilinson.KroneckerPerfect` と `StacksDraft.Perfect.isPerfect_iff_isCompactObject`（07LT、`Homology.Perfect.Characterizing`）を接続する。任意の非可換環の有限射影加群の single complex を IsPerfect の有限射影代表の定義で構成し、Kronecker の有限次元性と devissage から有界・有限次元コホモロジー⇒compact を得る。逆向きは、perfect 代表の各項が基礎体上有限次元であることと、cycles の包含・homology への全射から示す。`compact_iff_bounded_finite_cohomology` と `perfect_iff_bounded_finite_cohomology` は両方向の判定である。主要宣言は標準の3公理のみを使用し、実 build に成功した。幾何学的な End との同定は別に残る。
+`integrations/stacks/KroneckerCompact.lean` は本番 `Beilinson.KroneckerPerfect` と `StacksDraft.Perfect.isPerfect_iff_isCompactObject`（07LT、`Homology.Perfect.Characterizing`）を接続する。任意の非可換環の有限射影加群の single complex を IsPerfect の有限射影代表の定義で構成し、Kronecker の有限次元性と devissage から有界・有限次元コホモロジー⇒compact を得る。逆向きは、perfect 代表の各項が基礎体上有限次元であることと、cycles の包含・homology への全射から示す。`compact_iff_bounded_finite_cohomology` と `perfect_iff_bounded_finite_cohomology` は両方向の判定である。主要宣言は標準の3公理のみを使用し、実 build に成功した。このターゲット自身は幾何学的 End を同定しない。n=1 の同定は後述の `ProjectiveLineEnd` と `ProjectiveLineWindow` で検証した。
 
 このターゲットのため、独立 Stacks project に Root を `../..` の依存として追加した。optional manifest に Root / Verso の固定 dependency が入るが、本番 manifest には Stacks を追加しない。従来の固定 dependency の revision は変更していない。
 
@@ -216,13 +216,29 @@
 
 `integrations/stacks/CoherentDerivedComparison.lean` は Tag 0FDB の `coherentToModulesDerivedBoundedEquivalence`（`DerivedCoherent.Modules`）を再利用する。この宣言は標準モデルなので、`modelHomologyFunctorIso`（`SerreSubcategoryModel`）によって有界性と連接性を小さいモデルへ移す `boundedModelEquiv` を作る。`ambientEquivalence` は連接コホモロジーが準連接でもあることを使い、小さいモデルの D_QCoh の中の有界連接部分圏と同定する。Noether スキームについて得る `equivalence` は、D^b(Coh X) 自体を始点とする。
 
-前向き関手を、標準モデルの導来包含とモデル間同値の合成として確認する `coherentCompInclusionIso` を用い、fully faithful な包含との合成が exact であることから exactness を示す。逆方向はシフトを `commShiftInverse` で与え、随伴関手の exactness で導く。小さいモデルの shift / pretriangulated のインスタンスを名前付きで保持し、標準モデルとの暗黙の取り違えを避ける。両方向のシフト・三角保存を含む主要宣言は標準3公理のみを使用し、独立ターゲットの実 build に成功した。Beilinson の有界制限との合成は別に残る。
+前向き関手を、標準モデルの導来包含とモデル間同値の合成として確認する `coherentCompInclusionIso` を用い、fully faithful な包含との合成が exact であることから exactness を示す。逆方向はシフトを `commShiftInverse` で与え、随伴関手の exactness で導く。小さいモデルの shift / pretriangulated のインスタンスを名前付きで保持し、標準モデルとの暗黙の取り違えを避ける。両方向のシフト・三角保存を含む主要宣言は標準3公理のみを使用し、独立ターゲットの実 build に成功した。Beilinson の compact 始域への有界制限との合成は `BoundedBeilinson` で検証した。
 
 ## Kronecker の D^b(有限次元右加群)
 
 本番 `Beilinson/KroneckerFinite.lean` は有限次元ベクトル空間の Serre 性を `Module.Finite.of_injective`、`of_surjective`、`of_exact` で確認し、スカラー制限の逆像として有限次元右 Kronecker 加群の Serre 性を得る。有限次元対象 Y への全射 f に対し、`rightModuleResolution Y` の有限射影項から Y への全射を `Projective.factorThru` で f を通して持ち上げる。`finiteRightModules_coversEpis` は、Serre 部分圏の導来比較に必要な被覆条件そのものである。
 
 独立 `KroneckerBoundedDerived.lean` は `ObjectProperty.full_faithful_essImage_minus_mapDerivedCategory`（Tag 0FCL、`DerivedCategory.SerreSubcategory`）にこの条件を代入する。bounded-above 導来包含の fully faithful 性を有界部分へ制限し、essential image の代表が下からも有界であることをコホモロジーで反映することで、有界版の `equivalence` を得る。`comparisonCompInclusionIso` はこの関手が実際の導来包含であることを記録し、fully faithful な包含を通して exactness を確認する。`KroneckerCompact` と合成した `compactEquivalence` は、実際の D^b(有限次元右加群) と compact 部分圏の同値であり、両方向でシフトと三角を保つ。標準3公理のみを使用し、実 build に成功した。
+
+## 通常 End(E) 右加群からの実際の tensor 同値
+
+`OrdinaryBeilinson.lean` は `endAlgebra_mem_grading_zero`、`endAlgebra_grading_eq_bot`、`endAlgebra_d_eq_zero` を `ConcentratedDGA.comparison` に渡す。幾何学的 dg 代数の基礎環は ℤ なので、現状の adapter は Type 0 の可換環と加群を扱う。逆比較と実際の `tensorWithGenerator` を合成し、`endAlgebraRingEquiv` の反対環でスカラーを変更して、通常の右 End(E) 加群の導来圏からの `endTensor` を得る。これは三角を保つ実際の同値である。
+
+`BoundedBeilinson.lean` は同値による compactness の保存と、射影空間の regular / bounded coherent 判定を合成する。`coherentEquivalence` は任意の次元 n≥0 で compact な通常右 End(E) 加群の部分圏と、実際の D^b(Coh Pⁿ) を三角同値で結び、逆方向の exactness も確認する。この始域を一般の次元で D^b(有限次元右加群) に書き換える部分は残る。通常加群への adapter の基礎体上の線形性も、三角保存とは別に整備する対象である。
+
+`StacksBeilinsonProbe`、`StacksCohomologyProbe`、`OrdinaryBeilinson`、`BoundedBeilinson` の主要宣言は標準3公理のみを使用し、実 build に成功した。初回の大きなビルドは Stacks の閉包8353モジュールを含み、この4 CPU / 16 GiB 環境では2時間以上を要した。
+
+## 射影直線の有界導来同値の合成
+
+本番 `Beilinson/EndTransport.lean` は対象の同型による End の代数同型、fully faithful な線形関手による End の代数同型、Fin 2 の直和と binary biproduct の同型を与える。
+
+`ProjectiveLineWindow.lean` は O(-1), O(0) の Hom 次元を捻りの線形性で O(0), O(1) の計算へ移す。実際の `twistFamily k 1` の Fin 2 直和を並べ替え、負の窓の `twistSumModule k 1` の End と Kronecker 代数を同定する。正の窓の End との比較はこの基底選択による同型を介し、捻り関手に関する自然同型とはまだ同定していない。
+
+`ProjectiveLineBeilinson.equivalence` の始域は D^b(有限次元右 Kronecker 加群) 自体、終域は多項式 Proj の P¹ 上の D^b(Coh) 自体である。`KroneckerBoundedDerived.compactEquivalence`、実際の End(E) への環変更と導来化、compact 部分圏への制限、`BoundedBeilinson.coherentEquivalence` を合成する。Type 0 の任意の体で前向き・逆向きともシフトと三角を保つ。始域・終域を明記した公開宣言と、別モジュールからの import client を検証した。主要宣言の依存公理は標準3公理のみである。
 
 ## 更新と再現
 

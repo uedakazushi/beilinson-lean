@@ -21,11 +21,17 @@ name = "StacksProbe"
 [[lean_lib]]
 name = "StacksGeometryProbe"
 
+# Larger closure; run explicitly after the two smaller probes.
+[[lean_lib]]
+name = "StacksCohomologyProbe"
 
 # Koszul descent, without the much larger dg Morita closure.
 [[lean_lib]]
 name = "StacksGenerationProbe"
 
+# Large unbounded dg equivalence audit, never a default target.
+[[lean_lib]]
+name = "StacksBeilinsonProbe"
 
 # Noncommutative ordinary right-module comparison.
 [[lean_lib]]
@@ -55,7 +61,13 @@ name = "GeometricPerfectProbe"
 [[lean_lib]]
 name = "ProjectivePerfectProbe"
 
+# Ordinary-module geometric equivalence; validate after the large upstream closure.
+[[lean_lib]]
+name = "OrdinaryBeilinson"
 
+# Restriction to compact source and bounded coherent target objects.
+[[lean_lib]]
+name = "BoundedBeilinson"
 
 # Apply the production finite-projective reconstruction to the Stacks compactness predicate.
 [[lean_lib]]
@@ -76,3 +88,11 @@ name = "CoherentDerivedComparison"
 # Identify the actual bounded derived category of finite-dimensional Kronecker modules.
 [[lean_lib]]
 name = "KroneckerBoundedDerived"
+
+# The negative-window generator has the checked Kronecker endomorphism algebra.
+[[lean_lib]]
+name = "ProjectiveLineWindow"
+
+# End-to-end bounded equivalence for the actual projective line.
+[[lean_lib]]
+name = "ProjectiveLineBeilinson"

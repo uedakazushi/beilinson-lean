@@ -2,7 +2,9 @@
 
 Verso による日本語教科書と Lean 4 形式化を育てるプロジェクトです。生成性の証明は対角線の resolution に依存せず、線束の Koszul 完全列から負捻り線束を作り、SOD の right orthogonal の消滅から示します。
 
-**2026-11-07 / v0.4:** 自然言語による数学的証明は初稿。Beilinson の導来同値の Lean proof はまだありません。`n=1` の4次元 Kronecker 代数モデル、右加群圏と逆向きの表現圏の圏同値、有限次元部分圏への制限、全右加群の長さ1の射影分解と射影次元の上界1と、それを達成する有限次元単純加群は Lean で検証済みです。本番チェックは Lean ライブラリ・教科書 HTML・LuaLaTeX の日本語 PDF 生成まで実機検証済みです。
+**2026-11-08:** 独立した Stacks 検証環境で、n=1 の具体的 Kronecker 代数の D^b(有限次元右加群) と、実際の D^b(Coh P¹) の三角同値を Lean で検証しました。両方向のシフト・三角保存を確認し、依存公理は標準3公理のみです。この関手は負の捻りの生成対象と基底選択を用います。全ての次元についても、compact な通常右 End(E) 加群から D^b(Coh Pⁿ) への三角同値を検証済みです。現在の通常加群への移送は Lean の Type 0 で定式化しています。
+
+本文の正の捻り T と関手の規約の一致、および一般の次元の有限次元加群の始域を結ぶ部分は未完成です。自然言語の数学的証明は初稿で、本番チェックは Lean ライブラリ・教科書 HTML・LuaLaTeX の日本語 PDF 生成まで成功しています。
 
 ## 最初に読むもの
 
@@ -36,7 +38,9 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定する。本番の Verso ビルドには依存を追加していない。例外列の充満性、座標 Koszul の完全性、全負捻りの生成、通常右加群への比較、多項式行列代数の compactness 判定、次数0に集中する dg 代数の比較、cone 規約との符号補正、集中 dg 代数の通常右加群への直接比較を、15個の専用ターゲットで実 import/build・公理監査まで検証した。正則 qcqs スキームでの compactness と有界 coherent コホモロジーの同値、および全ての次元の射影空間への代入も確認した。本番の Kronecker 証明を用いて、右 Kronecker 複体の compactness / perfect 性と有界・有限次元コホモロジーの同値も検証した。構造層からの Hom と大域切断の基礎体上の線形同型、切断とテンソルで使うスカラー構造の一致も確認した。Noether スキームで、D^b(Coh X) 自体と小さい導来圏モデルの有界連接部分圏との三角同値も検証した。Kronecker 側も、D^b(有限次元右加群) 自体と compact 部分圏の三角同値を確認した。詳細は [検証環境の README](integrations/stacks/README.md) を参照。負捻りのコホモロジーと非有界 dg 同値は検証中で、幾何学モデルの接続と本書の有界連接版の主定理は未完成。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。21個の専用ターゲットで実 import/build と公理監査を行っています。
+
+非有界 dg Beilinson 同値、通常の右 End(E) 加群への比較、compact 部分圏への制限、D^b(Coh Pⁿ) 自体との合成を検証済みです。n=1 では負の窓の End(E) を Kronecker 代数と同定し、実際の D^b(有限次元右加群) を始域とする同値まで合成しました。基底選択を特定の座標切断とはまだ同定していません。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
 
 ```sh
 cd integrations/stacks
@@ -52,6 +56,8 @@ lake build DegreeZeroConeComparison
 lake build ConcentratedDGA
 lake build GeometricPerfectProbe ProjectivePerfectProbe
 lake build KroneckerCompact
+lake build OrdinaryBeilinson BoundedBeilinson
+lake build ProjectiveLineBeilinson
 ```
 
 README と [REUSE.md](REUSE.md) に記した通り、`StacksCore`（人間レビュー済み）と `StacksFrontier`（kernel-check 済みだが人間レビュー未完了）は区別し、重要な定式化は手動で確認する。

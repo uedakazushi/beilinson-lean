@@ -1,4 +1,4 @@
-# 研究ノート — 2026-11-07 v0.4
+# 研究ノート — 2026-11-08 v0.5
 
 ## 数学
 - P(V) は lines convention、H^0(O(1)) = V^∨。
@@ -17,14 +17,14 @@
 
 ## 技術的状態
 - root の Lean/mathlib/Verso v4.35.0、および upstream Stacks revision 5ed82d14634e8d9576bb844c7bd4e3da66d450e7 の toolchain/mathlib v4.35.0 を確認。
-- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較の15ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの15個で、一括実行に成功した。大きな幾何学的 dg 同値とコホモロジーは検証中。
-- `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。幾何学的な End との同定や一般経路代数との同型は未実装。
+- 本番の lake-manifest.json は生成・commit 済み。`bash scripts/check.sh` は Lean library / Verso / HTML / LuaLaTeX PDF 生成まで成功。このクラウド環境では TeX Live 2025 の公式配布をユーザー領域に補い、`TEXMFHOME=/workspace/.local/texmf`、`TEXMFVAR=/workspace/.cache/texmf-var`、`TEXMFCONFIG=/workspace/.cache/texmf-config`、`XDG_CACHE_HOME=/workspace/.cache` を指定する。Stacks 実験の依存解決と専用 manifest 生成に成功。充満性・座標 Koszul・全負捻り生成・通常右加群比較・多項式行列代数の compactness 判定・厳密 dg 同型 adapter・cone 規約の符号補正・集中 dg 代数の通常右加群への直接比較、正則 qcqs スキームの compactness と有界 coherent コホモロジーの比較、全次元の射影空間への代入、Kronecker compactness / perfect 判定と構造層からの Hom の線形比較・射影直線の幾何学的 End・D^b(Coh) との三角比較・Kronecker の有界導来圏比較を含む21ターゲットは実 import/build と公理監査に成功。`bash scripts/check-stacks.sh` の既定ターゲットもこの21個で、一括実行に成功した。非有界 dg 同値、通常右 End 加群への移送、compact 始域から実際の有界連接導来圏への同値、射影直線の実際の有界導来圏間の三角同値まで検証済み。
+- `Beilinson/Kronecker.lean` の行列部分代数モデルは、4要素の基底、次元4、直交冪等元、二本の矢の積を Lean 検証済み。射影直線の幾何学的 End との同定は独立ターゲットで検証済み。一般の関係式付き経路代数との同型は未実装。
 - `Beilinson/KroneckerModule.lean` は反対代数から線形自己準同型代数への代数準同型を右作用とし、通常の mathlib Module とも接続する。頂点分解・逆向きの二本の矢・作用の復元・射の可換条件・次元公式を Lean 検証した。`Beilinson/KroneckerCategory.lean` で両方向の関手と自然同型を構成し、`moduleEquivalence` と有限次元対象の `finiteModuleEquivalence` を得た。基礎体の作用は `Module.compHom` による標準の制限を使う。
 - `Beilinson/KroneckerResolution.lean` は表現の全射を頂点ごとの全射と同定する。sink(U) と cover(X) の射影性を線形持ち上げで証明し、任意の右加群に短完全な長さ1の射影分解を構成した。有限次元の加群の分解は有限次元に留まる。`rightModule_projectiveDimension_le_one` は全右加群の射影次元が高々1であることを示す。
 - `Beilinson/KroneckerDimension.lean` は頂点1に集中した有限次元単純加群を構成し、射影次元がちょうど1であることを検証した。
 - `Beilinson/KroneckerIdeals.lean` は e₀A≃sink(k)、e₁A≃source(k) を右加群同型として構成し、両右イデアルの射影性と A≃e₀A×e₁A を確認した。固定条件は左乗法 eᵢa=a であり、頂点空間の右乗法 aeᵢ=a とは区別する。
 - 次は幾何学側の既存 API と定式化を照合する。
-- Beilinson 主定理の Lean proof は未完成。上記の独立した補題と比較を検証済みで、幾何学的な非有界同値の依存ビルドを進めている。詳細は REUSE.md。
+- 射影直線の有界導来圏間の三角同値は検証済み。本文の正の窓と関手の規約の一致、および一般の次元の有限次元加群の始域が残る。詳細は REUSE.md。
 
 ## 証明の明示化
 
@@ -58,6 +58,10 @@
 
 - `KroneckerCompact` は本番ライブラリを `../..` の依存として再利用する。既存の dependency revision は全て維持し、Root の本番 manifest に Stacks は追加しない。有限射影加群の single complex を実際の IsPerfect 定義で構成し、Root の devissage を compact 部分圏へ代入した。逆方向は4次元代数上の有限射影複体の cohomology を部分商として有限次元にする。`compact_iff_bounded_finite_cohomology` / `perfect_iff_bounded_finite_cohomology` を検証した。
 
-- `CoherentDerivedComparison` は任意の Noether スキームで D^b(Coh X) と、幾何学側の小さいモデルの D_QCoh における有界連接部分圏との三角同値を検証した。モデル間の比較ではコホモロジーの同型で有界性と連接性を移し、前向き関手を標準モデルの導来包含とモデル比較の合成として確認する。逆方向もシフトと三角を保つ。Beilinson 関手との合成は引き続き検証中。
+- `CoherentDerivedComparison` は任意の Noether スキームで D^b(Coh X) と、幾何学側の小さいモデルの D_QCoh における有界連接部分圏との三角同値を検証した。モデル間の比較ではコホモロジーの同型で有界性と連接性を移し、前向き関手を標準モデルの導来包含とモデル比較の合成として確認する。逆方向もシフトと三角を保つ。Beilinson 関手の compact 始域への制限との合成も検証済み。
 
 - `KroneckerFinite` で有限次元右加群の Serre 性と全射の被覆条件を検証した。`KroneckerBoundedDerived` は Tag 0FCL の bounded-above 導来包含の fully faithful / essential image 判定を使い、下からの有界性も反映して有界版を得る。既存の Kronecker compactness 判定との合成により、実際の D^b(有限次元右加群) と compact 部分圏との三角同値を両方向で検証した。
+
+- `OrdinaryBeilinson` は幾何学的 dg 代数の集中を `ConcentratedDGA` へ渡し、cone の符号規約を保って通常右 End(E) 加群からの tensor 同値を構成した。`BoundedBeilinson.coherentEquivalence` は全ての次元で compact 始域から実際の D^b(Coh Pⁿ) への三角同値を与える。両方向の exactness を確認した。現在の通常加群への adapter は Type 0。
+- `ProjectiveLineWindow` は E=O⊕O(-1) の実際の Fin 2 直和を並べ替え、負の窓の Hom 次元から End(E) と Kronecker 代数を同定する。`ProjectiveLineBeilinson.equivalence` は有限次元加群の有界導来圏、compact 部分圏、環変更、幾何学的 tensor 同値を合成する。始域・終域を明示した宣言と独立した import client の両方で確認し、前向き・逆向きとも三角を保ち、依存公理は標準3公理のみであった。
+- 幾何学的 Hom の線形構造は `ProjectiveLineEnd.lineLinear` を再利用すると定義展開を抑えられる。同じ値を別の定義で組み直すとカーネルが大きな正規化を行う。通常加群のシフト構造でも比較データを局所 let の下で展開せず、名前付きインスタンスで保持する。
