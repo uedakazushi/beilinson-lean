@@ -96,3 +96,7 @@ name = "ProjectiveLineWindow"
 # End-to-end bounded equivalence for the actual projective line.
 [[lean_lib]]
 name = "ProjectiveLineBeilinson"
+
+# Canonical twisting and reindexing between the negative and positive windows.
+[[lean_lib]]
+name = "PositiveWindow"

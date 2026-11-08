@@ -14,7 +14,7 @@
 - **StacksFrontier**: AI 生成・Lean kernel による形式的証明は存在するが、人間による忠実性のレビューは未完了。重要な橋渡し定理では原文の Stacks tag・定式化・仮定を数学的に再確認する。
 - `@[stacks TAG]` / `#stacks_tags` と https://stacks.axiommath.ai/ は tag → Lean declaration → import の探索に使う。タグが Mathlib に登録されている場合は Mathlib の定理を優先。
 
-通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。21ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
+通常の book/Lean ビルドに Stacks 全体を import しない。実験用環境 `integrations/stacks/` は **別 Lake project** で上流を正確な commit に固定しており、通常ビルドの軽さを保つ。これは将来の proof の本番使用を妨げるものではないが、本番での Stacks 依存には再検討・adapter が必要である。22ターゲットの実 import/build に成功した。非有界 dg 同値、通常右加群への移送、compact 始域の有界版と、n=1 の実際の有界導来圏間の三角同値を検証済み。
 
 ## Beilinson までの再利用対象
 
@@ -140,7 +140,7 @@
 
 - import `StacksFrontier.Homology.Perfect.BeilinsonAlgebra` の `StacksDraft.Perfect.hasFiniteTotalCohomology_iff_isCompactObject` は、多項式の斉次成分から作る上三角行列 Beilinson 代数の右加群の導来圏で、compactness と有限 total cohomology の同値を述べる。閉包96モジュール。`StacksAlgebraProbe.compact_iff_finite_total_cohomology` の実 import/build と公理監査に成功。依存公理は標準の3つのみ。幾何学的 End との同型はこの定理に含まれない。
 
-教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、通常右 End(E) 加群への比較と compact 始域の bounded coherent 制限は検証済みである。正の窓との関手の比較と、一般の次元で有限次元加群の有界導来圏自体を始域とする移送は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
+教科書の T=O⊕O(1)⊕…⊕O(n) は上記 E を O(n) で捻り、直和を逆順に並べたもの。従って数学的には対応するが、通常右 End(E) 加群への比較と compact 始域の bounded coherent 制限は検証済みである。E(n)≅T と End の移送は `PositiveWindow` で検証した。正の窓との関手全体の比較と、一般の次元で有限次元加群の有界導来圏自体を始域とする移送は別の課題である。非有界 dg 版の既存定理を、そのまま本書の完成した主定理とは呼ばない。
 
 ## dg 代数を degree-zero モデルに接続する adapter
 
@@ -239,6 +239,12 @@
 `ProjectiveLineWindow.lean` は O(-1), O(0) の Hom 次元を捻りの線形性で O(0), O(1) の計算へ移す。実際の `twistFamily k 1` の Fin 2 直和を並べ替え、負の窓の `twistSumModule k 1` の End と Kronecker 代数を同定する。正の窓の End との比較はこの基底選択による同型を介し、捻り関手に関する自然同型とはまだ同定していない。
 
 `ProjectiveLineBeilinson.equivalence` の始域は D^b(有限次元右 Kronecker 加群) 自体、終域は多項式 Proj の P¹ 上の D^b(Coh) 自体である。`KroneckerBoundedDerived.compactEquivalence`、実際の End(E) への環変更と導来化、compact 部分圏への制限、`BoundedBeilinson.coherentEquivalence` を合成する。Type 0 の任意の体で前向き・逆向きともシフトと三角を保つ。始域・終域を明記した公開宣言と、別モジュールからの import client を検証した。主要宣言の依存公理は標準3公理のみである。
+
+## 基底選択を使わない正の窓への End 移送
+
+`PositiveWindow.lean` は任意の可換環 k と次元 n に対し、`positiveFamily` を O(0),…,O(n) と定義する。`componentIso` は O(-i)(n)≅O(n-i) を、`generatorIso` は捻り関手の有限直和の保存と `Fin.revPerm` による並べ替えで E(n)≅T を構成する。`endAlgebraEquiv` は `EndTransport.mapEquiv` と対象の同型による移送を合成し、Hom の基底を選ばず End(E)≃ₐEnd(T) を与える。
+
+線形構造には上流の `projectiveSpaceModulesLinear` をそのまま使う。`Scheme.linearOver` と `modulesLinear` の一致を使うときは、暗黙のインスタンス引数を simp で変えるのではなく、データの等式で型を明示的に移送する。対象の同型・線形性・代数同型は実 build と標準3公理の監査に成功した。これは対象と End の比較であり、正の窓の tensor/Hom 関手全体の自然同型をまだ主張しない。
 
 ## 更新と再現
 

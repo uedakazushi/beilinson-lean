@@ -38,9 +38,9 @@ lake build
 
 **オプション：Axiom Stacks の検証**
 
-`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。21個の専用ターゲットで実 import/build と公理監査を行っています。
+`integrations/stacks/` は別 Lake project であり、上流 commit `5ed82d14634e8d9576bb844c7bd4e3da66d450e7` に固定しています。本番の Verso ビルドには Stacks の依存を追加していません。22個の専用ターゲットで実 import/build と公理監査を行っています。
 
-非有界 dg Beilinson 同値、通常の右 End(E) 加群への比較、compact 部分圏への制限、D^b(Coh Pⁿ) 自体との合成を検証済みです。n=1 では負の窓の End(E) を Kronecker 代数と同定し、実際の D^b(有限次元右加群) を始域とする同値まで合成しました。基底選択を特定の座標切断とはまだ同定していません。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
+非有界 dg Beilinson 同値、通常の右 End(E) 加群への比較、compact 部分圏への制限、D^b(Coh Pⁿ) 自体との合成を検証済みです。n=1 では負の窓の End(E) を Kronecker 代数と同定し、実際の D^b(有限次元右加群) を始域とする同値まで合成しました。一般の次元で E(n) と正の窓 T の対象の同型、および捻りによる End 代数の同型も確認しました。関手全体の比較と、基底選択を特定の座標切断へ同定する部分は残っています。詳細と対象ごとの範囲は [検証環境の README](integrations/stacks/README.md) と [再利用台帳](REUSE.md) を参照してください。
 
 ```sh
 cd integrations/stacks

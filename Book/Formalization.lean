@@ -164,7 +164,7 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 # Stacks の生成性を再利用する検証
 
 本番とは別の Lake project で、上流 revision を固定して実際の import と kernel check を行った。
-次の二十一個は検証済みである。
+次の二十二個は検証済みである。
 
 1. `StacksProbe`：有限例外列、有限 total Hom、右直交の零検出からの充満性。
 2. `StacksGeometryProbe`：多項式 Proj 上の座標 Koszul 複体の全次数での完全性。
@@ -195,11 +195,12 @@ mathlib の `singleTriangle` で導来圏の三角へ送る。
 20. `ProjectiveLineWindow`：実際の負の窓の生成対象の End を Kronecker 代数と同定し、正の窓の End とも比較する。基底選択を用いる代数同型である。
 21. `ProjectiveLineBeilinson`：具体的 Kronecker 代数の有限次元右加群の有界導来圏自体と、射影直線の連接層の有界導来圏自体との三角同値を合成する。
 
+22. `PositiveWindow`：任意の可換環・全次元で、実際の E(n) と正の窓 T の同型と、捻りによる End 代数の同型を得る。Hom の基底選択を用いない。
+
 これらの宣言の依存公理は、標準の proposition extensionality、choice、quotient soundness の範囲にある。
 上流の対象モジュールは StacksFrontier に属し、上流での人間レビューは未完了である。
 kernel check と数学的な定式化の照合は、このレビュー状態を変更しない。
 
 ここでの有限直和は $`E=\mathcal O\oplus\mathcal O(-1)\oplus\cdots\oplus\mathcal O(-n)`。
 本書の $`T` とは $`E\otimes\mathcal O(n)` の直和成分を逆順に並べることで対応する。
-現在の合成は負の窓を使う。正の窓との関手の比較と、一般の次元で
-有限次元右加群の有界導来圏を始域とする版が残る。
+対象と End の移送は検証済みだが、関手全体の比較と一般の次元の有限次元始域は残る。

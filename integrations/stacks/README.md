@@ -24,10 +24,10 @@ lake update
 ```
 
 Alternatively, from the repository root, `bash scripts/check-stacks.sh` runs these
-twenty-one targets. Explicit arguments select other targets when they are available.
+twenty-two targets. Explicit arguments select other targets when they are available.
 This script is separate from the production `scripts/check.sh`.
 
-All twenty-one targets have built successfully against the pinned package. Their exported
+All twenty-two targets have built successfully against the pinned package. Their exported
 theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none uses
 `sorryAx` or a new axiom. `ProjectiveLineBeilinson` proves an actual bounded equivalence in dimension one.
 `BoundedBeilinson` uses compact ordinary End(E)-modules as its source in all dimensions.
@@ -55,6 +55,7 @@ theorems depend only on `propext`, `Classical.choice`, and `Quot.sound`; none us
 | `BoundedBeilinson` | `OrdinaryBeilinson`, `ProjectivePerfectProbe`, and `CoherentDerivedComparison` | Over a field in Type 0, in every dimension including zero, the compact ordinary End(E)-module derived category is equivalent to actual Dᵇ(Coh Pⁿ). Both directions preserve triangles and shifts. |
 | `ProjectiveLineWindow` | `ProjectiveLineEnd`, production `EndTransport`, and `…ExampleGenerator.QuasiCoherentGenerator` | End of the actual Fin 2 negative-window generator E = O ⊕ O(-1) is the concrete Kronecker algebra. Its comparison with the positive-window End uses chosen bases. |
 | `ProjectiveLineBeilinson` | The preceding adapters and `KroneckerBoundedDerived` | For a field in Type 0, an actual exact equivalence Dᵇ(finite-dimensional right Kronecker modules) ≌ Dᵇ(Coh P¹), composed from the checked tensor functor and ring changes. |
+| `PositiveWindow` | Production `EndTransport`, `SheafHomSections`, and the geometric twist functor | Over every commutative ring and in every dimension, E(n) is isomorphic to the actual positive twist sum. Twisting gives the corresponding End algebra isomorphism, without choosing Hom bases. |
 
 The Koszul import closure contains 92 Stacks modules, Koszul descent 228, the
 ordinary-module comparison 53, the polynomial-matrix criterion 96, and the strict
@@ -70,8 +71,9 @@ The negative-twist higher-direct-image probe uses a base-change model of project
 space. It is not silently identified with polynomial Proj. The unbounded geometric
 functor and the bounded adapters use the actual polynomial Proj throughout.
 
-The geometric generator is E = O ⊕ O(-1) ⊕ … ⊕ O(-n). The remaining book-level boundaries
-are its comparison with the positive-window tensor/Hom functor and, in general
+The geometric generator is E = O ⊕ O(-1) ⊕ … ⊕ O(-n). The object isomorphism E(n) ≅ T and the induced End algebra isomorphism are checked
+by `PositiveWindow`. The remaining book-level boundaries are the comparison of the
+positive-window tensor/Hom functor and, in general
 dimension, replacing the compact source by Dᵇ of finite-dimensional ordinary modules.
 The dimension-one bounded theorem uses a chosen Kronecker basis; it does not identify
 the two arrows with particular coordinate sections.
